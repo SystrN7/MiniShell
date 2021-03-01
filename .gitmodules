@@ -1,3 +1,6 @@
 [submodule "libs/Libft"]
 	path = libs/Libft
 	url = https://git.ndaln.com/101/101-Libft.git
+[submodule "test"]
+	path = test
+	url = https://github.com/SystrN7/minishell_tester.git
