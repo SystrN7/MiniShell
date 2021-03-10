@@ -2,3 +2,6 @@ minishell
 *.o
 main*
 .DS_Store
+
+minishell_sample
+superbash
