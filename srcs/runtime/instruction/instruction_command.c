@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/07 11:37:04 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 15:04:37 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int	instruction_command(t_shell_context *context, t_node_binary *node)
 	if (node->right != NULL)
 		error_occure("builtin is not end node");
 	command = (t_shell_command*)node->value;
-	ft_striter(command, ft_tolower);
-	if (instruction_builtin_run(context, command))
-		instruction_command_run(context, node->value);
+	// ft_striter(command->argv, ft_tolower);
+	context->last_command_return_code = 0;
+	if (instruction_builtin_exec(context, command))
+		instruction_command_exec(context, node->value);
 	return (context->last_command_return_code);
 }
 
@@ -37,7 +38,7 @@ int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
 	int		argcount;
 
 	return_code = 0;
-	argcount = ft_2d_count(builtin->argv);
+	argcount = ft_2d_count((void **)builtin->argv);
 	if (!ft_strncmp(builtin->argv[path], BUILTIN_ECHO, 5))
 		return_code = builtin_echo(context, argcount, builtin->argv);
 	else if (ft_strncmp(builtin->argv[path], BUILTIN_ENV, 4))
@@ -64,7 +65,7 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 
 	pid = fork();
 	if (pid == -1)
-		error_occurs("error durring fork");
+		error_occure("error durring fork");
 	else if (pid == 0)
 	{
 		execve(
@@ -72,22 +73,22 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 			command->argv,
 			env_destore_all(context->shared_environment)
 		);
-		error_occurs("execve fail please checks errno");
+		error_occure("execve fail please checks errno");
 	}
 	else
 		waitpid(pid, &context->last_command_return_code, 0);
 	return (context->last_command_return_code);
 }
 
-int	command_path_resolver(t_shell_context *context, t_shell_command *command)
+char	*command_path_resolver(t_shell_context *context, t_shell_command *command)
 {
-	char			*binary_path;
+	char	*binary_path;
 
 	binary_path = path_get_binary_path(
 			env_get(context, "PATH"),
 			command->argv[path]
 		);
 	ft_managed_free(command->argv[path]);
-	command->argv[path] = binary_path;
-	return (0);
+	command->path = binary_path;
+	return (binary_path);
 }

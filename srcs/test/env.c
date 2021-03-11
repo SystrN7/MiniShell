@@ -6,7 +6,20 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:14:37 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/02/17 13:14:38 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/06 16:46:38 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
+
+int		main(int argc, char *argv[], char *env[])
+{
+	int	i = 0;
+
+	while (env[i])
+	{
+		printf("%s\n", env[i++]);
+	}
+	return (0);
+}
 

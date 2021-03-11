@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 10:23:55 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/02/10 14:43:21 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 13:02:10 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@
 
 #include "minishell_builtin.h"
 
-int		builtin_cd(t_shell_context *context, int argc, char **args)
+int	builtin_cd(t_shell_context *context, int argc, char **args)
 {
+	(void)context;
 	if (argc == 2)
 	{
 		if (chdir(args[1]) == -1)
 		{
-			error_error();
+			error_occure("");
 			return (1);
 		}
 	}
 	else
 	{
-		error_error();
+		error_occure("");
 		return (1);
 	}
 	return (0);

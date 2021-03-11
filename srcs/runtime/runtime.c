@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:30:38 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 11:01:46 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 14:10:30 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	run_separator(
 		return (instruction_separator(context, node));
 	else if (node_type == SHELL_SEPARATOR_TYPE_PIPE)
 		return (instruction_pipe(context, node));
-	else if (node_type == SHELL_SEPARATOR_AND)
+	else if (node_type == SHELL_SEPARATOR_TYPE_AND)
 		return (instruction_and(context, node));
-	else if (node_type == SHELL_SEPARATOR_OR)
+	else if (node_type == SHELL_SEPARATOR_TYPE_OR)
 		return (instruction_or(context, node));
-	error_message("separator not found");
+	error_occure("separator not found");
 	return (1);
 }

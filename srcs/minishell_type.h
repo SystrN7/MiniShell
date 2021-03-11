@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 11:03:21 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 14:27:10 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,15 @@ enum e_shell_instruction_type
 	// SHELL_INSTRUCTION_BUILTIN,
 	// SHELL_INSTRUCTION_SEPARATOR,
 	// SHELL_SEPARATOR_TYPE_UNKNOWN,
-	// SHELL_SEPARATOR_TYPE_REDIRECT_LEFT,
-	// SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT,
-	// SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT,
-	// SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT,
 	// SHELL_STRING,
+};
+
+enum e_shell_redirection_type
+{
+	SHELL_SEPARATOR_TYPE_REDIRECT_LEFT,
+	SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT,
+	SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT,
+	SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT,
 };
 
 enum e_shell_args
@@ -64,8 +68,12 @@ enum e_shell_args
 typedef struct s_shell_command
 {
 	char	instruction_type;
-	// char	*path;
+	char	*command_string;
+	char	*command_mask;
+	char	*path;
 	char	**argv;
+	char	redirection_type;
+	char	*redirection_file;
 }				t_shell_command;
 
 typedef struct s_shell_separator

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 14:45:27 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/01 14:50:01 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 14:05:41 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		builtin_pwd(t_shell_context *context, int argc, char **args)
 {
 	char	path_buffer[PATH_MAX];
 
+	(void)context;
 	(void)argc;
 	(void)args;
 	getcwd(path_buffer, PATH_MAX);

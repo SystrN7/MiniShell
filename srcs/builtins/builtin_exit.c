@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:28:33 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/08 16:01:14 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 14:10:01 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	builtin_exit(t_shell_context *context, int argc, char **args)
 	ft_printf_fd(standard_error, "exit\n");
 	if (argc == 2)
 	{
-		if (!ft_strtest(args, ft_isdigit))
-			exit_error_invalid_argument(context, args[1]);
-		context->last_command_return_code = ft_atoi(args[1]);
+		if (!ft_strtest(args[arg1], ft_isdigit))
+			exit_error_invalid_argument(context, args[arg1]);
+		context->last_command_return_code = ft_atoi(args[arg1]);
 		shell_shutdown(context);
 	}
 	else if (argc > 2)
@@ -48,6 +48,7 @@ int	exit_error_invalid_argument(t_shell_context *context, const char *arg)
 	);
 	context->last_command_return_code = 255;
 	shell_shutdown(context);
+	return (context->last_command_return_code);
 }
 
 int	exit_error_too_many_argument(t_shell_context *context)

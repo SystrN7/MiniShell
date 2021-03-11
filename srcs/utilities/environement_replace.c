@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   environement_replace.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/05 16:20:35 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/01/24 14:14:30 by fgalaup          ###   ########lyon.fr   */
+/*   Created: 2021/03/08 17:06:43 by fgalaup           #+#    #+#             */
+/*   Updated: 2021/03/08 17:07:08 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-/*
-** Function : debug_print_env
-** Decription : Print in stdout every environement varible givent in params.
-** Parameter :
-** 	-	(env string[]) the environement varible (need to be null termited)
-**
-** Return (void)
-*/
-
-void	debug_print_env(char *env[])
+char	*env_replace(t_shell_context *context, char *string)
 {
-	int it;
+	if ()
+	
+}
 
-	it = 0;
-	while (env[it])
-		ft_printf("%s\n", env[it++]);
+char	*env_replace_specifique()
+{
+	
 }

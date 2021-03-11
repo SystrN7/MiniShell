@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:06:35 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/10 15:43:12 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 12:31:05 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 
 int	builtin_export(t_shell_context *context, int argc, char **args)
 {
-	t_list	*list;
-
 	if (argc == 1)
 		builtin_export_print(context);
 	else

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 14:41:47 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/06 11:56:46 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 15:20:57 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int		instruction_pipe(t_shell_context *context, t_node_binary *node)
 	int		process_io[2];
 	pid_t	pid;
 
-	if (pipe(&process_io) == -1)
-		error_occurs("pipe do not work");
+	if (pipe((int *)&process_io) == -1)
+		error_occure("pipe do not work");
 	pid = fork();
 	if (pid < 0)
-		error_occurs("fork do not work");
+		error_occure("fork do not work");
 	else if (pid == 0)
 	{
 		dup2(process_io[1], standard_output);

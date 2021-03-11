@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 09:53:40 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 11:18:14 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 12:34:22 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	builtin_env(t_shell_context *context, int argc, char **argv)
 	t_list			*it;
 	t_associative	*var;
 
+	(void)argc;
+	(void)argv;
 	it = context->shared_environment;
 	while (it)
 	{

@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/02/17 11:33:22 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/03/11 12:29:52 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,24 @@
 NAME			=		minishell
 
 SRCS			=		./srcs/minishell.c \
+						./srcs/builtins/builtin_export.c \
+						./srcs/builtins/builtin_echo.c \
+						./srcs/builtins/builtin_env.c \
+						./srcs/builtins/builtin_unset.c \
+						./srcs/builtins/builtin_cd.c \
+						./srcs/builtins/builtin_pwd.c \
+						./srcs/builtins/builtin_exit.c \
+						./srcs/runtime/runtime.c \
+						./srcs/runtime/instruction/instruction_command.c \
+						./srcs/runtime/instruction/instruction_separator.c \
+						./srcs/runtime/instruction/instruction_pipe.c \
+						./srcs/runtime/instruction/instruction_and.c \
+						./srcs/runtime/instruction/instruction_or.c \
 						./srcs/utilities/path.c \
-						./srcs/utilities/debug.c \
 						./srcs/utilities/error.c \
+						./srcs/utilities/environment_store.c \
+						./srcs/utilities/environment_destore.c \
+						./srcs/utilities/environment_manip.c \
 						./srcs/utilities/environment.c \
 						./srcs/test/path.c
 
