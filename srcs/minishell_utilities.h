@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:33:31 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/02/20 11:29:36 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 15:17:59 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_UTILITIES_H
 
 # include "libft.h"
+
+# include "minishell_type.h"
 
 /*
 ** =============================================================================
@@ -35,6 +37,8 @@ char	*env_destore(t_associative *env);
 char	**env_destore_all(t_list *env_list);
 void	*env_get(t_shell_context *context, char *key);
 
+t_bool	env_is_assignment(const char *value);
+t_bool	env_is_identifier(const char *value);
 /*
 ** =============================================================================
 **										PATH
