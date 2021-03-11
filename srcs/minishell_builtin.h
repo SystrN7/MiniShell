@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:02:51 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/02/28 16:57:12 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 15:24:28 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 
 # include "minishell_type.h"
+# include "minishell_error.h"
 # include "minishell_utilities.h"
 
 # define BUILTIN_ECHO	"echo"
@@ -29,6 +30,7 @@
 # define BUILTIN_EXIT	"exit"
 
 int		builtin_echo(t_shell_context *context, int argc, char **args);
+int		builtin_echo_option_n(char **args);
 int		builtin_env(t_shell_context *context, int argc, char **args);
 int		builtin_export(t_shell_context *context, int argc, char **args);
 int		builtin_unset(t_shell_context *context, int argc, char **args);
