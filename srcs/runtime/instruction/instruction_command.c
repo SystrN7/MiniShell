@@ -6,40 +6,59 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/02/20 14:43:07 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 11:37:04 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_runtime.h"
+#include "minishell_builtin.h"
 #include "minishell_utilities.h"
 
 #include <unistd.h>
 
-int		instruction_command(t_shell_context *context, t_node_binary *node)
+int	instruction_command(t_shell_context *context, t_node_binary *node)
 {
 	t_shell_command	*command;
-	char			*path;
-	char			*env_path;
 
 	if (node->left != NULL)
 		error_occure("builtin is not end node");
 	if (node->right != NULL)
 		error_occure("builtin is not end node");
 	command = (t_shell_command*)node->value;
-	env_path = env_get(context, "PATH");
-	path = path_get_binary_path(env_path, command->path);
-	ft_managed_free(command->path);
-	command->path = path;
-	command_run(context, node->value);
+	ft_striter(command, ft_tolower);
+	if (instruction_builtin_run(context, command))
+		instruction_command_run(context, node->value);
 	return (context->last_command_return_code);
 }
 
-// int		command_path_resolver()
-// {
-// 	return 
-// }
+int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
+{
+	int		return_code;
+	int		argcount;
 
-int		command_run(t_shell_context *context, t_shell_command *command)
+	return_code = 0;
+	argcount = ft_2d_count(builtin->argv);
+	if (!ft_strncmp(builtin->argv[path], BUILTIN_ECHO, 5))
+		return_code = builtin_echo(context, argcount, builtin->argv);
+	else if (ft_strncmp(builtin->argv[path], BUILTIN_ENV, 4))
+		return_code = builtin_env(context, argcount, builtin->argv);
+	else if (ft_strncmp(builtin->argv[path], BUILTIN_EXPORT, 7))
+		return_code = builtin_export(context, argcount, builtin->argv);
+	else if (ft_strncmp(builtin->argv[path], BUILTIN_UNSET, 6))
+		return_code = builtin_unset(context, argcount, builtin->argv);
+	else if (ft_strncmp(builtin->argv[path], BUILTIN_CD, 3))
+		return_code = builtin_cd(context, argcount, builtin->argv);
+	else if (ft_strncmp(builtin->argv[path], BUILTIN_PWD, 4))
+		return_code = builtin_pwd(context, argcount, builtin->argv);
+	else if (ft_strncmp(builtin->argv[path], BUILTIN_EXIT, 5))
+		return_code = builtin_exit(context, argcount, builtin->argv);
+	else
+		return (FALSE);
+	context->last_command_return_code = return_code;
+	return (TRUE);
+}
+
+int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 {
 	pid_t	pid;
 
@@ -49,7 +68,7 @@ int		command_run(t_shell_context *context, t_shell_command *command)
 	else if (pid == 0)
 	{
 		execve(
-			command->path,
+			command_path_resolver(context, command),
 			command->argv,
 			env_destore_all(context->shared_environment)
 		);
@@ -58,4 +77,17 @@ int		command_run(t_shell_context *context, t_shell_command *command)
 	else
 		waitpid(pid, &context->last_command_return_code, 0);
 	return (context->last_command_return_code);
+}
+
+int	command_path_resolver(t_shell_context *context, t_shell_command *command)
+{
+	char			*binary_path;
+
+	binary_path = path_get_binary_path(
+			env_get(context, "PATH"),
+			command->argv[path]
+		);
+	ft_managed_free(command->argv[path]);
+	command->argv[path] = binary_path;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:53:12 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/01 11:24:46 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 10:57:50 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 
 # include "minishell_type.h"
+# include "minishell_error.h"
 
 // ===============================RUNTIME CORE=============================== //
 int		run_instruction(t_shell_context *context, t_node_binary *node);
@@ -38,7 +39,6 @@ int		instruction_builtin(t_shell_context *context, t_node_binary *node);
 int		instruction_separator(t_shell_context *context, t_node_binary *node);
 int		instruction_and(t_shell_context *context, t_node_binary *node);
 int		instruction_or(t_shell_context *context, t_node_binary *node);
-
 int		instruction_pipe(t_shell_context *context, t_node_binary *node);
 
 #endif
