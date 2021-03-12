@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:53:12 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 15:17:49 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 11:43:43 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ int		command_run(t_shell_context *context, t_shell_command *command);
 // ---------------------------------Command---------------------------------- //
 
 int		instruction_command(t_shell_context *context, t_node_binary *node);
-int		instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin);
-int		instruction_command_exec(t_shell_context *context, t_shell_command *command);
-char	*command_path_resolver(t_shell_context *context, t_shell_command *command);
+int		instruction_builtin_exec(t_shell_context *cnt, t_shell_command *builti);
+int		instruction_command_exec(t_shell_context *cnt, t_shell_command *cmd);
+int		instruction_command_prepare(t_shell_context *cnt, t_shell_command *cmd);
+char	*command_path_resolver(t_shell_context *context, t_shell_command *cmd);
 
 // --------------------------------Separator--------------------------------- //
 int		instruction_separator(t_shell_context *context, t_node_binary *node);

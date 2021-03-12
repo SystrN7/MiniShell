@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/03/11 12:29:52 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/03/12 11:39:20 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,13 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/builtins/builtin_pwd.c \
 						./srcs/builtins/builtin_exit.c \
 						./srcs/runtime/runtime.c \
+						./srcs/parsing/parser.c \
 						./srcs/runtime/instruction/instruction_command.c \
 						./srcs/runtime/instruction/instruction_separator.c \
 						./srcs/runtime/instruction/instruction_pipe.c \
 						./srcs/runtime/instruction/instruction_and.c \
 						./srcs/runtime/instruction/instruction_or.c \
+						./srcs/utilities/console.c \
 						./srcs/utilities/path.c \
 						./srcs/utilities/error.c \
 						./srcs/utilities/environment_store.c \
@@ -39,10 +41,11 @@ HEADER_DIR		=		./srcs/
 
 HEADER			=		./srcs/minishell.h \
 						./srcs/minishell_type.h \
-						./srcs/minishell_utilities.h \
+						./srcs/minishell_parser.h \
 						./srcs/minishell_error.h \
 						./srcs/minishell_builtin.h \
-						./srcs/minishell_scheduler.h
+						./srcs/minishell_scheduler.h \
+						./srcs/minishell_utilities.h
 
 
 

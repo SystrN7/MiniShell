@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 14:27:10 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 10:23:03 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ enum e_shell_instruction_type
 	SHELL_SEPARATOR_TYPE_PIPE,
 	SHELL_SEPARATOR_TYPE_AND,
 	SHELL_SEPARATOR_TYPE_OR,
-	// SHELL_SEPARATOR_TYPE_ASSIGNMENT,
-	// SHELL_INSTRUCTION_BUILTIN,
-	// SHELL_INSTRUCTION_SEPARATOR,
-	// SHELL_SEPARATOR_TYPE_UNKNOWN,
-	// SHELL_STRING,
 };
 
 enum e_shell_redirection_type
