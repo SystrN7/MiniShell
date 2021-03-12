@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 13:11:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:46:55 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,16 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 {
 	pid_t	pid;
 
+	command_path_resolver(context, command);
+	if (command->path == NULL)
+		return (context->last_command_return_code);
 	pid = fork();
 	if (pid == -1)
 		error_fatal(context, ERROR_STD, 1);
 	else if (pid == 0)
 	{
 		execve(
-			command_path_resolver(context, command),
+			command->path,
 			command->argv,
 			env_destore_all(context->shared_environment)
 		);
@@ -95,13 +98,17 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 
 char	*command_path_resolver(t_shell_context *context, t_shell_command *command)
 {
-	char	*binary_path;
-
-	binary_path = path_get_binary_path(
+	ft_managed_free(command->path);
+	command->path = path_get_binary_path(
 			env_get(context, "PATH"),
 			command->argv[path]
 		);
-	ft_managed_free(command->argv[path]);
-	command->path = binary_path;
-	return (binary_path);
+	if (!command->path)
+		error_message(
+			context,
+			ERROR_RUNTIME_UNKNOWN_COMMAND,
+			127,
+			command->argv[path]
+		);
+	return (command->path);
 }

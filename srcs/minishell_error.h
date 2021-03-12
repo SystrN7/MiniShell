@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:40:28 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 09:54:30 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 16:31:26 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ enum					e_error_code
 	ERROR_ARG_REQUIRE_NUMERIC,
 	ERROR_ENV_INVALID_IDENTIFIER,
 	ERROR_RUNTIME_UNKNOWN_INSTRUCTION,
+	ERROR_RUNTIME_UNKNOWN_COMMAND,
 	ERROR_SYNTAX_INVALID_INSTRUCTION,
 	ERROR_SYNTAX_COMMAND_NOT_END,
 };
@@ -47,6 +48,7 @@ static const struct		s_error_messages
 	{ERROR_ARG_REQUIRE_NUMERIC, "%s: numeric argument required"},
 	{ERROR_ENV_INVALID_IDENTIFIER, "%s: `%s': not a valid identifier"},
 	{ERROR_RUNTIME_UNKNOWN_INSTRUCTION, "unknown instruction is found"},
+	{ERROR_RUNTIME_UNKNOWN_COMMAND, "%s: command not found"},
 	{ERROR_SYNTAX_INVALID_INSTRUCTION, "`%d': is invalid instruction code"},
 	{ERROR_SYNTAX_COMMAND_NOT_END, "command is not the end"},
 	{0, NULL}
