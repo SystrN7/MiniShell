@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 09:56:37 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 12:55:32 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 16:40:23 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,20 @@ int		builtin_unset(t_shell_context *cnt, int argc, char **args)
 	while (args[i])
 	{
 		if (env_is_identifier(args[i]))
-		{
-			ft_lst_associative_remove(&cnt->shared_environment, args[i], free);
-			ft_lst_associative_remove(&cnt->local_environement, args[i], free);
-		}
+			ft_lst_associative_remove(
+				&cnt->shared_environment,
+				args[i],
+				ft_managed_free
+			);
 		else
-			error_occure("Unvalid env_is_identifier");
+			error_message(
+				cnt,
+				ERROR_ENV_INVALID_IDENTIFIER,
+				1,
+				args[path],
+				args[i]
+			);
+		i++;
 	}
-	return (0);
+	return (cnt->last_command_return_code);
 }

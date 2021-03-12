@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:40:28 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 15:23:03 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 09:54:30 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ enum					e_error_code
 	ERROR_ARG_TOO_MANY,
 	ERROR_ARG_REQUIRE_NUMERIC,
 	ERROR_ENV_INVALID_IDENTIFIER,
+	ERROR_RUNTIME_UNKNOWN_INSTRUCTION,
+	ERROR_SYNTAX_INVALID_INSTRUCTION,
+	ERROR_SYNTAX_COMMAND_NOT_END,
 };
 
 static const struct		s_error_messages
@@ -39,19 +42,20 @@ static const struct		s_error_messages
 	char				*message;
 } error_messages[] = {
 	{ERROR_UNDIFINED, "Undifined error (Just take a cooffe ☕)."},
-	{ERROR_STD, "Is not an error for my bro."},
-	{ERROR_ARG_TOO_MANY, "too many arguments"},
-	{ERROR_ARG_REQUIRE_NUMERIC, "numeric argument required"},
-	{ERROR_ENV_INVALID_IDENTIFIER, "not a valid identifier"},
+	{ERROR_STD, "%s: Is not an error for my bro."},
+	{ERROR_ARG_TOO_MANY, "%s: too many arguments"},
+	{ERROR_ARG_REQUIRE_NUMERIC, "%s: numeric argument required"},
+	{ERROR_ENV_INVALID_IDENTIFIER, "%s: `%s': not a valid identifier"},
+	{ERROR_RUNTIME_UNKNOWN_INSTRUCTION, "unknown instruction is found"},
+	{ERROR_SYNTAX_INVALID_INSTRUCTION, "`%d': is invalid instruction code"},
+	{ERROR_SYNTAX_COMMAND_NOT_END, "command is not the end"},
 	{0, NULL}
 };
 
 char	*error_get_message(int error_code);
+int		error_print_messages(t_shell_context *cnt, int ec, int rc, va_list arg);
 
-int		error_message(t_shell_context *cnt, int code, int ret, char *emit);
-int		error_fatal(t_shell_context *cnt, int code, int ret, char *emit);
-
-// - ??? To remove
-int		error_occure(char *error);
+int		error_message(t_shell_context *context, int error_code, int retc, ...);
+int		error_fatal(t_shell_context *context, int error_code, int retc, ...);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:30:38 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 14:10:30 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 17:01:21 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	run_instruction(t_shell_context *context, t_node_binary *node)
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
 		return (instruction_command(context, node));
 	else if (node_type == SHELL_INSTRUCTION_UNKNOWN)
-		return (404);
+		error_fatal(context, ERROR_RUNTIME_UNKNOWN_INSTRUCTION, 1, (int)node_type);
 	else
 		return (run_separator(context, node_type, node));
-	return (SUCCESS);
+	return (context->last_command_return_code);
 }
 
 int	run_separator(
@@ -40,6 +40,6 @@ int	run_separator(
 		return (instruction_and(context, node));
 	else if (node_type == SHELL_SEPARATOR_TYPE_OR)
 		return (instruction_or(context, node));
-	error_occure("separator not found");
+	error_message(context, ERROR_SYNTAX_INVALID_INSTRUCTION, 1, node_type);
 	return (1);
 }
