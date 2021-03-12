@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:02:51 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 14:07:20 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 14:33:34 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define BUILTIN_EXIT	"exit"
 
 int		builtin_echo(t_shell_context *context, int argc, char **args);
-int		builtin_echo_option_n(char **args);
+int		builtin_echo_option_n(char *arg);
 
 int		builtin_env(t_shell_context *context, int argc, char **args);
 
