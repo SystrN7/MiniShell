@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:06:35 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 12:31:05 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 15:40:03 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	builtin_export(t_shell_context *context, int argc, char **args)
 void	builtin_export_var(t_shell_context *context, char **args)
 {
 	t_associative	env;
+	void			*var;
 	int				i;
 
 	i = 1;
@@ -41,20 +42,12 @@ void	builtin_export_var(t_shell_context *context, char **args)
 		if (env_is_identifier(args[i]))
 		{
 			env = env_key_value_split(args[i]);
-			ft_lst_associative_set(
-				&context->shared_environment,
-				env.key,
-				env.value
-			);
+			var = ft_lst_associative_get(context->shared_environment, env.key);
+			if (!(var && env.value == NULL))
+				env_set(context, env.key, env.value);
 		}
 		else
-			error_message(context, ERROR_ENV_INVALID_IDENTIFIER, 1, args[0]);
-			ft_printf_fd(
-				standard_error,
-				"%s: export: `%s': not a valid identifier\n",
-				context->shell_name,
-				args[i]
-			);
+			error_message(context, ERROR_ENV_INVALID_IDENTIFIER, 1, args[0], args[i]);
 		i++;
 	}
 }
@@ -68,8 +61,8 @@ void	builtin_export_print(t_shell_context *context)
 	while (it)
 	{
 		var = (t_associative*)it->content;
-		if (var->value == NULL)
-			ft_printf("declare -x %s=\n", var->key);
+		if (var->value == NULL || ((char *)var->value)[0] == '\0')
+			ft_printf("declare -x %s\n", var->key);
 		else
 			ft_printf("declare -x %s=\"%s\"\n", var->key, var->value);
 		it = it->next;

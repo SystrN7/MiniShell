@@ -6,20 +6,21 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:26:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/09 14:36:02 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 14:19:59 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utilities.h"
 
-void	*env_get(t_shell_context *context, char *key)
+void	*env_get(t_shell_context *context, const char *key)
 {
-	void	*value;
+	return (ft_lst_associative_get(context->shared_environment, key));
+}
 
-	value = ft_lst_associative_get(context->local_environement, key);
-	if (value == NULL)
-		value = ft_lst_associative_get(context->shared_environment, key);
-	return (value);
+void	env_set(t_shell_context *context, char *key, char *value)
+{
+	ft_managed_free(env_get(context, key));
+	ft_lst_associative_set(&context->shared_environment, key, value);
 }
 
 void	env_clear(t_list **env)
