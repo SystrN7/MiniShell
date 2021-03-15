@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 09:40:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/07 15:58:18 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 11:12:24 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ t_bool	env_is_identifier(const char *value)
 	size_t	i;
 
 	i = 0;
-	if (!ft_isalpha(value[i]) || value[i] != '_')
+	if (!ft_isalpha(value[i]) && value[i] != '_')
 		return (FALSE);
-	while (ft_isalnum(value[i]) || value[i] != '_')
+	while (ft_isalnum(value[i]) || value[i] == '_')
 		i++;
-	if (value[i] || value[i] == '=')
+	if (value[i] == '\0' || value[i] == '=')
 		return (TRUE);
 	return (FALSE);
 }

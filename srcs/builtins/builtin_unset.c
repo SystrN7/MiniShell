@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 09:56:37 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 16:40:23 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 10:51:17 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		builtin_unset(t_shell_context *cnt, int argc, char **args)
 	size_t	i;
 
 	(void)argc;
-	i = 0;
+	i = 1;
 	while (args[i])
 	{
 		if (env_is_identifier(args[i]))
