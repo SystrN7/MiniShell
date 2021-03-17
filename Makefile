@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/03/12 11:39:20 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/03/17 14:40:09 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/builtins/builtin_exit.c \
 						./srcs/runtime/runtime.c \
 						./srcs/parsing/parser.c \
+						./srcs/parsing/env_var_replace.c\
+						./srcs/parsing/catch_redirection.c\
 						./srcs/runtime/instruction/instruction_command.c \
 						./srcs/runtime/instruction/instruction_separator.c \
 						./srcs/runtime/instruction/instruction_pipe.c \

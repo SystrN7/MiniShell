@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 16:46:55 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:35:18 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_runtime.h"
 #include "minishell_builtin.h"
 #include "minishell_utilities.h"
+#include "minishell_parser.h"
 
 #include <unistd.h>
 
@@ -64,6 +65,10 @@ int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
 int instruction_command_prepare(t_shell_context *context, t_shell_command *command)
 {
 	(void)context;
+
+//==================================HERE========================================
+	ft_treat_var(context, command);
+
 	command->argv = ft_split(command->command_string, ' ');
 	ft_managed_free(command->command_string);
 	command->command_string = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parser.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/12 10:45:53 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:34:44 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # include "minishell_type.h"
 # include "minishell_error.h"
+
+void	ft_treat_var(t_shell_context *context, t_shell_command *command);
 
 t_node_binary	*ft_treat_line(char *line);
 
