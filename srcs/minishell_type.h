@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 10:23:03 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 15:11:03 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,21 @@ enum e_shell_args
 	arg3,
 };
 
+typedef struct	s_redirection_list
+{
+	char						redirection_type;
+	char						*redirection_file;
+	struct s_redicrection_list	*next;
+}				t_redirection_list;
+
 typedef struct s_shell_command
 {
-	char	instruction_type;
-	char	*command_string;
-	char	*command_mask;
-	char	*path;
-	char	**argv;
-	char	redirection_type;
-	char	*redirection_file;
+	char				instruction_type;
+	char				*command_string;
+	char				*command_mask;
+	char				*path;
+	char				**argv;
+	t_redirection_list	*redirection;
 }				t_shell_command;
 
 typedef struct s_shell_separator

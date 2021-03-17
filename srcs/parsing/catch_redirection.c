@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/17 12:57:19 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 15:07:28 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,21 @@ int	ft_redirection_found(t_shell_command *cmd, int i)
 {
 	int	j;
 
+	(void)cmd;
+	(void)i;
 	j = 0;
+	return (j);
 }
 
 void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 {
 	int	i;
 
+	(void)context;
 	i = 0;
 	while (cmd->command_string[i])
 	{
-		if ((cmd->command_string == '>' || cmd->command_string == '<') && cmd->command_mask == '0')
+		if ((cmd->command_string[i] == '>' || cmd->command_string[i] == '<') && cmd->command_mask[i] == '0')
 			i = ft_redirection_found(cmd, i);
 		else
 			i++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   env_var_replace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/17 14:35:02 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 15:09:53 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,6 @@
 
 #include <unistd.h>
 
-/*
-char	*ft_get_value(char *key)
-{
-	char	*value;
-	int		i;
-
-	(void)key;
-	i = 0;
-	value = malloc(sizeof(char) * 9);
-	value[8] = '\0';
-	while (i < 8)
-	{
-		value[i] = 'w';
-		i++;
-	}
-	printf("value = %s\n", value);
-	return (value);
-}
-*/
 int	ft_strjoin_custom(t_shell_command *cmd, char *new_str, char *new_mask, int var_value_len, int varname_len)
 {
 	int		i;
@@ -47,8 +28,8 @@ int	ft_strjoin_custom(t_shell_command *cmd, char *new_str, char *new_mask, int v
 	j = 0;
 	i = ft_strlen(new_str) - var_value_len + varname_len + 1;
 	total_len = ft_strlen(cmd->command_string) - varname_len + var_value_len;
-	final_str = malloc(sizeof(char) * (total_len));
-	final_mask = malloc(sizeof(char) * (total_len));
+	final_str = ft_managed_malloc(sizeof(char) * (total_len));
+	final_mask = ft_managed_malloc(sizeof(char) * (total_len));
 	final_mask[total_len - 1] = '\0';
 	final_str[total_len - 1] = '\0';
 	while(new_str[j])
@@ -64,10 +45,10 @@ int	ft_strjoin_custom(t_shell_command *cmd, char *new_str, char *new_mask, int v
 		i++;
 		j++;
 	}
-	free(cmd->command_string);
-	free(cmd->command_mask);
-	free(new_str);
-	free(new_mask);
+	ft_managed_free(cmd->command_string);
+	ft_managed_free(cmd->command_mask);
+	ft_managed_free(new_str);
+	ft_managed_free(new_mask);
 	cmd->command_string = final_str;
 	cmd->command_mask = final_mask;
 	printf("\nFinal str = %s\n", final_str);
@@ -89,9 +70,9 @@ int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, 
 	if (var_value == NULL)
 		var_value = "";
 	printf("var_value = %s\n", var_value);
-	new_str = malloc(sizeof(char) * (i + ft_strlen(var_value)));
+	new_str = ft_managed_malloc(sizeof(char) * (i + ft_strlen(var_value)));
 	new_str[i + ft_strlen(var_value) - 1] = '\0';
-	new_mask = malloc(sizeof(char) * (i + ft_strlen(var_value)));
+	new_mask = ft_managed_malloc(sizeof(char) * (i + ft_strlen(var_value)));
 	new_mask[i + ft_strlen(var_value) - 1] = '\0';
 	printf("i + ft_strlen(var_value = %lu\n", i + ft_strlen(var_value));
 	printf("test\ncmd[j] = %c\n", cmd->command_string[j]);
@@ -134,7 +115,7 @@ int	ft_replace_var(t_shell_context *context, t_shell_command *cmd, int i)
 	mask = cmd->command_mask[i];
 	while (cmd->command_string[j] && cmd->command_mask[j] == mask && (ft_isalnum(cmd->command_string[j]) == 1 || cmd->command_string[j] == '_'))
 		j++;
-	varname = malloc(sizeof(char) * j - i + 1);
+	varname = ft_managed_malloc(sizeof(char) * j - i + 1);
 	varname[j - i] = '\0';
 	j = i;
 	while (cmd->command_string[j] && cmd->command_mask[j] == mask && (ft_isalnum(cmd->command_string[j]) == 1 || cmd->command_string[j] == '_'))
@@ -144,7 +125,7 @@ int	ft_replace_var(t_shell_context *context, t_shell_command *cmd, int i)
 	}
 	printf("varname = %s\n", varname);
 	j = ft_replace_in_struct(context, cmd, i, varname);
-	free(varname);
+	ft_managed_free(varname);
 	return (j);
 }
 
