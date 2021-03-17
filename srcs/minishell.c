@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 13:07:33 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 12:43:04 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	shell_start(char const *argv[], char *env[])
 	(void)argv;
 	shell_init(&context, argv, env);
 	console_clear();
-	write(1, "Minishell ~ ", 12);
+	console_prompt(&context);
 	while (get_next_line(0, &line) >= 0)
 	{
 		root = ft_treat_line(line);
 		run_instruction(&context, root);
 		ft_managed_free(line);
-		ft_putstr_fd(standard_output, "Minishell ~ ");
+		console_prompt(&context);
 	}
 	shell_shutdown(&context);
 }
