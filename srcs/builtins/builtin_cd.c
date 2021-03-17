@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 10:23:55 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 11:19:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:12:29 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	builtin_cd(t_shell_context *context, int argc, char **args)
 		builtin_cd_no_arg(context, args[path]);
 	else
 	{
+		if (!builtin_cd_previous(context, args[path], args[arg1]))
+			return (context->last_command_return_code);
 		directory = args[arg1];
-		if (ft_strncmp(args[arg1], "-", 2))
-			directory = env_get(context, "OLDPWD");
 		if (chdir(args[arg1]) == ERROR_STD)
 			error_message(context, ERROR_STD, 1);
 		else
@@ -44,19 +44,31 @@ int	builtin_cd(t_shell_context *context, int argc, char **args)
 
 int	builtin_cd_no_arg(t_shell_context *context, char *builtin_name)
 {
+	return (builtin_cd_path_env(context, builtin_name, "HOME"));
+}
+
+int	builtin_cd_previous(t_shell_context *context, char *builtinname, char *arg1)
+{
+	if (!ft_strncmp(arg1, "-", 2))
+		return (builtin_cd_path_env(context, builtinname, "OLDPWD"));
+	return (1);
+}
+
+int	builtin_cd_path_env(t_shell_context *context, char *blt_name, char *env_var)
+{
 	char	*env_home;
 
-	env_home = env_get(context, "HOME");
+	env_home = env_get(context, env_var);
 	if (env_home)
 	{
-		env_home = ft_lst_associative_get(context->shared_environment, "HOME");
+		env_home = ft_lst_associative_get(context->shared_environment, env_var);
 		if (chdir(env_home) == ERROR_STD)
 			error_message(context, ERROR_STD, 1);
 		else
 			builtin_cd_update_env(context);
 	}
 	else
-		error_message(context, ERROR_BUILTIN_CD_NO_HOME, 1, builtin_name);
+		error_message(context, ERROR_BUILTIN_CD_NO_VAR, 1, blt_name, env_var);
 	return (SUCCESS);
 }
 

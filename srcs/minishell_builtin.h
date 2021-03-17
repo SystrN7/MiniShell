@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:02:51 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 14:33:34 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:05:59 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int		builtin_unset(t_shell_context *context, int argc, char **args);
 int		builtin_pwd(t_shell_context *context, int argc, char **args);
 
 int		builtin_cd(t_shell_context *context, int argc, char **args);
+int		builtin_cd_no_arg(t_shell_context *context, char *builtin_name);
+int		builtin_cd_previous(t_shell_context *cnt, char *blt_name, char *arg1);
+int		builtin_cd_path_env(t_shell_context *cnt, char *blt_name, char *var);
+int		builtin_cd_update_env(t_shell_context *context);
 
 int		builtin_exit(t_shell_context *context, int argc, char **args);
 int		exit_error_invalid_argument(t_shell_context *context, const char *arg);
