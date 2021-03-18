@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 10:23:03 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 14:02:40 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ enum e_shell_instruction_type
 
 enum e_shell_redirection_type
 {
-	SHELL_SEPARATOR_TYPE_REDIRECT_LEFT,
-	SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT,
-	SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT,
-	SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT,
+	SHELL_REDIRECT_TYPE_LEFT,
+	SHELL_REDIRECT_TYPE_RIGHT,
+	SHELL_REDIRECT_TYPE_DOUBLE_LEFT,
+	SHELL_REDIRECT_TYPE_DOUBLE_RIGHT,
 };
 
 enum e_shell_args
@@ -67,8 +67,7 @@ typedef struct s_shell_command
 	char	*command_mask;
 	char	*path;
 	char	**argv;
-	char	redirection_type;
-	char	*redirection_file;
+	t_list	*redirection;
 }				t_shell_command;
 
 typedef struct s_shell_separator
@@ -76,5 +75,12 @@ typedef struct s_shell_separator
 	char	instruction_type;
 	int		type;
 }				t_shell_separator;
+
+typedef struct s_shell_redirection
+{
+	char	type;
+	char	*file_name;
+	int		fd;
+}				t_shell_redirection;
 
 #endif

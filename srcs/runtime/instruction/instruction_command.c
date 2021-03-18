@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 14:35:18 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 16:34:35 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,17 @@ int	instruction_command(t_shell_context *context, t_node_binary *node)
 		error_fatal(context, ERROR_SYNTAX_COMMAND_NOT_END, 1);
 	if (node->right != NULL)
 		error_fatal(context, ERROR_SYNTAX_COMMAND_NOT_END, 1);
-	command = (t_shell_command*)node->value;
-	context->last_command_return_code = 0;
+	command = (t_shell_command *)node->value;
+	if (command->command_string == NULL)
+		return (context->last_command_return_code);
 	instruction_command_prepare(context, command);
+	if (command->argv[path] == NULL)
+		return (context->last_command_return_code);
+	context->last_command_return_code = 0;
+	redirection_create(context, command->redirection);
 	if (instruction_builtin_exec(context, command))
 		instruction_command_exec(context, node->value);
+	redirection_close(context, command->redirection);
 	return (context->last_command_return_code);
 }
 
@@ -62,10 +68,8 @@ int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
 	return (FALSE);
 }
 
-int instruction_command_prepare(t_shell_context *context, t_shell_command *command)
+int	instruction_command_prepare(t_shell_context *context, t_shell_command *command)
 {
-	(void)context;
-
 //==================================HERE========================================
 	ft_treat_var(context, command);
 
@@ -89,6 +93,7 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 		error_fatal(context, ERROR_STD, 1);
 	else if (pid == 0)
 	{
+
 		execve(
 			command->path,
 			command->argv,
@@ -104,10 +109,13 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 char	*command_path_resolver(t_shell_context *context, t_shell_command *command)
 {
 	ft_managed_free(command->path);
-	command->path = path_get_binary_path(
-			env_get(context, "PATH"),
-			command->argv[path]
-		);
+	if (is_command(command->argv[path]))
+		command->path = command->argv[path];
+	else
+		command->path = path_get_binary_path(
+				env_get(context, "PATH"),
+				command->argv[path]
+			);
 	if (!command->path)
 		error_message(
 			context,
