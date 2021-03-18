@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/17 14:34:44 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:42:36 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "minishell_error.h"
 
 void	ft_treat_var(t_shell_context *context, t_shell_command *command);
+void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd);
 
 t_node_binary	*ft_treat_line(char *line);
 

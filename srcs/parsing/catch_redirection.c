@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/18 15:26:31 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 16:36:29 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,51 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 	return (j);
 }
 
+void	ft_remove_file_name(t_shell_command *cmd, int i, int len, t_redirection_list *lst)
+{
+	char	*new_str;
+	int		k;
+	int		l;
+	int		total_len;
+
+	(void)i;
+	k = 0;
+	l = 0;
+	total_len = ft_strlen(cmd->command_string);
+	new_str = malloc(sizeof(char) * (total_len - len + 1));
+	new_str[total_len - len] = '\0';
+	printf("new_str len = %d\n", total_len - len);
+	while (cmd->command_string[k] != '>' && cmd->command_mask[k] == '0')
+	{
+		new_str[k] = cmd->command_string[k];
+		k++;
+	}
+	l = k;
+	if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT)
+		k += 2;
+	else
+		k++;
+	while (cmd->command_string[k] == ' ')
+		k++;
+	while (cmd->command_string[k] && ((cmd->command_string[k] != '>' && cmd->command_string[k] != '<' && cmd->command_string[k] != ' ') || cmd->command_mask[k] != '0'))
+		k++;
+	while (cmd->command_string[k])
+	{
+		new_str[l] = cmd->command_string[k];
+		l++;
+		k++;
+	}
+	printf("New_str = %s\n", new_str);
+}
+
 int	ft_redirection_right(t_shell_command *cmd, int i)
 {
 	int	j;
 	int	k;
+	int	len;
 	t_redirection_list	*new;
 
+	len = i;
 	new = malloc(sizeof(t_redirection_list));
 	(void)cmd;
 	(void)i;
@@ -64,32 +103,30 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 	k = 0;
 	if (cmd->command_string[i + 1] == '>' && cmd->command_mask[i + 1] == '0')
 	{
-		printf(">>\n");
 		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT;
 		i++;
 	}
 	else
-	{
-		printf(">\n");
 		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT;
-	}
 	i++;
 	while (cmd->command_string[i] == ' ')
 		i++;
 	j = i;
-	while (cmd->command_string[j] && (cmd->command_string[j] != '>' || cmd->command_string[j] != '<' || (cmd->command_string[j] != ' ' && cmd->command_mask[j] == '0')))
+	while (cmd->command_string[j] && ((cmd->command_string[j] != '>' && cmd->command_string[j] != '<' && cmd->command_string[j] != ' ') || cmd->command_mask[j] != '0'))
 		j++;
 	new->redirection_file = malloc(sizeof(char) * (j - i + 1));
 	new->redirection_file[j - i] = '\0';
 
 	j = i;
-	while (cmd->command_string[j] && (cmd->command_string[j] != '>' || cmd->command_string[j] != '<' || (cmd->command_string[j] != ' ' && cmd->command_mask[j] == '0')))
+	while (cmd->command_string[j] && ((cmd->command_string[j] != '>' && cmd->command_string[j] != '<' && cmd->command_string[j] != ' ') || cmd->command_mask[j] != '0'))
 	{
 		new->redirection_file[k] = cmd->command_string[j];
 		j++;
 		k++;
 	}
+	len = j - len;
 	printf("File name = %s\n", new->redirection_file);
+	ft_remove_file_name(cmd, i, len, new);
 	//ft_lstadd_back(&cmd->redirection, new);
 	return (j);
 }
@@ -108,7 +145,7 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 {
 	int	i;
 
-	//Split pendant la recherche de redirections?
+	//Gerer les redirections et les retirer de la chaine principale. Ensuite spilt le chaine et metttre dans argv
 
 	(void)context;
 	i = 0;
