@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/03/17 14:40:09 by seruiz           ###   ########lyon.fr    #
+#    Updated: 2021/03/18 15:39:19 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,17 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/builtins/builtin_cd.c \
 						./srcs/builtins/builtin_pwd.c \
 						./srcs/builtins/builtin_exit.c \
-						./srcs/runtime/runtime.c \
 						./srcs/parsing/parser.c \
 						./srcs/parsing/env_var_replace.c\
-						./srcs/parsing/catch_redirection.c\
+						./srcs/runtime/runtime.c \
+						./srcs/runtime/pipe.c \
+						./srcs/runtime/redirection.c \
 						./srcs/runtime/instruction/instruction_command.c \
 						./srcs/runtime/instruction/instruction_separator.c \
 						./srcs/runtime/instruction/instruction_pipe.c \
 						./srcs/runtime/instruction/instruction_and.c \
 						./srcs/runtime/instruction/instruction_or.c \
+						./srcs/utilities/file.c \
 						./srcs/utilities/console.c \
 						./srcs/utilities/path.c \
 						./srcs/utilities/error.c \
