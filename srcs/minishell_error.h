@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:40:28 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 14:15:31 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:15:49 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int		error_print_messages(t_shell_context *cnt, int ec, int rc, va_list arg);
 
 int		error_message(t_shell_context *context, int error_code, int retc, ...);
 int		error_fatal(t_shell_context *context, int error_code, int retc, ...);
+int		error_builtin(t_shell_context *context, int error_code, int retc, ...);
 
 #endif
