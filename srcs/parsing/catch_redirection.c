@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/18 16:36:29 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 16:57:19 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_remove_file_name(t_shell_command *cmd, int i, int len, t_redirection_lis
 	k = 0;
 	l = 0;
 	total_len = ft_strlen(cmd->command_string);
-	new_str = malloc(sizeof(char) * (total_len - len + 1));
+	new_str = ft_managed_malloc(sizeof(char) * (total_len - len + 1));
 	new_str[total_len - len] = '\0';
 	printf("new_str len = %d\n", total_len - len);
 	while (cmd->command_string[k] != '>' && cmd->command_mask[k] == '0')
@@ -86,6 +86,8 @@ void	ft_remove_file_name(t_shell_command *cmd, int i, int len, t_redirection_lis
 		k++;
 	}
 	printf("New_str = %s\n", new_str);
+	ft_managed_free(cmd->command_string);
+	cmd->command_string = new_str;
 }
 
 int	ft_redirection_right(t_shell_command *cmd, int i)
@@ -96,7 +98,7 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 	t_redirection_list	*new;
 
 	len = i;
-	new = malloc(sizeof(t_redirection_list));
+	new = ft_managed_malloc(sizeof(t_redirection_list));
 	(void)cmd;
 	(void)i;
 	j = 0;
@@ -109,12 +111,12 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 	else
 		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT;
 	i++;
-	while (cmd->command_string[i] == ' ')
+	while (cmd->command_string[i] == ' ' && cmd->command_mask[i] == '0')
 		i++;
 	j = i;
 	while (cmd->command_string[j] && ((cmd->command_string[j] != '>' && cmd->command_string[j] != '<' && cmd->command_string[j] != ' ') || cmd->command_mask[j] != '0'))
 		j++;
-	new->redirection_file = malloc(sizeof(char) * (j - i + 1));
+	new->redirection_file = ft_managed_malloc(sizeof(char) * (j - i + 1));
 	new->redirection_file[j - i] = '\0';
 
 	j = i;
@@ -128,7 +130,7 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 	printf("File name = %s\n", new->redirection_file);
 	ft_remove_file_name(cmd, i, len, new);
 	//ft_lstadd_back(&cmd->redirection, new);
-	return (j);
+	return (0);
 }
 
 int	ft_argv_list(t_shell_command *cmd, int i)
