@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/17 15:42:28 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:09:35 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,19 @@ int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, 
 	var_value = env_get(context, varname);
 	if (var_value == NULL)
 		var_value = "";
-	printf("var_value = %s\n", var_value);
 	new_str = ft_managed_malloc(sizeof(char) * (i + ft_strlen(var_value)));
 	new_str[i + ft_strlen(var_value) - 1] = '\0';
 	new_mask = ft_managed_malloc(sizeof(char) * (i + ft_strlen(var_value)));
 	new_mask[i + ft_strlen(var_value) - 1] = '\0';
-	printf("i + ft_strlen(var_value = %lu\n", i + ft_strlen(var_value));
-	printf("test\ncmd[j] = %c\n", cmd->command_string[j]);
 	if (!(cmd->command_string[0] == '$'))
 	{
-		while (cmd->command_string[j] != '$' || cmd->command_string[j - 1] == '\\')
+		while (cmd->command_string[j] != '$')
 		{
 			new_str[j] = cmd->command_string[j];
 			new_mask[j] = cmd->command_mask[j];
 			j++;
 		}
 	}
-	//printf("new str inbetween = %s\n", new_str);
-	printf("wesh\n");
 	while (var_value[k])
 	{
 		new_str[j] = var_value[k];
@@ -99,8 +94,6 @@ int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, 
 		new_str[0] = '\0';
 		new_mask[0] = '\0';
 	}
-	printf("new_str = %s\n", new_str);
-	printf("new_mask= %s\n", new_mask);
 	ft_strjoin_custom(cmd, new_str, new_mask, ft_strlen(var_value), ft_strlen(varname));
 	return (j);
 }
@@ -113,17 +106,20 @@ int	ft_replace_var(t_shell_context *context, t_shell_command *cmd, int i)
 
 	j = i;
 	mask = cmd->command_mask[i];
-	while (cmd->command_string[j] && cmd->command_mask[j] == mask && (ft_isalnum(cmd->command_string[j]) == 1 || cmd->command_string[j] == '_'))
+	while (cmd->command_string[j] && cmd->command_mask[j] == mask
+		&& (ft_isalnum(cmd->command_string[j]) == 1
+		|| cmd->command_string[j] == '_'))
 		j++;
 	varname = ft_managed_malloc(sizeof(char) * j - i + 1);
 	varname[j - i] = '\0';
 	j = i;
-	while (cmd->command_string[j] && cmd->command_mask[j] == mask && (ft_isalnum(cmd->command_string[j]) == 1 || cmd->command_string[j] == '_'))
+	while (cmd->command_string[j] && cmd->command_mask[j] == mask
+		&& (ft_isalnum(cmd->command_string[j]) == 1
+		|| cmd->command_string[j] == '_'))
 	{
 		varname[j - i] = cmd->command_string[j];
 		j++;
 	}
-	printf("varname = %s\n", varname);
 	j = ft_replace_in_struct(context, cmd, i, varname);
 	ft_managed_free(varname);
 	return (j);
@@ -140,8 +136,7 @@ void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
 	{
 		while (cmd->command_string[i])
 		{
-			if (cmd->command_string[i] == '$' && cmd->command_mask[i] != '1'
-				&& (i == 0 || cmd->command_string[i - 1] != '\\'))
+			if (cmd->command_string[i] == '$' && cmd->command_mask[i] != '1')
 				i = ft_replace_var(context, cmd, i + 1);
 			else
 				i++;

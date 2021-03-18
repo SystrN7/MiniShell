@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 14:35:18 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:42:13 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int instruction_command_prepare(t_shell_context *context, t_shell_command *comma
 
 //==================================HERE========================================
 	ft_treat_var(context, command);
+	ft_catch_redirection(context, command);
 
 	command->argv = ft_split(command->command_string, ' ');
 	ft_managed_free(command->command_string);

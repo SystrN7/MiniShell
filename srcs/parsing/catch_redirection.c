@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/18 11:58:55 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 15:26:31 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,42 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 int	ft_redirection_right(t_shell_command *cmd, int i)
 {
 	int	j;
+	int	k;
 	t_redirection_list	*new;
 
 	new = malloc(sizeof(t_redirection_list));
 	(void)cmd;
 	(void)i;
 	j = 0;
-
-	if (cmd->command_string[i + 1] == '>')
+	k = 0;
+	if (cmd->command_string[i + 1] == '>' && cmd->command_mask[i + 1] == '0')
+	{
+		printf(">>\n");
 		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT;
+		i++;
+	}
 	else
+	{
+		printf(">\n");
 		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT;
-	if (i > 0 && cmd->command_string[i - 1] == '\\')
-		return (i);
+	}
+	i++;
 	while (cmd->command_string[i] == ' ')
 		i++;
 	j = i;
-	while (cmd->command_string[j] != '>' || cmd->command_string[j] != '<' || cmd->command_string[j] != ' ')
+	while (cmd->command_string[j] && (cmd->command_string[j] != '>' || cmd->command_string[j] != '<' || (cmd->command_string[j] != ' ' && cmd->command_mask[j] == '0')))
 		j++;
-	new->redirection_file = malloc(sizeof(char) * (j - i));
+	new->redirection_file = malloc(sizeof(char) * (j - i + 1));
 	new->redirection_file[j - i] = '\0';
+
+	j = i;
+	while (cmd->command_string[j] && (cmd->command_string[j] != '>' || cmd->command_string[j] != '<' || (cmd->command_string[j] != ' ' && cmd->command_mask[j] == '0')))
+	{
+		new->redirection_file[k] = cmd->command_string[j];
+		j++;
+		k++;
+	}
+	printf("File name = %s\n", new->redirection_file);
 	//ft_lstadd_back(&cmd->redirection, new);
 	return (j);
 }
@@ -104,6 +120,9 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 		else if (cmd->command_string[i] == '<' && cmd->command_mask[i] == '0')// && cmd->command_string[i - 1] != '\\')
 			i = ft_redirection_left(cmd, i);
 		else
-			i = ft_argv_list(cmd, i);
+		{
+			i++;
+			//i = ft_argv_list(cmd, i);
+		}
 	}
 }
