@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 12:43:04 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 10:11:03 by felix            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int	main(int argc, char const *argv[], char *env[])
 	return (0);
 }
 
-void	shell_init(t_shell_context *context,char const *argv[], char *env[])
+void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 {
 	ft_memset(context, 0, sizeof(t_shell_context));
 	context->shared_environment = env_store(env);
 	ft_managed_termination_function((t_term)shell_shutdown);
 	ft_managed_termination_params(context);
+	context->standard_input_backup = dup(standard_input);
+	context->standard_output_backup = dup(standard_output);
 	context->shell_name = ft_strsplit_last(argv[path], '/');
 }
 

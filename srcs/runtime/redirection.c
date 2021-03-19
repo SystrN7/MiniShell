@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:52:04 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/18 16:41:24 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 10:14:03 by felix            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ int	redirection_close(t_shell_context *context, t_list *redirections)
 	t_shell_redirection	*redirection;
 	t_list				*it;
 
+	if (dup2(context->standard_input_backup, standard_input))
+		error_message(context, ERROR_STD, 1);
+	if (dup2(context->standard_output_backup, standard_output))
+		error_message(context, ERROR_STD, 1);
 	it = redirections;
 	while (it)
 	{
