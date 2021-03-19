@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:34:40 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 15:35:51 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	ft_show_argv(char **argv)
 void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 {
 	int	i;
-	//Gerer les redirections et les retirer de la chaine principale. Ensuite spilt le chaine et metttre dans argv
 
 	(void)context;
 	i = 0;
