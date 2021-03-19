@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 12:41:19 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 13:02:13 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_fill_new_str(t_shell_command *cmd, char *new_str, char *new_mask, t_redi
 	int	l;
 
 	k = 0;
-	l = 0;
 	while (cmd->command_string[k] != '>' || cmd->command_mask[k] != '0')
 	{
 		new_str[k] = cmd->command_string[k];
@@ -67,12 +66,13 @@ void	ft_fill_new_str(t_shell_command *cmd, char *new_str, char *new_mask, t_redi
 	}
 	l = k;
 	if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT)
-		k += 2;
-	else
 		k++;
-	while (cmd->command_string[k] == ' ')
+	k++;
+	while (cmd->command_string[k] == ' ' && cmd->command_mask[k] == '0')
 		k++;
-	while (cmd->command_string[k] && ((cmd->command_string[k] != '>' && cmd->command_string[k] != '<' && cmd->command_string[k] != ' ') || cmd->command_mask[k] != '0'))
+	while (cmd->command_string[k] && ((cmd->command_string[k] != '>'
+		&& cmd->command_string[k] != '<' && cmd->command_string[k] != ' ')
+		|| cmd->command_mask[k] != '0'))
 		k++;
 	while (cmd->command_string[k])
 	{
@@ -99,7 +99,6 @@ void	ft_remove_file_name(t_shell_command *cmd, int len, t_redirection_list *lst)
 	printf("new_str len = %d\n", total_len - len);
 
 	ft_fill_new_str(cmd, new_str, new_mask, lst);
-
 
 	printf("New_str = %s\n", new_str);
 	printf("New_mask= %s\n", new_mask);
@@ -155,16 +154,6 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 	ft_remove_file_name(cmd, len, new);
 	ft_lstadd_back_redirection(cmd->redirection, new);
 	return (0);
-}
-
-int	ft_argv_list(t_shell_command *cmd, int i)
-{
-	int j;
-
-	j = 0;
-	(void)cmd;
-	(void)i;
-	return (1);
 }
 
 void	ft_show_redirection_list(t_redirection_list **root)
