@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:10:59 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:19:24 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 15:34:35 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	ft_remove_file_name(t_shell_command *cmd, int len, t_redirection_list *lst)
 	new_str[total_len - len] = '\0';
 	new_mask[total_len - len] = '\0';
 	ft_fill_new_str(cmd, new_str, new_mask, lst);
-	printf("New_str = %s\n", new_str);
-	printf("New_mask= %s\n", new_mask);
 	ft_managed_free(cmd->command_string);
 	cmd->command_string = new_str;
 	ft_managed_free(cmd->command_mask);
@@ -116,7 +114,6 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 		k++;
 	}
 	len = j - len;
-	printf("File name = %s\n", new->redirection_file);
 	ft_remove_file_name(cmd, len, new);
 	ft_lstadd_back_redirection(cmd->redirection, new);
 	return (0);

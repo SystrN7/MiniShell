@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:27:37 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 15:34:21 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_fill_new_str_left(t_shell_command *cmd, char *new_str, char *new_mask, t
 
 	(void)lst;
 	k = 0;
-	printf("fill j = %d\nfill i = %d\n", j, i);
 	while (k < j)
 	{
 		new_str[k] = cmd->command_string[k];
@@ -60,18 +59,11 @@ void	ft_remove_file_name_left(t_shell_command *cmd, int j, int i, t_redirection_
 		total_len--;
 	if (j == 0)
 		j = -1;
-	//total_len--;
-	printf ("\nfinal str len = %d\n", total_len - i + j);
 	new_str = ft_managed_malloc(sizeof(char) * (total_len - i + j + 1));
 	new_mask = ft_managed_malloc(sizeof(char) * (total_len - i + j + 1));
 	new_str[total_len - i + j] = '\0';
 	new_mask[total_len - i + j] = '\0';
-	//printf("new_str len = %d\n", total_len - len);
-
 	ft_fill_new_str_left(cmd, new_str, new_mask, lst, j, i);
-
-	printf("New_str = %s\n", new_str);
-	printf("New_mask= %s\n", new_mask);
 	ft_managed_free(cmd->command_string);
 	cmd->command_string = new_str;
 	ft_managed_free(cmd->command_mask);
@@ -93,7 +85,6 @@ int	ft_skip_spaces_left(t_shell_command *cmd,t_redirection_list *new, int i)
 		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_LEFT;
 	k++;
 	i--;
-	printf ("i = %d\n", i);
 	while (cmd->command_string[i] == ' ' && cmd->command_mask[i] == '0')
 		i--;
 	j = i;
@@ -101,8 +92,6 @@ int	ft_skip_spaces_left(t_shell_command *cmd,t_redirection_list *new, int i)
 		&& cmd->command_string[j] != '<' && cmd->command_string[j] != ' ')
 		|| cmd->command_mask[j] != '0'))
 		j--;
-	printf("index start filename = %d\n", j);
-	printf("filename len = %d\n", i - j);
 	new->redirection_file = ft_managed_malloc(sizeof(char) * (i - j + 1));
 	new->redirection_file[i - j] = '\0';
 	return (i);
@@ -150,7 +139,6 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 		k++;
 	}
 	ft_reverse_filename(new);
-	printf("File name = %s\n", new->redirection_file);
 	ft_remove_file_name_left(cmd, j, i, new);
 	ft_lstadd_back_redirection(cmd->redirection, new);
 	return (0);

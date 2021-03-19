@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:16:32 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 15:34:40 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ void	ft_show_redirection_list(t_redirection_list **root)
 	}
 }
 
+void	ft_show_argv(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		printf("argv[%d] = %s\n", i, argv[i]);
+		i++;
+	}
+}
+
 void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 {
 	int	i;
@@ -83,5 +95,7 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 		else
 			i++;
 	}
+	cmd->argv = ft_split(cmd->command_string, ' ');
 	ft_show_redirection_list(cmd->redirection);
+	ft_show_argv(cmd->argv);
 }
