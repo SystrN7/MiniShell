@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 14:16:13 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 14:27:25 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_fill_new_str_left(t_shell_command *cmd, char *new_str, char *new_mask, t
 
 	(void)lst;
 	k = 0;
+	printf("fill j = %d\nfill i = %d\n", j, i);
 	while (k < j)
 	{
 		new_str[k] = cmd->command_string[k];
@@ -98,7 +99,7 @@ void	ft_remove_file_name_left(t_shell_command *cmd, int len, int j, int i, t_red
 	total_len = ft_strlen(cmd->command_string);
 	if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT)
 		total_len--;
-	total_len--;
+	//total_len--;
 	printf ("\nfinal str len = %d\n", total_len - i + j);
 	new_str = ft_managed_malloc(sizeof(char) * (total_len - i + j + 1));
 	new_mask = ft_managed_malloc(sizeof(char) * (total_len - i + j + 1));
@@ -170,7 +171,7 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 	len = j - len;
 	printf("File name = %s\n", new->redirection_file);
 	ft_remove_file_name_left(cmd, len, j, i, new);
-	//ft_lstadd_back_redirection(cmd->redirection, new);
+	ft_lstadd_back_redirection(cmd->redirection, new);
 	return (0);
 }
 
