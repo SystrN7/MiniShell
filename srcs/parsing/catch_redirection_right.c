@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:10:59 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:16:40 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 15:19:24 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ void	ft_remove_file_name(t_shell_command *cmd, int len, t_redirection_list *lst)
 	new_mask = ft_managed_malloc(sizeof(char) * (total_len - len + 1));
 	new_str[total_len - len] = '\0';
 	new_mask[total_len - len] = '\0';
-	printf("new_str len = %d\n", total_len - len);
-
 	ft_fill_new_str(cmd, new_str, new_mask, lst);
-
 	printf("New_str = %s\n", new_str);
 	printf("New_mask= %s\n", new_mask);
 	ft_managed_free(cmd->command_string);

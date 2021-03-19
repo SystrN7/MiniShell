@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:16:36 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 15:27:37 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_fill_new_str_left(t_shell_command *cmd, char *new_str, char *new_mask, t
 	}
 }
 
-void	ft_remove_file_name_left(t_shell_command *cmd, int len, int j, int i, t_redirection_list *lst)
+void	ft_remove_file_name_left(t_shell_command *cmd, int j, int i, t_redirection_list *lst)
 {
 	char	*new_str;
 	char	*new_mask;
@@ -52,13 +52,14 @@ void	ft_remove_file_name_left(t_shell_command *cmd, int len, int j, int i, t_red
 	int		l;
 	int		total_len;
 
-	(void)len;
 	(void)lst;
 	k = 0;
 	l = 0;
 	total_len = ft_strlen(cmd->command_string);
 	if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT)
 		total_len--;
+	if (j == 0)
+		j = -1;
 	//total_len--;
 	printf ("\nfinal str len = %d\n", total_len - i + j);
 	new_str = ft_managed_malloc(sizeof(char) * (total_len - i + j + 1));
@@ -149,10 +150,8 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 		k++;
 	}
 	ft_reverse_filename(new);
-	printf("index start filename after = %d\n", j);
-	len = j - len;
 	printf("File name = %s\n", new->redirection_file);
-	ft_remove_file_name_left(cmd, len, j, i, new);
+	ft_remove_file_name_left(cmd, j, i, new);
 	ft_lstadd_back_redirection(cmd->redirection, new);
 	return (0);
 }
