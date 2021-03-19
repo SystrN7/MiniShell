@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 14:27:25 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 14:43:48 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,29 @@ int	ft_skip_spaces_left(t_shell_command *cmd,t_redirection_list *new, int i)
 	return (i);
 }
 
+void	ft_reverse_filename(t_redirection_list *new)
+{
+	int	i;
+	int	j;
+	char	*buff;
+
+	i = 0;
+	j = ft_strlen(new->redirection_file);
+	printf("j = %d\n", j);
+	buff = ft_managed_malloc(sizeof(char) * (j + 1));
+	buff[j] = '\0';
+	j--;
+	while (new->redirection_file[i])
+	{
+		printf("character = %c\n", new->redirection_file[i]);
+		buff[j] = new->redirection_file[i];
+		i++;
+		j--;
+	}
+	ft_managed_free(new->redirection_file);
+	new->redirection_file = buff;
+}
+
 int	ft_redirection_left(t_shell_command *cmd, int i)
 {
 	int	j;
@@ -167,6 +190,7 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 		j--;
 		k++;
 	}
+	ft_reverse_filename(new);
 	printf("index start filename after = %d\n", j);
 	len = j - len;
 	printf("File name = %s\n", new->redirection_file);
