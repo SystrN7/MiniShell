@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 12:31:52 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 12:41:19 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	ft_remove_file_name(t_shell_command *cmd, int len, t_redirection_list *lst)
 	k = 0;
 	l = 0;
 	total_len = ft_strlen(cmd->command_string);
-	//ft_setup_new_str(new_str, new_mask, total_len, len);
 	new_str = ft_managed_malloc(sizeof(char) * (total_len - len + 1));
 	new_mask = ft_managed_malloc(sizeof(char) * (total_len - len + 1));
 	new_str[total_len - len] = '\0';
@@ -110,18 +109,11 @@ void	ft_remove_file_name(t_shell_command *cmd, int len, t_redirection_list *lst)
 	cmd->command_mask = new_mask;
 }
 
-int	ft_redirection_right(t_shell_command *cmd, int i)
+int	ft_skip_spaces(t_shell_command *cmd,t_redirection_list *new, int i)
 {
 	int	j;
-	int	k;
-	int	len;
-	t_redirection_list	*new;
 
-	len = i;
-	new = ft_managed_malloc(sizeof(t_redirection_list));
-	new->next = 0;
 	j = 0;
-	k = 0;
 	if (cmd->command_string[i + 1] == '>' && cmd->command_mask[i + 1] == '0')
 	{
 		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT;
@@ -137,8 +129,21 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 		j++;
 	new->redirection_file = ft_managed_malloc(sizeof(char) * (j - i + 1));
 	new->redirection_file[j - i] = '\0';
+	return (i);
+}
 
-	j = i;
+int	ft_redirection_right(t_shell_command *cmd, int i)
+{
+	int	j;
+	int	k;
+	int	len;
+	t_redirection_list	*new;
+
+	len = i;
+	new = ft_managed_malloc(sizeof(t_redirection_list));
+	new->next = 0;
+	k = 0;
+	j = ft_skip_spaces(cmd, new, i);
 	while (cmd->command_string[j] && ((cmd->command_string[j] != '>' && cmd->command_string[j] != '<' && cmd->command_string[j] != ' ') || cmd->command_mask[j] != '0'))
 	{
 		new->redirection_file[k] = cmd->command_string[j];
