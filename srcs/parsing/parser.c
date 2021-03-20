@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/18 12:37:12 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 10:56:08 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,8 @@ t_shell_command	*ft_new_str_struct(void)
 	t_shell_command	*str_struct;
 
 	str_struct = ft_managed_malloc(sizeof(t_shell_command));
+	ft_memset(str_struct, 0, sizeof(t_shell_command));
 	str_struct->instruction_type = SHELL_INSTRUCTION_COMMAND;
-	str_struct->command_mask = NULL;
-	str_struct->command_string = NULL;
 	return (str_struct);
 }
 
@@ -289,10 +288,7 @@ t_parse_struct	*ft_setup_parse_struct(void)
 	t_parse_struct	*ret;
 
 	ret = ft_managed_malloc(sizeof(t_parse_struct));
-	ret->str_struct = ft_managed_malloc(sizeof(t_shell_command));
-	ret->str_struct->instruction_type = SHELL_INSTRUCTION_COMMAND;
-	ret->str_struct->command_mask = NULL;
-	ret->str_struct->command_string = NULL;
+	ret->str_struct = ft_new_str_struct();
 	ret->root = ft_managed_malloc(sizeof(t_node_binary *));
 	ret->str_root = ft_managed_malloc(sizeof(t_shell_command *));
 	ret->node = ft_binarytree_node_create(NULL);

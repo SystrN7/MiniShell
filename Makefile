@@ -6,7 +6,7 @@
 #    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/03/19 15:15:47 by seruiz           ###   ########lyon.fr    #
+#    Updated: 2021/03/20 10:55:10 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,17 +21,20 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/builtins/builtin_cd.c \
 						./srcs/builtins/builtin_pwd.c \
 						./srcs/builtins/builtin_exit.c \
-						./srcs/runtime/runtime.c \
 						./srcs/parsing/parser.c \
 						./srcs/parsing/env_var_replace.c\
 						./srcs/parsing/catch_redirection.c\
 						./srcs/parsing/catch_redirection_left.c\
 						./srcs/parsing/catch_redirection_right.c\
+						./srcs/runtime/runtime.c \
+						./srcs/runtime/pipe.c \
+						./srcs/runtime/redirection.c \
 						./srcs/runtime/instruction/instruction_command.c \
 						./srcs/runtime/instruction/instruction_separator.c \
 						./srcs/runtime/instruction/instruction_pipe.c \
 						./srcs/runtime/instruction/instruction_and.c \
 						./srcs/runtime/instruction/instruction_or.c \
+						./srcs/utilities/file.c \
 						./srcs/utilities/console.c \
 						./srcs/utilities/path.c \
 						./srcs/utilities/error.c \

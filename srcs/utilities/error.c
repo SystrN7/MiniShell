@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:17 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/12 10:10:57 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:59:28 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	error_fatal(
 {
 	va_list	args;
 
+	ft_printf_fd(standard_error, "%s: ", context->shell_name);
 	va_start(args, return_code);
 	error_print_messages(context, error_code, return_code, args);
 	va_end(args);
@@ -37,7 +38,34 @@ int	error_message(
 {
 	va_list	args;
 
+	ft_printf_fd(standard_error, "%s: ", context->shell_name);
 	va_start(args, return_code);
+	error_print_messages(context, error_code, return_code, args);
+	va_end(args);
+	return (return_code);
+}
+
+int	error_builtin(
+	t_shell_context *context,
+	int error_code,
+	int return_code,
+	...
+)
+{
+	va_list	args;
+	char	*error_message;
+
+	ft_printf_fd(standard_error, "%s: ", context->shell_name);
+	va_start(args, return_code);
+	if (error_code == ERROR_STD)
+	{
+		error_message = (char *)va_arg(args, char *);
+		while (error_message)
+		{
+			ft_printf_fd(standard_error, "%s: ", error_message);
+			error_message = (char *)va_arg(args, char *);
+		}
+	}
 	error_print_messages(context, error_code, return_code, args);
 	va_end(args);
 	return (return_code);
@@ -56,12 +84,9 @@ int		error_print_messages(
 
 	buffer = NULL;
 	error_message = error_get_message(error_code);
-	
 	size = ft_format(error_message, args, &buffer);
-	
 	if (size < 0)
 		exit(1);
-	ft_printf_fd(standard_error, "%s: ", context->shell_name);
 	write(standard_error, buffer, size);
 	write(standard_error, "\n", 1);
 	ft_managed_free(buffer);
@@ -84,32 +109,3 @@ char	*error_get_message(int	error_code)
 	}
 	return (NULL);
 }
-
-// int	error_message(
-// 	t_shell_context *context,
-// 	int error_code,
-// 	int return_code,
-// 	char *emitter
-// )
-// {
-// 	char	*error_message;
-
-// 	error_message = error_get_message(error_code);
-// 	if (emitter)
-// 		ft_printf_fd(
-// 			standard_error,
-// 			"%s: %s: %s\n",
-// 			context->shell_name,
-// 			emitter,
-// 			error_message
-// 		);
-// 	else
-// 		ft_printf_fd(
-// 			standard_error,
-// 			"%s: %s\n",
-// 			context->shell_name,
-// 			error_message
-// 		);
-// 	context->last_command_return_code = return_code;
-// 	return (return_code);
-// }
