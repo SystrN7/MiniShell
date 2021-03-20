@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 16:42:15 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 17:05:33 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,22 @@ void	ft_is_empty(t_parse_mask_str *new, int k, int j)
 	}
 }
 
-int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, char *varname)
+int	ft_cpy_before_dollard(t_shell_command *cmd, t_parse_mask_str *new, int j)
+{
+	if (!(cmd->command_string[0] == '$'))
+	{
+		while (cmd->command_string[j] != '$')
+		{
+			new->str[j] = cmd->command_string[j];
+			new->mask[j] = cmd->command_mask[j];
+			j++;
+		}
+	}
+	return (j);
+}
+
+int	ft_replace_in_struct(t_shell_context *context,
+	t_shell_command *cmd, int i, char *varname)
 {
 	int					j;
 	int					k;
@@ -121,21 +136,11 @@ int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, 
 	k = 0;
 	var_value = ft_set_var_value(varname, context);
 	new = ft_setup_mask_str(i + ft_strlen(var_value));
-	if (!(cmd->command_string[0] == '$'))
-	{
-		while (cmd->command_string[j] != '$')
-		{
-			new->str[j] = cmd->command_string[j];
-			new->mask[j] = cmd->command_mask[j];
-			j++;
-		}
-	}
+	j = ft_cpy_before_dollard(cmd, new, j);
 	while (var_value[k])
 	{
-		new->str[j] = var_value[k];
 		new->mask[j] = cmd->command_mask[j - k];
-		j++;
-		k++;
+		new->str[j++] = var_value[k++];
 	}
 	ft_is_empty(new, k, j);
 	ft_strjoin_custom(cmd, new, ft_strlen(var_value), ft_strlen(varname));
@@ -186,31 +191,3 @@ void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
 		}
 	}
 }
-
-/*
-void	ft_parse(t_shell_command cmd)
-{
-	int	i;
-
-	i = 0;
-	printf("str = %s\n", cmd.command_string);
-	printf("mask= %s\n", cmd.command_mask);
-	while (cmd.command_string[i])
-	{
-		if (cmd.command_string[i] == '$' && cmd.command_mask[i] != '1')
-			i = ft_replace_var(cmd, i + 1);
-		else
-			i++;
-	}
-}
-
-int main(int argc, char **argv)
-{
-    t_shell_command cmd;
-
-    cmd.str = argv[1];
-    cmd.mask = argv[2];
-    ft_parse(cmd);
-    return (1);
-}
-*/
