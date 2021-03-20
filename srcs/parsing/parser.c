@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 10:56:08 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 14:36:19 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,31 +82,39 @@ int	ft_single_quote(char *line, int j, t_shell_command *str_struct)
 {
 	int		ret;
 	char	*mask;
+	int		no_end_quote;
 
+	no_end_quote = 0;
 	ret = j + 1;
 	while (line[ret] && line[ret] != '\'')
 		ret++;
+	if (ret == (int)ft_strlen(line))
+		no_end_quote = -1;
 	mask = ft_managed_malloc(sizeof(char) * (ret - j));
 	mask[ret - j - 1] = '\0';
 	ft_fill_mask(mask, '1', ret - j - 2, str_struct);
 	ft_fill_str(line, j + 1, ret - j - 1, str_struct);
-	return (ret + 1);
+	return (ret + 1 + no_end_quote);
 }
 
 int	ft_double_quote(char *line, int j, t_shell_command *str_struct)
 {
 	int		ret;
+	int		no_end_quotes;
 	char	*mask;
 
+	no_end_quotes = 0;
 	ret = j + 1;
 	while ((line[ret] && (line[ret] != '\"' && ret - 1 >= 0))
 		|| line[ret - 1] == '\\')
 		ret++;
+	if (ret == (int)ft_strlen(line))
+		no_end_quotes = -1;
 	mask = ft_managed_malloc(sizeof(char) * (ret - j));
 	mask[ret - j - 1] = '\0';
 	ft_fill_mask(mask, '2', ret - j - 2, str_struct);
 	ft_fill_str(line, j + 1, ret - j - 1, str_struct);
-	return (ret + 1);
+	return (ret + 1 + no_end_quotes);
 }
 
 t_shell_separator	*ft_set_sep(char *line, int j)
