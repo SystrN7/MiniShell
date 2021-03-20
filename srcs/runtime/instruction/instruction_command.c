@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 16:53:00 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 17:12:10 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 char	*command_path_resolver(t_shell_context *context, t_shell_command *command)
 {
 	ft_managed_free(command->path);
-	if (is_command(command->argv[path]))
+	if (ft_strchr(command->argv[path], '/'))
 		command->path = command->argv[path];
 	else
 		command->path = path_get_binary_path(
