@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/18 13:09:35 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 16:00:04 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,25 @@
 #include "minishell_parser.h"
 
 #include <unistd.h>
+
+void	ft_assign_new_strings(t_shell_command *cmd, char *final_str, char *final_mask, char *new_str, char *new_mask)
+{
+	ft_managed_free(cmd->command_string);
+	ft_managed_free(cmd->command_mask);
+	ft_managed_free(new_str);
+	ft_managed_free(new_mask);
+	cmd->command_string = final_str;
+	cmd->command_mask = final_mask;
+}
+
+char	*ft_init_final_string(int total_len)
+{
+	char	*result;
+
+	result = ft_managed_malloc(sizeof(char) * (total_len));
+	result[total_len - 1] = '\0';
+	return(result);
+}
 
 int	ft_strjoin_custom(t_shell_command *cmd, char *new_str, char *new_mask, int var_value_len, int varname_len)
 {
@@ -28,10 +47,8 @@ int	ft_strjoin_custom(t_shell_command *cmd, char *new_str, char *new_mask, int v
 	j = 0;
 	i = ft_strlen(new_str) - var_value_len + varname_len + 1;
 	total_len = ft_strlen(cmd->command_string) - varname_len + var_value_len;
-	final_str = ft_managed_malloc(sizeof(char) * (total_len));
-	final_mask = ft_managed_malloc(sizeof(char) * (total_len));
-	final_mask[total_len - 1] = '\0';
-	final_str[total_len - 1] = '\0';
+	final_str = ft_init_final_string(total_len);
+	final_mask = ft_init_final_string(total_len);
 	while(new_str[j])
 	{
 		final_mask[j] = new_mask[j];
@@ -45,15 +62,15 @@ int	ft_strjoin_custom(t_shell_command *cmd, char *new_str, char *new_mask, int v
 		i++;
 		j++;
 	}
-	ft_managed_free(cmd->command_string);
-	ft_managed_free(cmd->command_mask);
-	ft_managed_free(new_str);
-	ft_managed_free(new_mask);
-	cmd->command_string = final_str;
-	cmd->command_mask = final_mask;
-	printf("\nFinal str = %s\n", final_str);
-	printf("\nFinal mask= %s\n", final_mask);
+	ft_assign_new_strings(cmd, final_str, final_mask, new_str, new_mask);
 	return (i);
+}
+
+int	ft_is_return_code(char *varname)
+{
+	if (ft_strlen(varname) == 1 && varname[0] == '?')
+		return (1);
+	return (0);
 }
 
 int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, char *varname)
@@ -66,7 +83,10 @@ int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, 
 
 	j = 0;
 	k = 0;
-	var_value = env_get(context, varname);
+	if (ft_is_return_code(varname) == 1)
+		var_value = ft_itoa(context->last_command_return_code);
+	else
+		var_value = ft_strdup(env_get(context, varname));
 	if (var_value == NULL)
 		var_value = "";
 	new_str = ft_managed_malloc(sizeof(char) * (i + ft_strlen(var_value)));
@@ -95,6 +115,7 @@ int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, 
 		new_mask[0] = '\0';
 	}
 	ft_strjoin_custom(cmd, new_str, new_mask, ft_strlen(var_value), ft_strlen(varname));
+	ft_managed_free(var_value);
 	return (j);
 }
 
@@ -108,14 +129,14 @@ int	ft_replace_var(t_shell_context *context, t_shell_command *cmd, int i)
 	mask = cmd->command_mask[i];
 	while (cmd->command_string[j] && cmd->command_mask[j] == mask
 		&& (ft_isalnum(cmd->command_string[j]) == 1
-		|| cmd->command_string[j] == '_'))
+		|| cmd->command_string[j] == '_' || cmd->command_string[j] == '?'))
 		j++;
 	varname = ft_managed_malloc(sizeof(char) * j - i + 1);
 	varname[j - i] = '\0';
 	j = i;
 	while (cmd->command_string[j] && cmd->command_mask[j] == mask
 		&& (ft_isalnum(cmd->command_string[j]) == 1
-		|| cmd->command_string[j] == '_'))
+		|| cmd->command_string[j] == '_' || cmd->command_string[j] == '?'))
 	{
 		varname[j - i] = cmd->command_string[j];
 		j++;
@@ -130,8 +151,6 @@ void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
 	int	i;
 
 	i = 0;
-	printf("str = %s\n", cmd->command_string);
-	printf("mask= %s\n", cmd->command_mask);
 	if (!(cmd->command_string == NULL))
 	{
 		while (cmd->command_string[i])
