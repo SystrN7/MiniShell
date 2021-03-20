@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 12:09:47 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 12:22:09 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	instruction_command_prepare(t_shell_context *context, t_shell_command *comma
 int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 {
 	pid_t	pid;
+	int		status;
 
 	command_path_resolver(context, command);
 	if (command->path == NULL)
@@ -100,7 +101,8 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 		error_fatal(context, ERROR_STD, 1);
 	}
 	else
-		waitpid(pid, &context->last_command_return_code, 0);
+		waitpid(pid, &status, 0);
+	context->last_command_return_code = WEXITSTATUS(status);
 	return (context->last_command_return_code);
 }
 
