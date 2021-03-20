@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection_left.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:34:21 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 11:06:15 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_fill_new_str_left(t_shell_command *cmd, char *new_str, char *new_mask, t
 		k++;
 	}
 	l = i;
-	if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT)
+	if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
 		l++;
 	l++;
 	while (cmd->command_string[l])
@@ -55,7 +55,7 @@ void	ft_remove_file_name_left(t_shell_command *cmd, int j, int i, t_redirection_
 	k = 0;
 	l = 0;
 	total_len = ft_strlen(cmd->command_string);
-	if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT)
+	if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
 		total_len--;
 	if (j == 0)
 		j = -1;
@@ -78,11 +78,11 @@ int	ft_skip_spaces_left(t_shell_command *cmd,t_redirection_list *new, int i)
 	k = i;
 	if (cmd->command_string[i + 1] == '<' && cmd->command_mask[i + 1] == '0')
 	{
-		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT;
+		new->redirection_type = SHELL_REDIRECT_TYPE_DOUBLE_LEFT;
 		k++;
 	}
 	else
-		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_LEFT;
+		new->redirection_type = SHELL_REDIRECT_TYPE_LEFT;
 	k++;
 	i--;
 	while (cmd->command_string[i] == ' ' && cmd->command_mask[i] == '0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 10:56:16 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 12:09:47 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int	instruction_command_prepare(t_shell_context *context, t_shell_command *comma
 //==================================HERE========================================
 	ft_treat_var(context, command);
 	ft_catch_redirection(context, command);
-
-	command->argv = ft_split(command->command_string, ' ');
 	ft_managed_free(command->command_string);
 	command->command_string = NULL;
 	ft_managed_free(command->command_mask);
@@ -94,7 +92,6 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 		error_fatal(context, ERROR_STD, 1);
 	else if (pid == 0)
 	{
-
 		execve(
 			command->path,
 			command->argv,

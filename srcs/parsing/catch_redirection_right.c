@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection_right.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:10:59 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:34:35 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 11:06:15 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_fill_new_str(t_shell_command *cmd, char *new_str, char *new_mask, t_redi
 		k++;
 	}
 	l = k;
-	if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT)
+	if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_RIGHT)
 		k++;
 	k++;
 	while (cmd->command_string[k] == ' ' && cmd->command_mask[k] == '0')
@@ -75,11 +75,11 @@ int	ft_skip_spaces(t_shell_command *cmd,t_redirection_list *new, int i)
 	j = 0;
 	if (cmd->command_string[i + 1] == '>' && cmd->command_mask[i + 1] == '0')
 	{
-		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT;
+		new->redirection_type = SHELL_REDIRECT_TYPE_DOUBLE_RIGHT;
 		i++;
 	}
 	else
-		new->redirection_type = SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT;
+		new->redirection_type = SHELL_REDIRECT_TYPE_RIGHT;
 	i++;
 	while (cmd->command_string[i] == ' ' && cmd->command_mask[i] == '0')
 		i++;

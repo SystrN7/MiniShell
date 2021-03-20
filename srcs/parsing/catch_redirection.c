@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:35:51 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 11:27:34 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	ft_show_redirection_list(t_redirection_list **root)
 	lst = *root;
 	while (lst)
 	{
-		if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_RIGHT)
+		if (lst->redirection_type == SHELL_REDIRECT_TYPE_RIGHT)
 			printf("redirection type : >\n");
-		else if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_RIGHT)
+		else if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_RIGHT)
 			printf("redirection type : >>\n");
-		else if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_LEFT)
+		else if (lst->redirection_type == SHELL_REDIRECT_TYPE_LEFT)
 			printf("redirection type : <\n");
-		else if (lst->redirection_type == SHELL_SEPARATOR_TYPE_REDIRECT_DOUBLE_LEFT)
+		else if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
 			printf("redirection type : <<\n");
 		printf("redirection file = %s\n\n", lst->redirection_file);
 		lst = lst->next;
@@ -95,6 +95,6 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 			i++;
 	}
 	cmd->argv = ft_split(cmd->command_string, ' ');
-	ft_show_redirection_list(cmd->redirection);
-	ft_show_argv(cmd->argv);
+	// ft_show_redirection_list(cmd->redirection);
+	// ft_show_argv(cmd->argv);
 }
