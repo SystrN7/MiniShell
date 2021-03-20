@@ -6,7 +6,7 @@
 /*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/19 10:11:03 by felix            ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 12:27:58 by felix            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char const *argv[], char *env[])
 void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 {
 	ft_memset(context, 0, sizeof(t_shell_context));
+	shell_get_context(context);
 	context->shared_environment = env_store(env);
 	ft_managed_termination_function((t_term)shell_shutdown);
 	ft_managed_termination_params(context);
@@ -61,4 +62,13 @@ void	shell_shutdown(t_shell_context *context)
 	ft_managed_free_all();
 	return_code = context->last_command_return_code % 256;
 	exit(return_code);
+}
+
+t_shell_context	*shell_get_context(t_shell_context *context)
+{
+	static t_shell_context	*save_context;
+
+	if (context != NULL)
+		save_context = context;
+	return (context);
 }
