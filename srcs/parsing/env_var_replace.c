@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 16:00:04 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 16:42:15 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@
 
 #include <unistd.h>
 
-void	ft_assign_new_strings(t_shell_command *cmd, char *final_str, char *final_mask, char *new_str, char *new_mask)
+void	ft_assign_new_strings(t_shell_command *cmd, t_parse_mask_str *final, t_parse_mask_str *new)
 {
 	ft_managed_free(cmd->command_string);
 	ft_managed_free(cmd->command_mask);
-	ft_managed_free(new_str);
-	ft_managed_free(new_mask);
-	cmd->command_string = final_str;
-	cmd->command_mask = final_mask;
+	ft_managed_free(new->str);
+	ft_managed_free(new->mask);
+	ft_managed_free(new);
+	cmd->command_string = final->str;
+	cmd->command_mask = final->mask;
+	ft_managed_free(final);
 }
 
 char	*ft_init_final_string(int total_len)
@@ -33,39 +35,52 @@ char	*ft_init_final_string(int total_len)
 
 	result = ft_managed_malloc(sizeof(char) * (total_len));
 	result[total_len - 1] = '\0';
-	return(result);
+	return (result);
 }
 
-int	ft_strjoin_custom(t_shell_command *cmd, char *new_str, char *new_mask, int var_value_len, int varname_len)
+t_parse_mask_str	*ft_setup_mask_str(int len)
+{
+	char				*new_str;
+	char				*new_mask;
+	t_parse_mask_str	*new;
+
+	new = ft_managed_malloc(sizeof(t_parse_mask_str));
+	new_str = ft_managed_malloc(sizeof(char) * (len));
+	new_str[len - 1] = '\0';
+	new_mask = ft_managed_malloc(sizeof(char) * (len));
+	new_mask[len - 1] = '\0';
+	new->str = new_str;
+	new->mask = new_mask;
+	return (new);
+}
+
+int	ft_strjoin_custom(t_shell_command *cmd, t_parse_mask_str *new, int var_value_len, int varname_len)
 {
 	int		i;
 	int		j;
 	int		total_len;
-	char	*final_str;
-	char	*final_mask;
+	t_parse_mask_str	*final;
 
 	j = 0;
-	i = ft_strlen(new_str) - var_value_len + varname_len + 1;
+	i = ft_strlen(new->str) - var_value_len + varname_len + 1;
 	total_len = ft_strlen(cmd->command_string) - varname_len + var_value_len;
-	final_str = ft_init_final_string(total_len);
-	final_mask = ft_init_final_string(total_len);
-	while(new_str[j])
+	final = ft_setup_mask_str(total_len);
+	while (new->str[j])
 	{
-		final_mask[j] = new_mask[j];
-		final_str[j] = new_str[j];
+		final->mask[j] = new->mask[j];
+		final->str[j] = new->str[j];
 		j++;
 	}
 	while (cmd->command_string[i])
 	{
-		final_mask[j] = cmd->command_mask[i];
-		final_str[j] = cmd->command_string[i];
+		final->mask[j] = cmd->command_mask[i];
+		final->str[j] = cmd->command_string[i];
 		i++;
 		j++;
 	}
-	ft_assign_new_strings(cmd, final_str, final_mask, new_str, new_mask);
+	ft_assign_new_strings(cmd, final, new);
 	return (i);
 }
-
 int	ft_is_return_code(char *varname)
 {
 	if (ft_strlen(varname) == 1 && varname[0] == '?')
@@ -73,48 +88,57 @@ int	ft_is_return_code(char *varname)
 	return (0);
 }
 
-int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, char *varname)
+char	*ft_set_var_value(char *varname, t_shell_context *context)
 {
-	int		j;
-	int		k;
-	char	*new_str;
-	char	*new_mask;
 	char	*var_value;
 
-	j = 0;
-	k = 0;
 	if (ft_is_return_code(varname) == 1)
 		var_value = ft_itoa(context->last_command_return_code);
 	else
 		var_value = ft_strdup(env_get(context, varname));
 	if (var_value == NULL)
 		var_value = "";
-	new_str = ft_managed_malloc(sizeof(char) * (i + ft_strlen(var_value)));
-	new_str[i + ft_strlen(var_value) - 1] = '\0';
-	new_mask = ft_managed_malloc(sizeof(char) * (i + ft_strlen(var_value)));
-	new_mask[i + ft_strlen(var_value) - 1] = '\0';
+	return (var_value);
+}
+
+void	ft_is_empty(t_parse_mask_str *new, int k, int j)
+{
+	if (j == 0 && k == 0)
+	{
+		new->str[0] = '\0';
+		new->mask[0] = '\0';
+	}
+}
+
+int	ft_replace_in_struct(t_shell_context *context, t_shell_command *cmd, int i, char *varname)
+{
+	int					j;
+	int					k;
+	t_parse_mask_str	*new;
+	char				*var_value;
+
+	j = 0;
+	k = 0;
+	var_value = ft_set_var_value(varname, context);
+	new = ft_setup_mask_str(i + ft_strlen(var_value));
 	if (!(cmd->command_string[0] == '$'))
 	{
 		while (cmd->command_string[j] != '$')
 		{
-			new_str[j] = cmd->command_string[j];
-			new_mask[j] = cmd->command_mask[j];
+			new->str[j] = cmd->command_string[j];
+			new->mask[j] = cmd->command_mask[j];
 			j++;
 		}
 	}
 	while (var_value[k])
 	{
-		new_str[j] = var_value[k];
-		new_mask[j] = cmd->command_mask[j - k];
+		new->str[j] = var_value[k];
+		new->mask[j] = cmd->command_mask[j - k];
 		j++;
 		k++;
 	}
-	if (j == 0 && k == 0)
-	{
-		new_str[0] = '\0';
-		new_mask[0] = '\0';
-	}
-	ft_strjoin_custom(cmd, new_str, new_mask, ft_strlen(var_value), ft_strlen(varname));
+	ft_is_empty(new, k, j);
+	ft_strjoin_custom(cmd, new, ft_strlen(var_value), ft_strlen(varname));
 	ft_managed_free(var_value);
 	return (j);
 }
@@ -129,14 +153,14 @@ int	ft_replace_var(t_shell_context *context, t_shell_command *cmd, int i)
 	mask = cmd->command_mask[i];
 	while (cmd->command_string[j] && cmd->command_mask[j] == mask
 		&& (ft_isalnum(cmd->command_string[j]) == 1
-		|| cmd->command_string[j] == '_' || cmd->command_string[j] == '?'))
+			|| cmd->command_string[j] == '_' || cmd->command_string[j] == '?'))
 		j++;
 	varname = ft_managed_malloc(sizeof(char) * j - i + 1);
 	varname[j - i] = '\0';
 	j = i;
 	while (cmd->command_string[j] && cmd->command_mask[j] == mask
 		&& (ft_isalnum(cmd->command_string[j]) == 1
-		|| cmd->command_string[j] == '_' || cmd->command_string[j] == '?'))
+			|| cmd->command_string[j] == '_' || cmd->command_string[j] == '?'))
 	{
 		varname[j - i] = cmd->command_string[j];
 		j++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 11:27:34 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 16:45:13 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,9 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 			i = ft_redirection_right(cmd, i);
 		}
 		else if (cmd->command_string[i] == '<' && cmd->command_mask[i] == '0')
-			i = ft_redirection_left(cmd, i);
+			i = ft_redirection_left_new(cmd, i);
 		else
 			i++;
 	}
 	cmd->argv = ft_split(cmd->command_string, ' ');
-	// ft_show_redirection_list(cmd->redirection);
-	// ft_show_argv(cmd->argv);
 }

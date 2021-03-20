@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/19 15:17:27 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 16:47:37 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,17 @@ void	ft_treat_var(t_shell_context *context, t_shell_command *command);
 void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd);
 int		ft_redirection_right(t_shell_command *cmd, int i);
 int		ft_redirection_left(t_shell_command *cmd, int i);
-void	ft_lstadd_back_redirection(t_redirection_list **alst, t_redirection_list *new);
+int		ft_redirection_left_new(t_shell_command *cmd, int i);
+void	ft_lstadd_back_redirection(t_redirection_list **alst,
+		t_redirection_list *new);
 
 t_node_binary	*ft_treat_line(char *line);
+
+typedef struct	s_parse_mask_str
+{
+	char	*str;
+	char	*mask;
+}				t_parse_mask_str;
 
 typedef struct	s_parsing_struct
 {
