@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 12:22:09 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 16:53:00 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
 
 int	instruction_command_prepare(t_shell_context *context, t_shell_command *command)
 {
-//==================================HERE========================================
 	ft_treat_var(context, command);
 	ft_catch_redirection(context, command);
 	ft_managed_free(command->command_string);
@@ -98,7 +97,7 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 			command->argv,
 			env_destore_all(context->shared_environment)
 		);
-		error_fatal(context, ERROR_STD, 1);
+		error_fatal(context, ERROR_STD, 126);
 	}
 	else
 		waitpid(pid, &status, 0);

@@ -6,17 +6,24 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:52:04 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 11:24:59 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 16:58:01 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_runtime.h"
 
+/**
+ * 
+ *  >	REDIRECTION_OUTPUT 
+ *  >>	REDIRECTION_APPEND_OUTPUT
+ * 	<	REDIRECTION_INPUT
+ **/
+
 enum e_file
 {
+	REDIRECTION_OUTPUT = O_CREAT | O_WRONLY | O_TRUNC,
+	REDIRECTION_APPEND_OUTPUT = O_CREAT | O_WRONLY | O_APPEND,
 	REDIRECTION_INPUT = O_CREAT | O_RDONLY,
-	REDIRECTION_OUTPUT = O_CREAT | O_WRONLY,
-	REDIRECTION_APPEND_OUTPUT = O_CREAT | O_APPEND | O_WRONLY,
 };
 
 int	redirection_create(t_shell_context *context, t_redirection_list **redirections)
@@ -37,14 +44,17 @@ int	redirection_exec(t_shell_context *context, t_redirection_list *redirection)
 	int		fd;
 	int		target_fd;
 
-	fd = open(redirection->redirection_file, redirection_type_get_flag(redirection));
+	fd = open(
+			redirection->redirection_file,
+			redirection_type_get_flag(redirection),
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == ERROR_STD)
 		error_message(context, ERROR_STD, 1);
 	else
 	{
 		target_fd = standard_output;
-		if ((redirection->redirection_type == SHELL_REDIRECT_TYPE_RIGHT)
-			&& (redirection->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_RIGHT))
+		if ((redirection->redirection_type == SHELL_REDIRECT_TYPE_LEFT)
+			|| (redirection->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT))
 			target_fd = standard_input;
 		fd = dup2(fd, target_fd);
 		if (fd == ERROR_STD)
@@ -55,21 +65,27 @@ int	redirection_exec(t_shell_context *context, t_redirection_list *redirection)
 
 int	redirection_close(t_shell_context *context, t_redirection_list **redirections)
 {
-	t_redirection_list	*redirection;
-	t_redirection_list	*it;
-
-	if (dup2(context->standard_input_backup, standard_input) ==  ERROR_STD)
-		error_message(context, ERROR_STD, 1);
-	if (dup2(context->standard_output_backup, standard_output) ==  ERROR_STD)
-		error_message(context, ERROR_STD, 1);
-	it = *redirections;
-	while (it)
+	// t_redirection_list	*redirection;
+	// t_redirection_list	*it;
+	if (*redirections)
 	{
-		redirection = it;
-		if (close(redirection->fd) == ERROR_STD)
+		(void)redirections;
+		if (dup2(dup(context->standard_input_backup), standard_input) == ERROR_STD)
 			error_message(context, ERROR_STD, 1);
-		it = it->next;
+		if (dup2(dup(context->standard_output_backup), standard_output) == ERROR_STD)
+			error_message(context, ERROR_STD, 1);
 	}
+
+	// it = *redirections;
+	// while (it)
+	// {
+	// 	redirection = it;
+	// 	ft_printf("filename %s\n", redirection->redirection_file);
+	// 	if (close(redirection->fd) == ERROR_STD)
+	// 		error_message(context, ERROR_STD, 1);
+	// 	ft_printf("filename %s\n", redirection->redirection_file);
+	// 	it = it->next;
+	// }
 	return (SUCCESS);
 }
 
