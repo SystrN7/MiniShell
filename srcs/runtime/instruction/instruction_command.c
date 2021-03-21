@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 17:12:10 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 14:31:52 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minishell_builtin.h"
 #include "minishell_utilities.h"
 #include "minishell_parser.h"
+#include "minishell_signal.h"
 
 #include <unistd.h>
 
@@ -79,11 +80,19 @@ int	instruction_command_prepare(t_shell_context *context, t_shell_command *comma
 	return (SUCCESS);
 }
 
+void	signal_test(int num)
+{
+	(void)num;
+	//printf("Ctrl C is pressed in prompt\n");
+}
+
 int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 {
 	pid_t	pid;
 	int		status;
 
+	//Handle les signaux dans le shell, pas dans les programmes (ex cat ou echo)
+	//signal(SIGINT, signal_test);
 	command_path_resolver(context, command);
 	if (command->path == NULL)
 		return (context->last_command_return_code);
