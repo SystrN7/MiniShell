@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 11:07:07 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 11:21:35 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_shell_context
 	int		standard_input_backup;
 	int		standard_output_backup;
 
+	int		running_command_pid;
 	int		last_command_return_code;
 }				t_shell_context;
 
