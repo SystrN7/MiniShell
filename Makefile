@@ -6,7 +6,7 @@
 #    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/03/20 16:46:59 by seruiz           ###   ########lyon.fr    #
+#    Updated: 2021/03/20 17:26:03 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,11 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/builtins/builtin_pwd.c \
 						./srcs/builtins/builtin_exit.c \
 						./srcs/parsing/parser.c \
+						./srcs/parsing/parser_no_quotes.c \
+						./srcs/parsing/parser_quotes.c \
+						./srcs/parsing/parser_separator.c \
 						./srcs/parsing/env_var_replace.c\
+						./srcs/parsing/env_var_replace_2.c\
 						./srcs/parsing/catch_redirection.c\
 						./srcs/parsing/catch_redirection_left.c\
 						./srcs/parsing/catch_redirection_left_new.c\
