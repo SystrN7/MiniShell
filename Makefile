@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/03/21 16:24:51 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/03/22 13:28:19 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/parsing/catch_redirection_left_new.c\
 						./srcs/parsing/catch_redirection_right.c\
 						./srcs/scheduler/scheduler.c \
+						./srcs/scheduler/consistency_analyzer.c \
 						./srcs/runtime/runtime.c \
 						./srcs/runtime/pipe.c \
 						./srcs/runtime/redirection.c \

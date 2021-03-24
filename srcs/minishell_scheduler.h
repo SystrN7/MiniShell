@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/21 17:38:46 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 16:38:54 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ int	schedule_pipe(
 	t_shell_context *context,
 	t_bnode **current_root,
 	t_bnode *previous_node
+);
+
+t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root);
+t_bool	separator_irregularity_identifier(
+	t_shell_context *context,
+	t_bnode *current_node
 );
 
 void show_tree(t_bnode *root, int deep, char *pos);

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/21 17:50:56 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 16:09:50 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ t_node_binary	*scheduler(t_shell_context *context, t_node_binary *unschedule_roo
 {
 	t_node_binary	**schedule_root;
 
+	if (*((char *)unschedule_root->value) == SHELL_INSTRUCTION_COMMAND)
+		return (unschedule_root);
+	if (consistency_analyzer(context, unschedule_root))
+		return (NULL);
 	schedule_root = &unschedule_root;
 	schedule_separator(context, schedule_root, *schedule_root);
 	show_tree(*schedule_root, 0, "root");
@@ -51,8 +55,18 @@ int	schedule_separator(
 	t_node_binary	*current_node;
 
 	current_node = previous_node->left;
-	if (*((char *)current_node->value) == SHELL_SEPARATOR_TYPE_END)
-		schedule_swap(current_root, current_node, previous_node);
+	while (current_node)
+	{
+		if (*((char *)current_node->value) == SHELL_INSTRUCTION_COMMAND)
+			return (IS_SORT);
+		if (*((char *)current_node->value) == SHELL_SEPARATOR_TYPE_END)
+		{
+			schedule_swap(current_root, current_node, previous_node);
+			break ;
+		}
+		previous_node = current_node;
+		current_node = previous_node->left;
+	}
 	if (current_node->left != NULL)
 	{
 		schedule_separator(context, &current_node->left, current_node);
@@ -75,6 +89,8 @@ int	schedule_or_and(
 	t_node_binary	*current_node;
 
 	current_node = previous_node->left;
+	if (*((char *)current_node->value) == SHELL_INSTRUCTION_COMMAND)
+		return (IS_SORT);
 	if (*((char *)current_node->value) == SHELL_SEPARATOR_TYPE_AND
 		|| *((char *)current_node->value) == SHELL_SEPARATOR_TYPE_OR)
 		schedule_swap(current_root, current_node, previous_node);
@@ -100,6 +116,8 @@ int	schedule_pipe(
 	t_node_binary	*current_node;
 
 	current_node = previous_node->left;
+	if (*((char *)current_node->value) == SHELL_INSTRUCTION_COMMAND)
+		return (IS_SORT);
 	if (*((char *)current_node->value) == SHELL_SEPARATOR_TYPE_PIPE)
 		schedule_swap(current_root, current_node, previous_node);
 	if (current_node->left != NULL)

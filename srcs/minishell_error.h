@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:40:28 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 14:15:49 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 12:58:58 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ enum					e_error_code
 	ERROR_RUNTIME_UNKNOWN_INSTRUCTION,
 	ERROR_RUNTIME_UNKNOWN_COMMAND,
 	ERROR_SYNTAX_INVALID_INSTRUCTION,
+	ERROR_SYNTAX_SEPARATOR_UNKNOWN,
+	ERROR_SYNTAX_SEPARATOR_BOND,
 	ERROR_SYNTAX_COMMAND_NOT_END,
 	ERROR_BUILTIN_CD_NO_VAR,
 };
@@ -50,6 +52,9 @@ static const struct		s_error_messages
 	{ERROR_ENV_INVALID_IDENTIFIER, "%s: `%s': not a valid identifier"},
 	{ERROR_RUNTIME_UNKNOWN_INSTRUCTION, "unknown instruction is found"},
 	{ERROR_RUNTIME_UNKNOWN_COMMAND, "%s: command not found"},
+	{ERROR_SYNTAX_SEPARATOR_UNKNOWN, "`%d': is invalid separator code"},
+	{ERROR_SYNTAX_SEPARATOR_BOND, "syntax error near unexpected token `%s'"},
+	{ERROR_SYNTAX_INVALID_INSTRUCTION, "`%d': is invalid instruction code"},
 	{ERROR_SYNTAX_INVALID_INSTRUCTION, "`%d': is invalid instruction code"},
 	{ERROR_SYNTAX_COMMAND_NOT_END, "command is not the end"},
 	{ERROR_BUILTIN_CD_NO_VAR, "%s: %s not set"},
