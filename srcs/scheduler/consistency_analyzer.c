@@ -6,26 +6,16 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/24 14:32:55 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/28 16:40:52 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_scheduler.h"
 
-char	get_node_type(t_node_binary *node)
-{
-	return (*((char *)node->value));
-}
-
-t_bool 	is_null_command(t_shell_command *command)
-{
-	if (command->command_string == NULL || command->command_string[0] == '\0')
-		return (TRUE);
-	return (FALSE);
-}
-
 void	binnary_show(t_bnode *root, int space, char *side);
 
+
+// ??? Gros connard de merde pence a fix ls;&&|cat 
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
 	t_node_binary	*it;
@@ -76,42 +66,4 @@ t_bool	separator_irregularity_identifier(
 		error_fatal(c, ERROR_SYNTAX_SEPARATOR_UNKNOWN, 258, separator_type);
 	error_message(c, ERROR_SYNTAX_SEPARATOR_BOND, 258, separator_string);
 	return (TRUE);
-}
-
-void	node_show(void *content, char *side)
-{
-	ft_printf("%s:", side);
-	if (*((char *)content) == SHELL_INSTRUCTION_COMMAND)
-		ft_printf("(%s)", ((t_shell_command *)content)->command_string);
-	else
-	{
-		switch (*(char *)content)
-		{
-			case  SHELL_SEPARATOR_TYPE_AND:
-				ft_printf("(&&)");
-				break;
-			case SHELL_SEPARATOR_TYPE_END:
-				ft_printf("(;)");
-				break;
-			case SHELL_SEPARATOR_TYPE_PIPE:
-				ft_printf("(|)");
-				break;
-			case SHELL_SEPARATOR_TYPE_OR:
-				ft_printf("(||)");
-				break;
-		}
-	}
-}
-
-void	binnary_show(t_bnode *root, int space, char *side)
-{
-	if (root == NULL)
-		return ;
-	space += 4;
-	binnary_show(root->right, space, "Right");
-	ft_printf("\n");
-	for (int i = 4; i < space; i++)
-		ft_printf(" ");
-	node_show(root->value, side);
-	binnary_show(root->left, space, "Left");
 }
