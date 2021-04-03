@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/03 10:48:14 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/03 16:00:27 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,14 @@ t_bnode	*scheduler(
 	t_node_binary *unschedule_root
 );
 
-int	schedule(
+int		schedule(
+	t_list	*priority,
 	t_bnode **current_root,
 	t_bnode *previous_node
 );
 
-int		schedule_separator(
-	t_bnode **current_root,
-	t_bnode *previous_node
-);
-
-int		schedule_or_and(
-	t_bnode **current_root,
-	t_bnode *previous_node
-);
-
-int		schedule_pipe(
-	int deep,
-	t_bnode **current_root,
-	t_bnode *previous_node
-);
+t_list	*scheduler_get_priority_list(void);
+t_bool	is_in_priority(char *priority, t_node_binary *node);
 
 void	schedule_swap(
 	t_bnode **current_root,
