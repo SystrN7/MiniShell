@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scheduler_debuger.c                                :+:      :+:    :+:   */
+/*   scheduler_debugger.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:00:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/26 17:06:58 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/03/28 16:43:20 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,32 @@ void	binnary_show(t_bnode *root, int space, char *side)
 		ft_printf(" ");
 	node_show(root->value, side);
 	binnary_show(root->left, space, "Left");
+}
+
+void	show_command(t_bnode *root, int deep)
+{
+	if (root->left)
+		show_command(root->left, deep + 1);
+	if (*((char *)root->value) == SHELL_INSTRUCTION_COMMAND)
+		printf("%s", ((t_shell_command *)root->value)->command_string);
+	else
+	{
+		switch (*(char *)root->value)
+		{
+		case  SHELL_SEPARATOR_TYPE_AND:
+			printf("&&");
+			break;
+		case SHELL_SEPARATOR_TYPE_END:
+			printf(";");
+			break;
+		case SHELL_SEPARATOR_TYPE_PIPE:
+			printf("|");
+			break;
+		case SHELL_SEPARATOR_TYPE_OR:
+			printf("||");
+			break;
+		}
+	}
+	if (root->right)
+		show_command(root->right, deep + 1);
 }
