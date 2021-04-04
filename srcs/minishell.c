@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/21 15:22:15 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 16:50:30 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_builtin.h"
 #include "minishell_parser.h"
+#include "minishell_scheduler.h"
 #include "minishell_runtime.h"
 #include "minishell_utilities.h"
 
@@ -77,6 +78,7 @@ void	shell_start(char const *argv[], char *env[])
 	while (get_next_line(0, &line) >= 0)
 	{
 		root = ft_treat_line(line);
+		scheduler(&context, root);
 		run_instruction(&context, root);
 		ft_managed_free(line);
 		console_prompt(&context);
