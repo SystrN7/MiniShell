@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/28 16:40:52 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 13:22:02 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	binnary_show(t_bnode *root, int space, char *side);
 
 
 // ??? Gros connard de merde pence a fix ls;&&|cat 
+// ??? et 1;2|3||5;&&6|7;8 // Bug wrong token as reported as error
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
 	t_node_binary	*it;
