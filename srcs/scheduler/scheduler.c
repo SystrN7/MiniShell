@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/04 14:53:31 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 16:29:15 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	schedule_separator(
 		{
 			schedule_swap(working_root, current_node, previous_node);
 			schedule(&current_node->left, current_node);
-			schedule(&current_node->right, current_node);
+			schedule(&current_node->right, current_node->right);
 			return (SORTED);
 		}
 		previous_node = current_node;
@@ -101,7 +101,6 @@ int	schedule_or_and(
 	while (get_node_type(current_node) == SHELL_SEPARATOR_TYPE_OR
 		|| get_node_type(current_node) == SHELL_SEPARATOR_TYPE_AND)
 	{
-		ft_printf("ke le pls \n");
 		working_root = &current_node->left;
 		previous_node = current_node;
 		current_node = current_node->left;
@@ -121,7 +120,7 @@ int	schedule_or_and(
 		{
 			schedule_swap(working_root, current_node, previous_node);
 			schedule(&current_node->left, current_node);
-			schedule(&current_node->right, current_node);
+			schedule(&current_node->right, current_node->right);
 			return (SORTED);
 		}
 		previous_node = current_node;
