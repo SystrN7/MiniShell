@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:53:12 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/20 11:13:40 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 10:26:06 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*command_path_resolver(t_shell_context *context, t_shell_command *cmd);
 // --------------------------------Separator--------------------------------- //
 int		instruction_separator(t_shell_context *context, t_node_binary *node);
 int		instruction_pipe(t_shell_context *context, t_node_binary *node);
+int		instruction_pipe_subshell(t_shell_context *context);
 int		instruction_and(t_shell_context *context, t_node_binary *node);
 int		instruction_or(t_shell_context *context, t_node_binary *node);
 

@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/03/28 12:16:09 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/05 15:49:11 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/scheduler/node_utilities.c \
 						./srcs/scheduler/scheduler_debugger.c \
 						./srcs/runtime/runtime.c \
-						./srcs/runtime/pipe.c \
 						./srcs/runtime/redirection.c \
 						./srcs/runtime/instruction/instruction_command.c \
 						./srcs/runtime/instruction/instruction_separator.c \
