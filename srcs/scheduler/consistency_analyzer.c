@@ -6,44 +6,63 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/04 13:22:02 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 13:39:09 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_scheduler.h"
 
-void	binnary_show(t_bnode *root, int space, char *side);
-
-
-// ??? Gros connard de merde pence a fix ls;&&|cat 
-// ??? et 1;2|3||5;&&6|7;8 // Bug wrong token as reported as error
+// ??? Test this case after bug parsing fix
+// - | echo ;; echo ||;
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
-	t_node_binary	*it;
-
-	it = root;
-	while (get_node_type(it) != SHELL_INSTRUCTION_COMMAND)
-	{
-		if (is_null_command(it->right->value))
-		{	
-			if (get_node_type(it->left) == SHELL_INSTRUCTION_COMMAND)
-			{
-				if (get_node_type(it) != SHELL_SEPARATOR_TYPE_END
-					|| is_null_command(it->left->value))
-					return (separator_irregularity_identifier(context, it));
-			}
-			else
-				return (separator_irregularity_identifier(context, it->left));
-		}
-		else if (get_node_type(it->left) == SHELL_INSTRUCTION_COMMAND)
-		{
-			if (is_null_command(it->left->value))
-				return (separator_irregularity_identifier(context, it));
-		}
-		it = it->left;
-	}
+	if (root->left && is_null_command(root->left->value))
+		return (separator_irregularity_identifier(context, root));
+	if (analyzer_recusive(context, root, root->left))
+		return (TRUE);
+	// Check end of command.
+	if (root->right && is_null_command(root->right->value))
+		if (get_node_type(root) != SHELL_SEPARATOR_TYPE_END)
+			return (separator_irregularity_identifier(context, root));
 	return (FALSE);
 }
+
+t_bool	analyzer_recusive(
+	t_shell_context *context,
+	t_node_binary *parent_node,
+	t_node_binary *node
+)
+{
+	if (node->left || get_node_type(node) != SHELL_INSTRUCTION_COMMAND)
+		if (analyzer_recusive(context, node, node->left) == TRUE)
+			return (TRUE);
+	if (node->right && is_null_command(node->right->value))
+		return (separator_irregularity_identifier(context, parent_node));
+	return (FALSE);
+}
+
+// t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
+// {
+// 	t_node_binary	*it;
+
+// 	it = root;
+// 	while (it)
+// 	{
+// 		if (get_node_type(it) == SHELL_INSTRUCTION_COMMAND)
+// 			return (FALSE);
+// 		// if (is_null_command(it->right->value))
+// 		// 	return (separator_irregularity_identifier(context, it));
+// 		if (it->left && it->left->right)
+// 			if (is_null_command(it->left->right->value))
+// 				return (separator_irregularity_identifier(context, it));
+// 		if (get_node_type(it->left) == SHELL_INSTRUCTION_COMMAND)
+// 			if (is_null_command(it->right->value))
+// 				if (get_node_type(it) != SHELL_SEPARATOR_TYPE_END)
+// 					return (separator_irregularity_identifier(context, it));
+// 		it = it->left;
+// 	}
+// 	return (FALSE);
+// }
 
 t_bool	separator_irregularity_identifier(
 	t_shell_context *c,
@@ -64,7 +83,7 @@ t_bool	separator_irregularity_identifier(
 	else if (separator_type == SHELL_SEPARATOR_TYPE_PIPE)
 		separator_string = "|";
 	else
-		error_fatal(c, ERROR_SYNTAX_SEPARATOR_UNKNOWN, 258, separator_type);
+		error_fatal(c, ERROR_SYNTAX_SEPARATOR_UNKNOWN, 1, separator_type);
 	error_message(c, ERROR_SYNTAX_SEPARATOR_BOND, 258, separator_string);
 	return (TRUE);
 }
