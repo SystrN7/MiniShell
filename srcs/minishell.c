@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 13:38:46 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 13:40:48 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	shell_start(char const *argv[], char *env[])
 		root = ft_treat_line(line);
 		if (scheduler(&context, root) != NULL)
 			run_instruction(&context, root);
+		// TODO: Add command clear affter execution
 		ft_managed_free(line);
 		console_prompt(&context);
 	}

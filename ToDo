@@ -1,0 +1,11 @@
+# Bug
+## Felix
+ - [ ] : (cat | echo) - Gerer le promt comme dans bash;
+ - [ ] : Fix Error messages.
+ - [ ] : Free command line.
+ - [ ] : Search leaks.
+ -
+## Sébastien
+ - [ ] : (\) - segfault
+ - [ ] : ("\) - segfault
+ - [ ] : (| echo ;; echo ||;) - segfault
