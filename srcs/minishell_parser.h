@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 17:29:33 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 15:21:40 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int					ft_cat(char *dest, char *s, int j);
 
 void				ft_treat_var(t_shell_context *context,
 						t_shell_command *command);
+void				ft_catch_redirection_before(t_shell_command *cmd);
 void				ft_catch_redirection(t_shell_context *context,
 						t_shell_command *cmd);
 int					ft_redirection_right(t_shell_command *cmd, int i);

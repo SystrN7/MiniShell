@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 16:45:13 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 15:52:34 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 	{
 		if (cmd->command_string[i] == '>' && cmd->command_mask[i] == '0')
 		{
-			printf("i = %d\n", i);
+			//printf("i = %d\n", i);
 			i = ft_redirection_right(cmd, i);
 		}
 		else if (cmd->command_string[i] == '<' && cmd->command_mask[i] == '0')
@@ -95,4 +95,25 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 			i++;
 	}
 	cmd->argv = ft_split(cmd->command_string, ' ');
+}
+
+void	ft_catch_redirection_before(t_shell_command *cmd)
+{
+	int	i;
+
+	i = 0;
+	cmd->redirection = ft_managed_malloc(sizeof(t_redirection_list *));
+	cmd->redirection[0] = NULL;
+	while (cmd->command_string[i])
+	{
+		if (cmd->command_string[i] == '>' && cmd->command_mask[i] == '0')
+			i = ft_redirection_right(cmd, i);
+		else if (cmd->command_string[i] == '<' && cmd->command_mask[i] == '0')
+			i = ft_redirection_left_new(cmd, i);
+		else
+			i++;
+	}
+	cmd->argv = ft_split(cmd->command_string, ' ');
+	//ft_show_argv(cmd->argv);
+	//ft_show_redirection_list(cmd->redirection);
 }
