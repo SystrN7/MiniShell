@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 12:05:29 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 16:30:05 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,31 @@ t_node_binary	*scheduler(
 	if (consistency_analyzer(context, unschedule_root))
 		return (NULL);
 	schedule_root = &unschedule_root;
-	schedule(schedule_root, *schedule_root);
+	schedule(context->token, schedule_root, *schedule_root);
 	return (*schedule_root);
 }
 
 int	schedule(
+	t_list	*priority,
 	t_bnode **current_root,
 	t_bnode *previous_node
 )
 {
 	int		recution_state;
 
-	recution_state = schedule_separator(current_root, previous_node);
+	recution_state = schedule_separator(priority, current_root, previous_node);
 	if (recution_state == IS_SORT)
 	{
-		recution_state = schedule_or_and(current_root, previous_node);
-		if (recution_state == IS_SORT)
-			return (SORTED);
+		priority = priority->next;
+		if (priority != NULL)
+			schedule_separator(priority, current_root, previous_node);
+		return (SORTED);
 	}
 	return (SORT);
 }
 
 int	schedule_separator(
+	t_list	*priority,
 	t_bnode **current_root,
 	t_bnode *previous_node
 )
@@ -62,7 +65,7 @@ int	schedule_separator(
 	t_node_binary	**working_root;
 
 	working_root = current_root;
-	while (get_node_type(previous_node) == SHELL_SEPARATOR_TYPE_END)
+	while (is_in_priority(priority->content, previous_node))
 	{
 		working_root = &previous_node->left;
 		previous_node = previous_node->left;
@@ -72,11 +75,11 @@ int	schedule_separator(
 	{
 		if (get_node_type(current_node) == SHELL_INSTRUCTION_COMMAND)
 			return (IS_SORT);
-		if (get_node_type(current_node) == SHELL_SEPARATOR_TYPE_END)
+		if (is_in_priority(priority->content, current_node))
 		{
 			schedule_swap(working_root, current_node, previous_node);
-			schedule(&current_node->left, current_node);
-			schedule(&current_node->right, current_node->right);
+			schedule(priority, &current_node->left, current_node);
+			schedule(priority, &current_node->right, current_node->right);
 			return (SORTED);
 		}
 		previous_node = current_node;
@@ -85,40 +88,21 @@ int	schedule_separator(
 	return (IS_SORT);
 }
 
-int	schedule_or_and(
-	t_bnode **current_root,
-	t_bnode *previous_node
-)
+t_list	*scheduler_get_priority_list(void)
 {
-	t_node_binary	*current_node;
-	t_node_binary	**working_root;
+	t_list	*priority_list;
+	char	*id_separator;
+	char	*ids_or_and;
 
-	working_root = current_root;
-	current_node = previous_node;
-	while (get_node_type(current_node) == SHELL_SEPARATOR_TYPE_OR
-		|| get_node_type(current_node) == SHELL_SEPARATOR_TYPE_AND)
-	{
-		working_root = &current_node->left;
-		previous_node = current_node;
-		current_node = current_node->left;
-	}
-	while (current_node != NULL)
-	{
-		if (get_node_type(current_node) == SHELL_INSTRUCTION_COMMAND)
-			return (IS_SORT);
-		if ((get_node_type(current_node) == SHELL_SEPARATOR_TYPE_OR
-				|| get_node_type(current_node) == SHELL_SEPARATOR_TYPE_AND)
-			&& get_node_type(previous_node) != SHELL_SEPARATOR_TYPE_END)
-		{
-			schedule_swap(working_root, current_node, previous_node);
-			schedule(&current_node->left, current_node);
-			schedule(&current_node->right, current_node->right);
-			return (SORTED);
-		}
-		previous_node = current_node;
-		current_node = current_node->left;
-	}
-	return (IS_SORT);
+	priority_list = NULL;
+	id_separator = ft_calloc(sizeof(char), (1 + 1));
+	ids_or_and = ft_calloc(sizeof(char), (2 + 1));
+	id_separator[0] = (char)SHELL_SEPARATOR_TYPE_END;
+	ids_or_and[0] = (char)SHELL_SEPARATOR_TYPE_AND;
+	ids_or_and[1] = (char)SHELL_SEPARATOR_TYPE_OR;
+	ft_lstnew_back(&priority_list, id_separator, free);
+	ft_lstnew_back(&priority_list, ids_or_and, free);
+	return (priority_list);
 }
 
 void	schedule_swap(

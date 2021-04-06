@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 12:46:00 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 15:29:37 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->shared_environment = env_store(env);
 	ft_managed_termination_function((t_term)shell_shutdown);
 	ft_managed_termination_params(context);
+	context->token = scheduler_get_priority_list();
 	context->standard_input_backup = dup(standard_input);
 	context->standard_output_backup = dup(standard_output);
 	context->shell_name = ft_strsplit_last(argv[path], '/');
@@ -71,6 +72,7 @@ void	shell_shutdown(t_shell_context *context)
 	unsigned char	return_code;
 
 	ft_managed_free_all();
+	ft_lstclear(&context->token, &ft_managed_free);
 	return_code = context->last_command_return_code % 256;
 	exit(return_code);
 }

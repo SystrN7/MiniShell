@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 14:41:47 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 15:33:24 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 16:54:21 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	instruction_pipe(t_shell_context *context, t_node_binary *node)
 			return (error_message(context, ERROR_STD, 1));
 		run_instruction(context, node->left);
 		close(process_io[pipe_output]);
-		exit(context->last_command_return_code % 25);
+		exit(context->last_command_return_code);
 	}
 	else
 	{

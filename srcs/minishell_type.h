@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 11:14:32 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 16:20:33 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ typedef struct s_shell_context
 {
 	char	*shell_name;
 
+	t_list	*token;
+
 	t_list	*local_environement;
 	t_list	*shared_environment;
-
-	char	*path_current;
-	char	*path_previous;
 
 	int		standard_input_backup;
 	int		standard_output_backup;
 
-	int		running_command_pid;
 	int		last_command_return_code;
 }				t_shell_context;
 
