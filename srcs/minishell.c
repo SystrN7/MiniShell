@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 13:40:48 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 12:46:00 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "minishell_runtime.h"
 #include "minishell_utilities.h"
 
-
 t_shell_context	*shell_get_context(t_shell_context *context)
 {
 	static t_shell_context	*save_context;
@@ -26,7 +25,6 @@ t_shell_context	*shell_get_context(t_shell_context *context)
 		save_context = context;
 	return (save_context);
 }
-
 
 int	main(int argc, char const *argv[], char *env[])
 {
@@ -47,30 +45,12 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->shell_name = ft_strsplit_last(argv[path], '/');
 }
 
-void	signal_test_gnl(int num)
-{
-	t_shell_context	*context;
-
-	context = shell_get_context(NULL);
-	ft_putstr_fd(standard_output, "\b\b  \n");
-	console_prompt(context);
-	(void)num;
-
-}
-
-void	signal_print(int num)
-{
-	(void)num;
-	printf("ctrl D found\n");
-}
-
 void	shell_start(char const *argv[], char *env[])
 {
 	t_shell_context	context;
 	char			*line;
 	t_node_binary	*root;
 
-	signal(SIGINT, signal_test_gnl);
 	(void)argv;
 	shell_init(&context, argv, env);
 	console_clear();
@@ -80,7 +60,6 @@ void	shell_start(char const *argv[], char *env[])
 		root = ft_treat_line(line);
 		if (scheduler(&context, root) != NULL)
 			run_instruction(&context, root);
-		// TODO: Add command clear affter execution
 		ft_managed_free(line);
 		console_prompt(&context);
 	}

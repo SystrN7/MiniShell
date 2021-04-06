@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 13:08:36 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 12:03:13 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,30 @@
  **/
 
 t_bnode	*scheduler(
-	t_shell_context *context,
-	t_node_binary *unschedule_root
-);
+			t_shell_context *context,
+			t_node_binary *unschedule_root
+			);
 
-int	schedule(
-	t_bnode **current_root,
-	t_bnode *previous_node
-);
+int		schedule(
+			t_bnode **current_root,
+			t_bnode *previous_node
+			);
 
 int		schedule_separator(
-	t_bnode **current_root,
-	t_bnode *previous_node
-);
+			t_bnode **current_root,
+			t_bnode *previous_node
+			);
 
 int		schedule_or_and(
-	t_bnode **current_root,
-	t_bnode *previous_node
-);
-
-int		schedule_pipe(
-	int deep,
-	t_bnode **current_root,
-	t_bnode *previous_node
-);
+			t_bnode **current_root,
+			t_bnode *previous_node
+			);
 
 void	schedule_swap(
-	t_bnode **current_root,
-	t_bnode *current_node,
-	t_bnode *previous_node
-);
+			t_bnode **current_root,
+			t_bnode *current_node,
+			t_bnode *previous_node
+			);
 
 /**
  * =============================================================================
@@ -63,10 +57,10 @@ void	schedule_swap(
 
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root);
 t_bool	analyzer_recusive(
-	t_shell_context *context,
-	t_node_binary *parent_node,
-	t_node_binary *node
-);
+			t_shell_context *context,
+			t_node_binary *parent_node,
+			t_node_binary *node
+			);
 t_bool	separator_irregularity_identifier(
 			t_shell_context *context,
 			t_bnode *current_node

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/21 15:51:56 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:14:32 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,5 @@ typedef struct s_shell_separator
 {
 	char	instruction_type;
 }				t_shell_separator;
-
 
 #endif

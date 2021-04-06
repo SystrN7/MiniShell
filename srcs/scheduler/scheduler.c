@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/04 17:05:54 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 12:05:29 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ enum
 	ERROR,
 };
 
-t_node_binary	*scheduler(t_shell_context *context, t_node_binary *unschedule_root)
+t_node_binary	*scheduler(
+	t_shell_context *context,
+	t_node_binary *unschedule_root
+)
 {
 	t_node_binary	**schedule_root;
 
@@ -30,13 +33,6 @@ t_node_binary	*scheduler(t_shell_context *context, t_node_binary *unschedule_roo
 		return (NULL);
 	schedule_root = &unschedule_root;
 	schedule(schedule_root, *schedule_root);
-	// ??? Debug remove latter.
-	ft_printf("----------------------DEBUG----------------------\n");
-	binnary_show(*schedule_root, 0, "Root");
-	ft_printf("\n\nPost Sheduling command:`");
-	show_command(*schedule_root, 0);
-	ft_printf("`\n-------------------------------------------------\n");
-	// ??? Debug remove latter.
 	return (*schedule_root);
 }
 
@@ -106,11 +102,6 @@ int	schedule_or_and(
 		previous_node = current_node;
 		current_node = current_node->left;
 	}
-	// ft_printf("befor swap :\n - previous node = %s\n - current node =%s\n - current root=%s\n\n",
-	// 	node_get_value(previous_node),
-	// 	node_get_value(previous_node->left),
-	// 	node_get_value(*current_root)
-	// );
 	while (current_node != NULL)
 	{
 		if (get_node_type(current_node) == SHELL_INSTRUCTION_COMMAND)
@@ -136,11 +127,6 @@ void	schedule_swap(
 	t_bnode *previous_node
 )
 {
-	// ft_printf("Swap :\n - previous node = %s\n - current node =%s\n - current root=%s\n\n",
-	// 	node_get_value(previous_node),
-	// 	node_get_value(current_node),
-	// 	node_get_value(*current_root)
-	// );
 	previous_node->left = current_node->right;
 	current_node->right = *current_root;
 	*current_root = current_node;

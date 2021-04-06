@@ -6,13 +6,13 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 15:13:37 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 12:18:11 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_scheduler.h"
 
-// ??? Test this case after bug parsing fix
+// ??? Test this case
 // - | echo ;; echo ||;
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
@@ -40,7 +40,6 @@ t_bool	analyzer_recusive(
 		return (separator_irregularity_identifier(context, parent_node));
 	return (FALSE);
 }
-
 
 t_bool	separator_irregularity_identifier(
 	t_shell_context *c,

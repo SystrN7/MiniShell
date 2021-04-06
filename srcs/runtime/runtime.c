@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 11:30:38 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/11 17:01:21 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:23:55 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	run_instruction(t_shell_context *context, t_node_binary *node)
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
 		return (instruction_command(context, node));
 	else if (node_type == SHELL_INSTRUCTION_UNKNOWN)
-		error_fatal(context, ERROR_RUNTIME_UNKNOWN_INSTRUCTION, 1, (int)node_type);
+		error_fatal(context, ERROR_RUNTIME_UNKNOWN_INSTRUCTION,
+			1, (int)node_type);
 	else
 		return (run_separator(context, node_type, node));
 	return (context->last_command_return_code);

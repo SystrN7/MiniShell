@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:05:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/02/17 11:54:00 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:22:14 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ char	*path_get_binary_path(char *env_path, char *binary_name)
 		if (path_find_binary(binaries_location[i], binary_name))
 		{
 			binary_path = ft_2d_merge(path);
-			ft_2d_free((void**)binaries_location);
+			ft_2d_free((void **)binaries_location);
 			return (binary_path);
 		}
 		i++;
 	}
-	ft_2d_free((void**)binaries_location);
+	ft_2d_free((void **)binaries_location);
 	return (NULL);
 }
 
@@ -59,7 +59,8 @@ t_bool	path_find_binary(char *directory_name, char *binary_name)
 	while (dir_content && !result)
 	{
 		if (dir_content->d_namlen == binary_name_lenght
-			&& !ft_strncmp(dir_content->d_name, binary_name, binary_name_lenght))
+			&& !ft_strncmp(dir_content->d_name, binary_name, binary_name_lenght)
+		)
 			result = TRUE;
 		dir_content = readdir(directory);
 	}

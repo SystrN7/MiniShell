@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:49:44 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 12:08:37 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:23:00 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "minishell_type.h"
 
-int		instruction_separator(t_shell_context *context, t_node_binary *node)
+int	instruction_separator(t_shell_context *context, t_node_binary *node)
 {
 	run_instruction(context, node->left);
 	if (node->right)
