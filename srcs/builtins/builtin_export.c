@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 11:06:35 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/15 15:40:03 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 16:59:08 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	builtin_export_var(t_shell_context *context, char **args)
 				env_set(context, env.key, env.value);
 		}
 		else
-			error_message(context, ERROR_ENV_INVALID_IDENTIFIER, 1, args[0], args[i]);
+			error_builtin(
+				context,
+				ERROR_ENV_INVALID_IDENTIFIER, 1,
+				args[0], NULL, args[i]);
 		i++;
 	}
 }
@@ -60,7 +63,7 @@ void	builtin_export_print(t_shell_context *context)
 	it = context->shared_environment;
 	while (it)
 	{
-		var = (t_associative*)it->content;
+		var = (t_associative *)it->content;
 		if (var->value == NULL || ((char *)var->value)[0] == '\0')
 			ft_printf("declare -x %s\n", var->key);
 		else

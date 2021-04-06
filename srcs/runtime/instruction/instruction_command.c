@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/21 14:31:52 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:10:25 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
 	return (FALSE);
 }
 
-int	instruction_command_prepare(t_shell_context *context, t_shell_command *command)
+int	instruction_command_prepare(
+	t_shell_context *context,
+	t_shell_command *command
+)
 {
 	ft_treat_var(context, command);
 	ft_catch_redirection(context, command);
@@ -80,19 +83,11 @@ int	instruction_command_prepare(t_shell_context *context, t_shell_command *comma
 	return (SUCCESS);
 }
 
-void	signal_test(int num)
-{
-	(void)num;
-	//printf("Ctrl C is pressed in prompt\n");
-}
-
 int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 {
 	pid_t	pid;
 	int		status;
 
-	//Handle les signaux dans le shell, pas dans les programmes (ex cat ou echo)
-	//signal(SIGINT, signal_test);
 	command_path_resolver(context, command);
 	if (command->path == NULL)
 		return (context->last_command_return_code);
@@ -104,9 +99,9 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 		execve(
 			command->path,
 			command->argv,
-			env_destore_all(context->shared_environment)
-		);
-		error_fatal(context, ERROR_STD, 126);
+			env_destore_all(context->shared_environment));
+		error_std(context, 127, command->path, NULL);
+		shell_shutdown(context);
 	}
 	else
 		waitpid(pid, &status, 0);
@@ -114,7 +109,10 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 	return (context->last_command_return_code);
 }
 
-char	*command_path_resolver(t_shell_context *context, t_shell_command *command)
+char	*command_path_resolver(
+	t_shell_context *context,
+	t_shell_command *command
+)
 {
 	ft_managed_free(command->path);
 	if (ft_strchr(command->argv[path], '/'))
@@ -122,14 +120,12 @@ char	*command_path_resolver(t_shell_context *context, t_shell_command *command)
 	else
 		command->path = path_get_binary_path(
 				env_get(context, "PATH"),
-				command->argv[path]
-			);
+				command->argv[path]);
 	if (!command->path)
 		error_message(
 			context,
 			ERROR_RUNTIME_UNKNOWN_COMMAND,
 			127,
-			command->argv[path]
-		);
+			command->argv[path]);
 	return (command->path);
 }

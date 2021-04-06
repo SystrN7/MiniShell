@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:28:33 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/15 10:17:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 16:54:01 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,20 @@ int	builtin_exit(t_shell_context *context, int argc, char **args)
 	if (argc >= 2)
 	{
 		if (!ft_strtest(args[arg1], ft_isdigit))
-			exit_error_invalid_argument(context, args[arg1]);
+		{
+			error_builtin(context,
+				ERROR_ARG_REQUIRE_NUMERIC, 255,
+				args[path], NULL, args[1]);
+			shell_shutdown(context);
+		}
 		else if (argc > 2)
-			return (exit_error_too_many_argument(context));
+			return (error_builtin(
+					context,
+					ERROR_ARG_TOO_MANY, 1,
+					args[path], NULL)
+			);
 		context->last_command_return_code = ft_atoi(args[arg1]);
 	}
 	shell_shutdown(context);
 	return (0);
-}
-
-int	exit_error_invalid_argument(t_shell_context *context, const char *arg)
-{
-	ft_printf_fd(
-		standard_error,
-		"%s: exit: %s: numeric argument required\n",
-		context->shell_name,
-		arg
-	);
-	context->last_command_return_code = 255;
-	shell_shutdown(context);
-	return (context->last_command_return_code);
-}
-
-int	exit_error_too_many_argument(t_shell_context *context)
-{
-	ft_printf_fd(
-		standard_error,
-		"%s: exit: too many arguments\n",
-		context->shell_name
-	);
-	context->last_command_return_code = 1;
-	return (context->last_command_return_code);
 }

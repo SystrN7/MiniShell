@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:02:51 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 14:05:59 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 16:54:21 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int		builtin_cd_path_env(t_shell_context *cnt, char *blt_name, char *var);
 int		builtin_cd_update_env(t_shell_context *context);
 
 int		builtin_exit(t_shell_context *context, int argc, char **args);
-int		exit_error_invalid_argument(t_shell_context *context, const char *arg);
-int		exit_error_too_many_argument(t_shell_context *context);
 
 #endif
 

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:40:28 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/22 12:58:58 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 16:59:38 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static const struct		s_error_messages
 	char				*message;
 } error_messages[] = {
 	{ERROR_UNDIFINED, "Undifined error (Just take a cooffe ☕)."},
-	{ERROR_STD, "%s: Is not an error for my bro."},
-	{ERROR_ARG_TOO_MANY, "%s: too many arguments"},
+	{ERROR_STD, "Is not an error for my bro."},
+	{ERROR_ARG_TOO_MANY, "too many arguments"},
 	{ERROR_ARG_REQUIRE_NUMERIC, "%s: numeric argument required"},
-	{ERROR_ENV_INVALID_IDENTIFIER, "%s: `%s': not a valid identifier"},
+	{ERROR_ENV_INVALID_IDENTIFIER, "`%s': not a valid identifier"},
 	{ERROR_RUNTIME_UNKNOWN_INSTRUCTION, "unknown instruction is found"},
 	{ERROR_RUNTIME_UNKNOWN_COMMAND, "%s: command not found"},
 	{ERROR_SYNTAX_SEPARATOR_UNKNOWN, "`%d': is invalid separator code"},
@@ -57,14 +57,16 @@ static const struct		s_error_messages
 	{ERROR_SYNTAX_INVALID_INSTRUCTION, "`%d': is invalid instruction code"},
 	{ERROR_SYNTAX_INVALID_INSTRUCTION, "`%d': is invalid instruction code"},
 	{ERROR_SYNTAX_COMMAND_NOT_END, "command is not the end"},
-	{ERROR_BUILTIN_CD_NO_VAR, "%s: %s not set"},
+	{ERROR_BUILTIN_CD_NO_VAR, "%s not set"},
 	{0, NULL}
 };
 
 char	*error_get_message(int error_code);
+void	error_print_origin(va_list args);
 int		error_print_messages(t_shell_context *cnt, int ec, int rc, va_list arg);
 
 int		error_message(t_shell_context *context, int error_code, int retc, ...);
+int		error_std(t_shell_context *context, int retc, ...);
 int		error_fatal(t_shell_context *context, int error_code, int retc, ...);
 int		error_builtin(t_shell_context *context, int error_code, int retc, ...);
 

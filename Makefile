@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/05 15:49:11 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/05 16:32:22 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/utilities/console.c \
 						./srcs/utilities/path.c \
 						./srcs/utilities/error.c \
+						./srcs/utilities/error_utilities.c \
 						./srcs/utilities/environment_store.c \
 						./srcs/utilities/environment_destore.c \
 						./srcs/utilities/environment_manip.c \

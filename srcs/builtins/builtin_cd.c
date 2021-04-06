@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 10:23:55 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 14:12:29 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 16:44:09 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	builtin_cd(t_shell_context *context, int argc, char **args)
 			return (context->last_command_return_code);
 		directory = args[arg1];
 		if (chdir(args[arg1]) == ERROR_STD)
-			error_message(context, ERROR_STD, 1);
+			error_builtin(context, ERROR_STD, 1, args[path], args[arg1], NULL);
 		else
 			builtin_cd_update_env(context);
 	}
@@ -63,12 +63,15 @@ int	builtin_cd_path_env(t_shell_context *context, char *blt_name, char *env_var)
 	{
 		env_home = ft_lst_associative_get(context->shared_environment, env_var);
 		if (chdir(env_home) == ERROR_STD)
-			error_message(context, ERROR_STD, 1);
+			error_builtin(context, ERROR_STD, 1, blt_name, env_home, NULL);
 		else
 			builtin_cd_update_env(context);
 	}
 	else
-		error_message(context, ERROR_BUILTIN_CD_NO_VAR, 1, blt_name, env_var);
+		error_builtin(
+			context,
+			ERROR_BUILTIN_CD_NO_VAR, 1,
+			blt_name, NULL, env_var);
 	return (SUCCESS);
 }
 
