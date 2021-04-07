@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 15:29:37 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:00:27 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	shell_start(char const *argv[], char *env[])
 	while (get_next_line(0, &line) >= 0)
 	{
 		root = ft_treat_line(line);
-		if (scheduler(&context, root) != NULL)
+		root = scheduler(&context, root);
+		if (root != NULL)
 			run_instruction(&context, root);
 		ft_managed_free(line);
 		console_prompt(&context);
