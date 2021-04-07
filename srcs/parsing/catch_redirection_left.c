@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection_left.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 11:06:15 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 12:40:55 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ int	ft_skip_spaces_left(t_shell_command *cmd,t_redirection_list *new, int i)
 		|| cmd->command_mask[j] != '0'))
 		j--;
 	new->redirection_file = ft_managed_malloc(sizeof(char) * (i - j + 1));
+	new->mask = ft_managed_malloc(sizeof(char) * (i - j + 1));
 	new->redirection_file[i - j] = '\0';
+	new->mask[i - j] = '\0';
 	return (i);
 }
 
@@ -135,6 +137,7 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 		|| cmd->command_mask[j] != '0'))
 	{
 		new->redirection_file[k] = cmd->command_string[j];
+		new->mask[k] = cmd->command_string[j];
 		j--;
 		k++;
 	}

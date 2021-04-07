@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:11:58 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 17:12:57 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 16:29:39 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,14 @@ char	*ft_set_var_value(char *varname, t_shell_context *context)
 {
 	char	*var_value;
 
+	var_value = NULL;
 	if (ft_is_return_code(varname) == 1)
 		var_value = ft_itoa(context->last_command_return_code);
 	else
-		var_value = ft_strdup(env_get(context, varname));
+	{
+		if (env_get(context, varname) != NULL)
+			var_value = ft_strdup(env_get(context, varname));
+	}
 	if (var_value == NULL)
 		var_value = "";
 	return (var_value);

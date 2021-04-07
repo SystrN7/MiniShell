@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/06 14:13:56 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 17:06:57 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,113 @@ int	ft_replace_var(t_shell_context *context, t_shell_command *cmd, int i)
 		varname[j - i] = cmd->command_string[j];
 		j++;
 	}
+	printf("OLD VARNAME = %s\n", varname);
 	j = ft_replace_in_struct(context, cmd, i, varname);
 	ft_managed_free(varname);
 	return (j);
 }
 
+void	ft_replace_argv(char *var_value, char *varname, t_shell_command *cmd, int i)
+{
+	char	*new_argv;
+	int		final_len;
+	int		j;
+
+	j = 0;
+	final_len = ft_strlen(cmd->argv[i]) - ft_strlen(varname) + ft_strlen(var_value);
+	new_argv = ft_managed_malloc(sizeof(char) * final_len + 1);
+	while (cmd->argv[i][j] != '$' && cmd->command_mask[j] != '1')
+	{
+		j++;
+	}
+}
+
+void	ft_test(t_shell_context *context, t_shell_command *cmd, int i, int len, int j)
+{
+	char	mask;
+	int		varlen;
+	char	*varname;
+	char	*var_value;
+	int		k;
+
+	k = 0;
+	mask = cmd->command_mask[len];
+	printf("len = %d\nj   = %d\n", len, j);
+	j++;
+	varlen = j;
+	while (cmd->argv[i][j] && cmd->command_mask[++len] == mask
+		&& (ft_isalnum(cmd->argv[i][j]) == 1
+			|| cmd->argv[i][j] == '_' || cmd->argv[i][j] == '?'))
+		j++;
+	varlen = j - varlen;
+	printf("Varlen = %d\n", varlen);
+	varname = ft_managed_malloc(sizeof(char) * varlen + 1);
+	varname[varlen] = '\0';
+	j = j - varlen;
+	while (k < varlen)
+	{
+		varname[k] = cmd->argv[i][j];
+		k++;
+		j++;
+	}
+	printf("Varname = %s\n", varname);
+	printf("len = %zu\n", ft_strlen(varname));
+	var_value = ft_set_var_value(varname, context);
+	ft_replace_argv(var_value, varname, cmd, i);
+	printf("Var = %s\n", var_value);
+}
+
 void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
 {
 	int	i;
+	int	j;
+	int	len;
+	t_redirection_list	*buff;
 
 	i = 0;
+	j = 0;
+	len = 0;
+	while (cmd->argv[i])
+	{
+		while (cmd->argv[i][j])
+		{
+			if (cmd->argv[i][j] == '$' && cmd->command_mask[len + j] != '1')
+			{
+				printf("Found Var to replace\nindex = %d\n", len + j);
+				ft_test(context, cmd, i, len + j, j);
+				//replace var in argv
+			}
+			j++;
+		}
+		len += j;
+		while (cmd->command_string[len] == ' ')
+			len++;
+		j = 0;
+		i++;
+	}
+	i = 0;
+	j = 0;
+	buff = *cmd->redirection;
+	//while (cmd->redirection[i]->redirection_file)
+	while (buff)
+	{
+		printf("filename = %s\n", buff->redirection_file);
+		while (buff->redirection_file[j])
+		{
+			if (buff->redirection_file[j] == '$'
+				&& buff->mask[j] != '1')
+			{
+				printf("Filename : %s\n", buff->redirection_file);
+				printf("Mask     : %s\n", buff->mask);
+			}
+			j++;
+		}
+		i++;
+		j = 0;
+		buff = buff->next;
+	}
+
+/*
 	if (!(cmd->command_string == NULL))
 	{
 		while (cmd->command_string[i])
@@ -106,4 +203,5 @@ void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
 				i++;
 		}
 	}
+*/
 }
