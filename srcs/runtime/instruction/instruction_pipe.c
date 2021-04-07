@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 14:41:47 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 16:54:21 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 16:47:16 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,20 @@ enum e_pipe
 
 int	instruction_pipe(t_shell_context *context, t_node_binary *node)
 {
-	int		process_io[2];
+	int		pipe_fds[2];
 	pid_t	pid;
 
 	if (instruction_pipe_subshell(context) != 0)
 		return (context->last_command_return_code);
-	if (pipe((int *)&process_io) == -1)
+	if (pipe((int *)&pipe_fds) == -1)
 		error_fatal(context, ERROR_STD, 1);
 	pid = fork();
 	if (pid < 0)
 		error_fatal(context, ERROR_STD, 1);
 	else if (pid == 0)
-	{
-		// child (standard output)->(pipe input);
-		close(process_io[pipe_output]);
-		if (dup2(process_io[pipe_input], standard_output) < 0)
-			return (error_message(context, ERROR_STD, 1));
-		run_instruction(context, node->left);
-		close(process_io[pipe_output]);
-		exit(context->last_command_return_code);
-	}
+		pipe_connect_side(context, node->left, pipe_fds, pipe_input);
 	else
-	{
-		// parent (pipe output)->(standard input);
-		close(process_io[pipe_input]);
-		if (dup2(process_io[pipe_output], standard_input) < 0)
-			return (error_message(context, ERROR_STD, 1));
-		run_instruction(context, node->right);
-		close(process_io[pipe_input]);
-		exit(context->last_command_return_code % 256);
-	}
+		pipe_connect_side(context, node->right, pipe_fds, pipe_output);
 	return (context->last_command_return_code);
 }
 
@@ -67,14 +51,31 @@ int	instruction_pipe_subshell(t_shell_context *context)
 	return (pid);
 }
 
-// int pipe_connect()
+int	pipe_connect_side(
+	t_shell_context *context,
+	t_node_binary *node,
+	int pipe_fds[],
+	int pipe_side)
+{
+	int				pipe_use;
+	int				pipe_unused;
+	int				standard_use;
 
-// int	instuction_pipe_connect(t_shell_context *context, in)
-// {
-// 	close(process_io[pipe_input]);
-// 	if (dup2(process_io[pipe_output], standard_output) < 0)
-// 		return (error_message(context, ERROR_STD, 1));
-// 	close(process_io[pipe_input]);
-
-// 	return (SUCCESS);
-// }
+	pipe_use = pipe_side;
+	if (pipe_side == pipe_input)
+	{
+		pipe_unused = pipe_output;
+		standard_use = standard_output;
+	}
+	else
+	{
+		pipe_unused = pipe_input;
+		standard_use = standard_input;
+	}
+	close(pipe_fds[pipe_unused]);
+	if (dup2(pipe_fds[pipe_use], standard_use) == ERROR_STD)
+		return (error_message(context, ERROR_STD, 1));
+	run_instruction(context, node);
+	close(pipe_fds[pipe_use]);
+	exit(context->last_command_return_code);
+}
