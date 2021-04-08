@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:24:23 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/15 14:01:12 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:12:38 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ t_asso	env_key_value_split(char *env_row)
 {
 	t_associative	splited_row;
 	char			*key_value_separator;
-	size_t			row_lenght;
 
-	row_lenght = ft_strlen(env_row);
 	key_value_separator = ft_strchr(env_row, '=');
 	if (key_value_separator)
 		splited_row.value = ft_strdup(key_value_separator + 1);

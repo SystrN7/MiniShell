@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 10:23:55 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 16:44:09 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:03:16 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,16 @@
 */
 
 #include "minishell_builtin.h"
-#include <sys/syslimits.h>
+// #include <sys/syslimits.h>
 
 int	builtin_cd(t_shell_context *context, int argc, char **args)
 {
-	char	*directory;
-
 	if (argc == 1)
 		builtin_cd_no_arg(context, args[path]);
 	else
 	{
 		if (!builtin_cd_previous(context, args[path], args[arg1]))
 			return (context->last_command_return_code);
-		directory = args[arg1];
 		if (chdir(args[arg1]) == ERROR_STD)
 			error_builtin(context, ERROR_STD, 1, args[path], args[arg1], NULL);
 		else
