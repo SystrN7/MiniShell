@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 15:50:33 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:57:52 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,63 +369,4 @@ void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
 		i++;
 	}
 	ft_replace_filenames(context, cmd);
-	//remplacer les vars d'environement en prenant en compte le masque
-	/*
-	while (cmd->argv[i])
-	{
-		while (cmd->argv[i][j])
-		{
-			if (cmd->argv[i][j] == '$' && cmd->command_mask[len + j] != '1')
-			{
-				printf("Found Var to replace\nindex = %d\n", len + j);
-				ft_test(context, cmd, i, len + j, j);
-				len = 0;
-				j = 0;
-				break;
-				//replace var in argv
-			}
-			j++;
-		}
-		len += j;
-		while (cmd->command_string[len] == ' ')
-			len++;
-		j = 0;
-		i++;
-	}
-	printf("New argv = %s\n", cmd->argv[0]);
-	printf("New mask = %s\n", cmd->command_mask);
-	i = 0;
-	j = 0;
-	buff = *cmd->redirection;
-	//while (cmd->redirection[i]->redirection_file)
-	while (buff)
-	{
-		printf("filename = %s\n", buff->redirection_file);
-		while (buff->redirection_file[j])
-		{
-			if (buff->redirection_file[j] == '$'
-				&& buff->mask[j] != '1')
-			{
-				printf("Filename : %s\n", buff->redirection_file);
-				printf("Mask     : %s\n", buff->mask);
-			}
-			j++;
-		}
-		i++;
-		j = 0;
-		buff = buff->next;
-	}
-*/
-/*
-	if (!(cmd->command_string == NULL))
-	{
-		while (cmd->command_string[i])
-		{
-			if (cmd->command_string[i] == '$' && cmd->command_mask[i] != '1')
-				i = ft_replace_var(context, cmd, i + 1);
-			else
-				i++;
-		}
-	}
-*/
 }
