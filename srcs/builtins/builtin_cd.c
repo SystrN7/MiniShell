@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 10:23:55 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/08 17:03:16 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:41:53 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 */
 
 #include "minishell_builtin.h"
-// #include <sys/syslimits.h>
 
 int	builtin_cd(t_shell_context *context, int argc, char **args)
 {

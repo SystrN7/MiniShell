@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/08 16:21:02 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/08 17:31:14 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,14 +67,15 @@ HEADER			=		./srcs/minishell.h \
 
 
 # Libs (Libft)
+CURRENT_DIR		=		$(pwd)
 
 LIBFT_DIR		=		libs/Libft
 LIBFT_HEADER	=		$(LIBFT_DIR)
 LIBFT			=		$(LIBFT_DIR)/libft.a
 
 # Workings vars
-CC				=		gcc
-CFLAGS			=		-Wall -Wextra -Werror -g3 -fsanitize=address
+CC				=		clang
+CFLAGS			=		-Wall -Wextra -Werror -g3 # -fsanitize=address
 CMLXFLAGS		=		
 
 RM				=		rm -f
@@ -83,7 +84,7 @@ OBJS			=		$(SRCS:.c=.o)
 all:	$(NAME)
 
 $(NAME): libft $(OBJS) $(HEADER)
-		$(CC) $(CFLAGS) $(LIBFT) $(CMLXFLAGS) $(OBJS) -o $(NAME)
+		$(CC) $(CFLAGS) -I $(LIBFT_DIR) -L $(LIBFT_DIR) -lft $(CMLXFLAGS) $(OBJS) -o $(NAME)
 
 bonus: $(NAME)
 
@@ -96,9 +97,9 @@ norminette:
 
 leaks:
 	@docker rm -f valgrind-container > /dev/null 2>&1 || true
-	docker build -qt valgrind-image .
-	docker run -e IN_DOCKER=TRUE -dti --name valgrind-container -v .:/project/ valgrind-image
-	docker exec -ti valgrind-container make $* -C minishell || true
+	docker build -t valgrind-image .
+	docker run -e IN_DOCKER=TRUE -dti --name valgrind-container -v /Users/fgalaup/Workspace/new/minishell:/project/ valgrind-image
+	docker exec -ti valgrind-container bash || true
 	@docker rm -f valgrind-container > /dev/null 2>&1
 
 

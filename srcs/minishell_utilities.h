@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:33:31 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/08 14:26:51 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:11:28 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include "libft.h"
 
 # include "minishell_type.h"
+
+# ifdef __APPLE__
+#  include <sys/syslimits.h>
+# elif __linux__
+#  include <limits.h>
+# endif
 
 /**
  * =============================================================================

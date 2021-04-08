@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 17:25:06 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:04:25 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,12 @@ int	ft_cat(char *dest, char *s, int j)
 
 int	ft_show_tree(t_node_binary *root)
 {
-	char			node_type;
 	t_node_binary	**buff;
 
 	printf("\n\nSHOW TREE :\n\n");
 	buff = &root;
 	while (buff[0] != NULL)
 	{
-		node_type = *((char*)(buff[0]->value));
 		printf("\nNodetype = %d\n", *((char*)(buff[0]->value)));
 		if (*((char*)(buff[0]->value)) == 0)
 			printf("\nNode str = %s\n", (((t_shell_command *)(buff[0]->value))->command_string));
@@ -71,12 +69,10 @@ t_parse_struct	*ft_setup_parse_struct(void)
 
 t_node_binary	*ft_treat_line(char *line)
 {
-	int				i;
 	int				j;
 	t_parse_struct	*s;
 
 	s = ft_setup_parse_struct();
-	i = ft_strlen(line);
 	j = 0;
 	while (line[j])
 	{

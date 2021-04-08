@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:02:51 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 11:14:17 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:38:51 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include "minishell_type.h"
 # include "minishell_error.h"
 # include "minishell_utilities.h"
+
+# ifdef __APPLE__
+#  include <sys/syslimits.h>
+# elif __linux__
+#  include <limits.h>
+# endif
 
 # define BUILTIN_ECHO	"echo"
 # define BUILTIN_ENV	"env"

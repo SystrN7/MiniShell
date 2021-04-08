@@ -6,13 +6,11 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 14:45:27 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 17:02:10 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:03:28 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_builtin.h"
-
-#include <sys/syslimits.h>
 
 /*
 ** Print the absolute pathname of the current working directory.

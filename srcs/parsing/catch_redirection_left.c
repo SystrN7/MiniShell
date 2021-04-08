@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 11:06:15 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:05:08 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,9 @@ void	ft_remove_file_name_left(t_shell_command *cmd, int j, int i, t_redirection_
 {
 	char	*new_str;
 	char	*new_mask;
-	int		k;
-	int		l;
 	int		total_len;
 
 	(void)lst;
-	k = 0;
-	l = 0;
 	total_len = ft_strlen(cmd->command_string);
 	if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
 		total_len--;
@@ -122,10 +118,8 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 {
 	int	j;
 	int	k;
-	int	len;
 	t_redirection_list	*new;
 
-	len = i;
 	new = ft_managed_malloc(sizeof(t_redirection_list));
 	new->next = 0;
 	k = 0;

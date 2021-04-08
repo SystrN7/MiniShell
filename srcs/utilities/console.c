@@ -6,12 +6,11 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 11:21:21 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/17 12:46:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:11:40 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_utilities.h"
-#include "sys/syslimits.h"
 
 void	console_clear(void)
 {

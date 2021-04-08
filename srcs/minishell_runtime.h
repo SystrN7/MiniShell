@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:53:12 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/07 16:46:57 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 17:09:59 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <fcntl.h>
 # include <unistd.h>
+
+# ifdef __linux__
+#  include <sys/types.h>
+#  include <sys/wait.h>
+# endif
 
 # include "minishell_type.h"
 # include "minishell_error.h"
