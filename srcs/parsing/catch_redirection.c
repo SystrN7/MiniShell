@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 12:41:34 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:30:07 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_redirection_list	*ft_lstlast_redirection(t_redirection_list *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back_redirection(t_redirection_list **alst, t_redirection_list *new)
+void	ft_lstadd_back_redirection(t_redirection_list **alst,
+		t_redirection_list *new)
 {
 	t_redirection_list	*lst;
 
@@ -41,39 +42,6 @@ void	ft_lstadd_back_redirection(t_redirection_list **alst, t_redirection_list *n
 		*alst = new;
 }
 
-
-void	ft_show_redirection_list(t_redirection_list **root)
-{
-	t_redirection_list	*lst;
-
-	lst = *root;
-	while (lst)
-	{
-		if (lst->redirection_type == SHELL_REDIRECT_TYPE_RIGHT)
-			printf("redirection type : >\n");
-		else if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_RIGHT)
-			printf("redirection type : >>\n");
-		else if (lst->redirection_type == SHELL_REDIRECT_TYPE_LEFT)
-			printf("redirection type : <\n");
-		else if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
-			printf("redirection type : <<\n");
-		printf("redirection file = %s\n\n", lst->redirection_file);
-		lst = lst->next;
-	}
-}
-
-void	ft_show_argv(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i])
-	{
-		printf("argv[%d] = %s\n", i, argv[i]);
-		i++;
-	}
-}
-
 void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 {
 	int	i;
@@ -85,10 +53,7 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 	while (cmd->command_string[i])
 	{
 		if (cmd->command_string[i] == '>' && cmd->command_mask[i] == '0')
-		{
-			//printf("i = %d\n", i);
 			i = ft_redirection_right(cmd, i);
-		}
 		else if (cmd->command_string[i] == '<' && cmd->command_mask[i] == '0')
 			i = ft_redirection_left_new(cmd, i);
 		else
@@ -114,8 +79,4 @@ void	ft_catch_redirection_before(t_shell_command *cmd)
 			i++;
 	}
 	ft_split_mask(cmd, ' ');
-	//cmd->masks = ft_split_mask(cmd->command_mask, cmd->command_string, ' ');
-	//ft_show_argv(cmd->argv);
-	//ft_show_argv(cmd->masks);
-	//ft_show_redirection_list(cmd->redirection);
 }

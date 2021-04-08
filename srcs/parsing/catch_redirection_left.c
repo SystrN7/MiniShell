@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/07 12:40:55 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:36:53 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,43 +17,65 @@
 
 #include <unistd.h>
 
-void	ft_fill_new_str_left(t_shell_command *cmd, char *new_str, char *new_mask, t_redirection_list *lst, int j, int i)
+void	ft_fill_new_str_left(t_shell_command *cmd, char *new_str,
+		t_redirection_list *lst, int ij[2])
 {
 	int	k;
 	int	l;
 
 	(void)lst;
 	k = 0;
-	while (k < j)
+	while (k < ij[1])
 	{
 		new_str[k] = cmd->command_string[k];
-		new_mask[k] = cmd->command_mask[k];
 		k++;
 	}
-	l = i;
+	l = ij[0];
 	if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
 		l++;
 	l++;
 	while (cmd->command_string[l])
 	{
 		new_str[k] = cmd->command_string[l];
+		k++;
+		l++;
+	}
+}
+
+void	ft_fill_new_mask_left(t_shell_command *cmd,
+		char *new_mask, t_redirection_list *lst, int ij[2])
+{
+	int	k;
+	int	l;
+
+	(void)lst;
+	k = 0;
+	while (k < ij[1])
+	{
+		new_mask[k] = cmd->command_mask[k];
+		k++;
+	}
+	l = ij[0];
+	if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
+		l++;
+	l++;
+	while (cmd->command_string[l])
+	{
 		new_mask[k] = cmd->command_mask[l];
 		k++;
 		l++;
 	}
 }
 
-void	ft_remove_file_name_left(t_shell_command *cmd, int j, int i, t_redirection_list *lst)
+void	ft_remove_file_name_left(t_shell_command *cmd, int j, int i,
+		t_redirection_list *lst)
 {
 	char	*new_str;
 	char	*new_mask;
-	int		k;
-	int		l;
 	int		total_len;
+	int		ij[2];
 
 	(void)lst;
-	k = 0;
-	l = 0;
 	total_len = ft_strlen(cmd->command_string);
 	if (lst->redirection_type == SHELL_REDIRECT_TYPE_DOUBLE_LEFT)
 		total_len--;
@@ -63,7 +85,10 @@ void	ft_remove_file_name_left(t_shell_command *cmd, int j, int i, t_redirection_
 	new_mask = ft_managed_malloc(sizeof(char) * (total_len - i + j + 1));
 	new_str[total_len - i + j] = '\0';
 	new_mask[total_len - i + j] = '\0';
-	ft_fill_new_str_left(cmd, new_str, new_mask, lst, j, i);
+	ij[0] = i;
+	ij[1] = j;
+	ft_fill_new_str_left(cmd, new_str, lst, ij);
+	ft_fill_new_mask_left(cmd, new_mask, lst, ij);
 	ft_managed_free(cmd->command_string);
 	cmd->command_string = new_str;
 	ft_managed_free(cmd->command_mask);
@@ -89,8 +114,8 @@ int	ft_skip_spaces_left(t_shell_command *cmd,t_redirection_list *new, int i)
 		i--;
 	j = i;
 	while (j >= 0 && ((cmd->command_string[j] != '>'
-		&& cmd->command_string[j] != '<' && cmd->command_string[j] != ' ')
-		|| cmd->command_mask[j] != '0'))
+			&& cmd->command_string[j] != '<' && cmd->command_string[j] != ' ')
+			|| cmd->command_mask[j] != '0'))
 		j--;
 	new->redirection_file = ft_managed_malloc(sizeof(char) * (i - j + 1));
 	new->mask = ft_managed_malloc(sizeof(char) * (i - j + 1));
