@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/06 15:21:40 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 14:34:17 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ int					ft_redirection_left_new(t_shell_command *cmd, int i);
 char				*ft_set_var_value(char *varname, t_shell_context *context);
 int					ft_strjoin_custom(t_shell_command *cmd,
 						t_parse_mask_str *new,
-						int var_value_len, int varname_len);
+						int var_value_len, int varname_len, int index);
 t_parse_mask_str	*ft_setup_mask_str(int len);
 void				ft_lstadd_back_redirection(t_redirection_list **alst,
 						t_redirection_list *new);
 t_node_binary		*ft_treat_line(char *line);
+int					ft_split_mask(t_shell_command *cmd, char c);
 
 #endif

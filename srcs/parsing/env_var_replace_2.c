@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:11:58 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/07 16:29:39 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 14:33:41 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 #include <unistd.h>
 
 void	ft_assign_new_strings(t_shell_command *cmd, t_parse_mask_str *final,
-		t_parse_mask_str *new)
+		t_parse_mask_str *new, int index)
 {
-	ft_managed_free(cmd->command_string);
-	ft_managed_free(cmd->command_mask);
+	ft_managed_free(cmd->argv[index]);
+	ft_managed_free(cmd->masks[index]);
 	ft_managed_free(new->str);
 	ft_managed_free(new->mask);
 	ft_managed_free(new);
-	cmd->command_string = final->str;
-	cmd->command_mask = final->mask;
+	cmd->argv[index] = final->str;
+	cmd->masks[index] = final->mask;
 	ft_managed_free(final);
 }
 
@@ -56,7 +56,7 @@ t_parse_mask_str	*ft_setup_mask_str(int len)
 }
 
 int	ft_strjoin_custom(t_shell_command *cmd, t_parse_mask_str *new,
-		int var_value_len, int varname_len)
+		int var_value_len, int varname_len, int index)
 {
 	int					i;
 	int					j;
@@ -65,7 +65,7 @@ int	ft_strjoin_custom(t_shell_command *cmd, t_parse_mask_str *new,
 
 	j = 0;
 	i = ft_strlen(new->str) - var_value_len + varname_len + 1;
-	total_len = ft_strlen(cmd->command_string) - varname_len + var_value_len;
+	total_len = ft_strlen(cmd->argv[index]) - varname_len + var_value_len;
 	final = ft_setup_mask_str(total_len);
 	while (new->str[j])
 	{
@@ -73,14 +73,14 @@ int	ft_strjoin_custom(t_shell_command *cmd, t_parse_mask_str *new,
 		final->str[j] = new->str[j];
 		j++;
 	}
-	while (cmd->command_string[i])
+	while (cmd->argv[index][i])
 	{
-		final->mask[j] = cmd->command_mask[i];
-		final->str[j] = cmd->command_string[i];
+		final->mask[j] = cmd->masks[index][i];
+		final->str[j] = cmd->argv[index][i];
 		i++;
 		j++;
 	}
-	ft_assign_new_strings(cmd, final, new);
+	ft_assign_new_strings(cmd, final, new, index);
 	return (i);
 }
 

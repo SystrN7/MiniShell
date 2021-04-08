@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/06 11:16:17 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/08 11:05:53 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/parsing/catch_redirection_left.c\
 						./srcs/parsing/catch_redirection_left_new.c\
 						./srcs/parsing/catch_redirection_right.c\
+						./srcs/parsing/ft_split_mask.c\
 						./srcs/scheduler/scheduler.c \
 						./srcs/scheduler/consistency_analyzer.c \
 						./srcs/scheduler/node_utilities.c \

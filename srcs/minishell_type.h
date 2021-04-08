@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/07 12:39:48 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 10:37:32 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_shell_command
 	char				*command_mask;
 	char				*path;
 	char				**argv;
+	char				**masks;
 	t_redirection_list	**redirection;
 }				t_shell_command;
 
