@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:11:58 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 14:33:41 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:48:42 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include <unistd.h>
 
-void	ft_assign_new_strings(t_shell_command *cmd, t_parse_mask_str *final,
+void	ft_assign_new_strings_argv(t_shell_command *cmd, t_parse_mask_str *final,
 		t_parse_mask_str *new, int index)
 {
 	ft_managed_free(cmd->argv[index]);
@@ -55,7 +55,7 @@ t_parse_mask_str	*ft_setup_mask_str(int len)
 	return (new);
 }
 
-int	ft_strjoin_custom(t_shell_command *cmd, t_parse_mask_str *new,
+int	ft_strjoin_custom_argv(t_shell_command *cmd, t_parse_mask_str *new,
 		int var_value_len, int varname_len, int index)
 {
 	int					i;
@@ -80,9 +80,52 @@ int	ft_strjoin_custom(t_shell_command *cmd, t_parse_mask_str *new,
 		i++;
 		j++;
 	}
-	ft_assign_new_strings(cmd, final, new, index);
+	ft_assign_new_strings_argv(cmd, final, new, index);
 	return (i);
 }
+
+void	ft_assign_new_strings_file(t_redirection_list *buff, t_parse_mask_str *final,
+		t_parse_mask_str *new)
+{
+	ft_managed_free(buff->redirection_file);
+	ft_managed_free(buff->mask);
+	ft_managed_free(new->str);
+	ft_managed_free(new->mask);
+	ft_managed_free(new);
+	buff->redirection_file = final->str;
+	buff->mask = final->mask;
+	ft_managed_free(final);
+}
+
+int	ft_strjoin_custom_file(t_redirection_list *buff, t_parse_mask_str *new,
+		int var_value_len, int varname_len)
+{
+	int					i;
+	int					j;
+	int					total_len;
+	t_parse_mask_str	*final;
+
+	j = 0;
+	i = ft_strlen(new->str) - var_value_len + varname_len + 1;
+	total_len = ft_strlen(buff->redirection_file) - varname_len + var_value_len;
+	final = ft_setup_mask_str(total_len);
+	while (new->str[j])
+	{
+		final->mask[j] = new->mask[j];
+		final->str[j] = new->str[j];
+		j++;
+	}
+	while (buff->redirection_file[i])
+	{
+		final->mask[j] = buff->mask[i];
+		final->str[j] = buff->redirection_file[i];
+		i++;
+		j++;
+	}
+	ft_assign_new_strings_file(buff, final, new);
+	return (i);
+}
+
 
 int	ft_is_return_code(char *varname)
 {
