@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:11:58 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 15:48:42 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:16:51 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_parse_mask_str	*ft_setup_mask_str(int len)
 }
 
 int	ft_strjoin_custom_argv(t_shell_command *cmd, t_parse_mask_str *new,
-		int var_value_len, int varname_len, int index)
+		int len[2], int index)
 {
 	int					i;
 	int					j;
@@ -64,8 +64,8 @@ int	ft_strjoin_custom_argv(t_shell_command *cmd, t_parse_mask_str *new,
 	t_parse_mask_str	*final;
 
 	j = 0;
-	i = ft_strlen(new->str) - var_value_len + varname_len + 1;
-	total_len = ft_strlen(cmd->argv[index]) - varname_len + var_value_len;
+	i = ft_strlen(new->str) - len[0] + len[1] + 1;
+	total_len = ft_strlen(cmd->argv[index]) - len[1] + len[0];
 	final = ft_setup_mask_str(total_len);
 	while (new->str[j])
 	{

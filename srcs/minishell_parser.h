@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 15:49:08 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:17:12 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int					ft_redirection_left_new(t_shell_command *cmd, int i);
 char				*ft_set_var_value(char *varname, t_shell_context *context);
 int					ft_strjoin_custom_argv(t_shell_command *cmd,
 						t_parse_mask_str *new,
-						int var_value_len, int varname_len, int index);
+						int len[2], int index);
 int					ft_strjoin_custom_file(t_redirection_list *buff,
 						t_parse_mask_str *new,
 						int var_value_len, int varname_len);
