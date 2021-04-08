@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 15:26:24 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 11:22:20 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "minishell_type.h"
 # include "minishell_error.h"
+# include "minishell_utilities.h"
 
 /**
  * =============================================================================
@@ -72,7 +73,6 @@ t_bool	separator_irregularity_identifier(
  * =============================================================================
  **/
 
-char	get_node_type(t_node_binary *node);
 t_bool	is_null_command(t_shell_command *command);
 
 /**

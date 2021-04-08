@@ -1,11 +1,21 @@
 # Bug
-## Felix
+## Félix
  - [ ] : (cat | echo) - Gerer le promt comme dans bash;
- - [ ] : Fix Error messages.
- - [ ] : Free command line.
+ - [x] : Fix Error messages.
+ - [x] : Free command line.
  - [ ] : Search leaks.
  -
 ## Sébastien
  - [ ] : (\) - segfault
  - [ ] : ("\) - segfault
  - [ ] : (| echo ;; echo ||;) - segfault
+
+
+# Todo
+## Félix
+ - [ ] : List doublement chainer
+ - [ ] : Termcapse
+ -
+## Sébastien
+ - [ ] : (\) - Termcapse
+ - [ ] : (\) - Signal

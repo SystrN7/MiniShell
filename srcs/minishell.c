@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/07 15:00:27 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:07:43 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ void	shell_start(char const *argv[], char *env[])
 	while (get_next_line(0, &line) >= 0)
 	{
 		root = ft_treat_line(line);
+		ft_managed_free(line);
 		root = scheduler(&context, root);
 		if (root != NULL)
 			run_instruction(&context, root);
-		ft_managed_free(line);
+		commands_clear(root);
 		console_prompt(&context);
 	}
 	shell_shutdown(&context);
@@ -72,8 +73,13 @@ void	shell_shutdown(t_shell_context *context)
 {
 	unsigned char	return_code;
 
-	ft_managed_free_all();
 	ft_lstclear(&context->token, &ft_managed_free);
+	ft_lstclear(&context->local_environement, &ft_lst_associative_del_free);
+	ft_lstclear(&context->shared_environment, &ft_lst_associative_del_free);
+	ft_managed_free(context->shell_name);
+	close(context->standard_input_backup);
+	close(context->standard_output_backup);
+	ft_managed_free_all();
 	return_code = context->last_command_return_code % 256;
 	exit(return_code);
 }

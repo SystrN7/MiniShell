@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/06 11:16:17 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/08 16:21:02 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,9 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/runtime/instruction/instruction_pipe.c \
 						./srcs/runtime/instruction/instruction_and.c \
 						./srcs/runtime/instruction/instruction_or.c \
-						./srcs/utilities/file.c \
+						./srcs/utilities/node/node.c \
+						./srcs/utilities/node/commands_clear.c \
+						./srcs/utilities/node/node_command_clear.c \
 						./srcs/utilities/console.c \
 						./srcs/utilities/path.c \
 						./srcs/utilities/error.c \
@@ -91,6 +93,13 @@ libft:
 norminette:
 		$(MAKE) -C $(LIBFT_DIR) norminette
 		norminette $(SRCS) $(HEADER)
+
+leaks:
+	@docker rm -f valgrind-container > /dev/null 2>&1 || true
+	docker build -qt valgrind-image .
+	docker run -e IN_DOCKER=TRUE -dti --name valgrind-container -v .:/project/ valgrind-image
+	docker exec -ti valgrind-container make $* -C minishell || true
+	@docker rm -f valgrind-container > /dev/null 2>&1
 
 
 %.o: %.c $(HEADER)
