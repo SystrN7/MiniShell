@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 16:30:07 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 12:56:21 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,6 @@ void	ft_catch_redirection_before(t_shell_command *cmd)
 			i++;
 	}
 	ft_split_mask(cmd, ' ');
+	//ft_managed_free(cmd->command_mask);
+	//ft_managed_free(cmd->command_string);
 }

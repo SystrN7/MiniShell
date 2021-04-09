@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/04 17:05:54 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 12:36:28 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ t_node_binary	*scheduler(t_shell_context *context, t_node_binary *unschedule_roo
 
 	if (*((char *)unschedule_root->value) == SHELL_INSTRUCTION_COMMAND)
 		return (unschedule_root);
+	ft_printf("----------------------DEBUG----------------------\n");
+	binnary_show(unschedule_root, 0, "Root");
+	printf("\n");
+	ft_printf("`\n-------------------------------------------------\n");
 	if (consistency_analyzer(context, unschedule_root))
 		return (NULL);
 	schedule_root = &unschedule_root;

@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/06 15:49:45 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 13:15:35 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,24 @@ int	ft_cat(char *dest, char *s, int j)
 
 int	ft_set_redirection(t_node_binary *root)
 {
-	char			node_type;
 	t_node_binary	**buff;
 
 	buff = &root;
+
+	if (*((char*)(buff[0]->value)) == SHELL_INSTRUCTION_COMMAND)
+		printf("actual");
+		//ft_catch_redirection_before((t_shell_command *)(buff[0]->value));
+
 	while (buff[0] != NULL)
 	{
-		node_type = *((char*)(buff[0]->value));
-		if (*((char*)(buff[0]->value)) == SHELL_INSTRUCTION_COMMAND)
-			ft_catch_redirection_before((t_shell_command *)(buff[0]->value));
 		if (buff[0]->left != NULL)
 		{
 			if (*((char*)(buff[0]->left->value)) == SHELL_INSTRUCTION_COMMAND)
-				ft_catch_redirection_before((t_shell_command *)(buff[0]->left->value));
+				printf("left");
+				//ft_catch_redirection_before((t_shell_command *)(buff[0]->left->value));
 			if (*((char*)(buff[0]->right->value)) == SHELL_INSTRUCTION_COMMAND)
-				ft_catch_redirection_before((t_shell_command *)(buff[0]->right->value));
+				printf("right");
+				//ft_catch_redirection_before((t_shell_command *)(buff[0]->right->value));
 			buff = &buff[0]->left;
 		}
 		else
@@ -116,8 +119,10 @@ t_node_binary	*ft_treat_line(char *line)
 	}
 	if ((s->root[0])->value == NULL)
 		(s->root[0])->value = (s->str_root[0]);
-	//else if ((s->root[0])->right == NULL)
-	//	(s->root[0])->right = ft_binarytree_node_create((s->str_root[0]));
-	ft_set_redirection(*s->root);
+	else if ((s->root[0])->right == NULL)
+		(s->root[0])->right = ft_binarytree_node_create((s->str_root[0]));
+	//ft_show_tree(*(s->root));
+	ft_set_redirection(*(s->root));
+	//ft_show_tree(*s->root);
 	return (s->root[0]);
 }
