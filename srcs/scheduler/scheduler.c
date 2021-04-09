@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/09 12:36:28 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 13:34:22 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_node_binary	*scheduler(t_shell_context *context, t_node_binary *unschedule_roo
 	ft_printf("----------------------DEBUG----------------------\n");
 	binnary_show(unschedule_root, 0, "Root");
 	printf("\n");
+	ft_printf("\n\nPost Sheduling command:`");
+	show_command(unschedule_root, 0);
 	ft_printf("`\n-------------------------------------------------\n");
 	if (consistency_analyzer(context, unschedule_root))
 		return (NULL);
@@ -37,8 +39,6 @@ t_node_binary	*scheduler(t_shell_context *context, t_node_binary *unschedule_roo
 	// ??? Debug remove latter.
 	ft_printf("----------------------DEBUG----------------------\n");
 	binnary_show(*schedule_root, 0, "Root");
-	ft_printf("\n\nPost Sheduling command:`");
-	show_command(*schedule_root, 0);
 	ft_printf("`\n-------------------------------------------------\n");
 	// ??? Debug remove latter.
 	return (*schedule_root);

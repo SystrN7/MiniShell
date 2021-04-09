@@ -6,7 +6,7 @@
 #    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/09 13:18:03 by seruiz           ###   ########lyon.fr    #
+#    Updated: 2021/04/09 13:28:35 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ LIBFT_HEADER	=		$(LIBFT_DIR)
 LIBFT			=		$(LIBFT_DIR)/libft.a
 
 # Workings vars
-CC				=		gcc
+CC				=		clang
 CFLAGS			=		-Wall -Wextra -Werror -g3 -fsanitize=address
 CMLXFLAGS		=		
 

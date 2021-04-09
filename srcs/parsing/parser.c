@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/09 13:15:35 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 13:52:06 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,57 +28,19 @@ int	ft_cat(char *dest, char *s, int j)
 
 int	ft_set_redirection(t_node_binary *root)
 {
-	t_node_binary	**buff;
+	t_node_binary	*it;
 
-	buff = &root;
+	it = root;
 
-	if (*((char*)(buff[0]->value)) == SHELL_INSTRUCTION_COMMAND)
-		printf("actual");
-		//ft_catch_redirection_before((t_shell_command *)(buff[0]->value));
-
-	while (buff[0] != NULL)
+	if (*((char*)(root->value)) == SHELL_INSTRUCTION_COMMAND)
+		ft_catch_redirection_before((t_shell_command *)(root->value));
+	while (it->left != NULL)
 	{
-		if (buff[0]->left != NULL)
-		{
-			if (*((char*)(buff[0]->left->value)) == SHELL_INSTRUCTION_COMMAND)
-				printf("left");
-				//ft_catch_redirection_before((t_shell_command *)(buff[0]->left->value));
-			if (*((char*)(buff[0]->right->value)) == SHELL_INSTRUCTION_COMMAND)
-				printf("right");
-				//ft_catch_redirection_before((t_shell_command *)(buff[0]->right->value));
-			buff = &buff[0]->left;
-		}
-		else
-			buff[0] = NULL;
-	}
-	return (0);
-}
-
-int	ft_show_tree(t_node_binary *root)
-{
-	char			node_type;
-	t_node_binary	**buff;
-
-	printf("\n\nSHOW TREE :\n\n");
-	buff = &root;
-	while (buff[0] != NULL)
-	{
-		node_type = *((char*)(buff[0]->value));
-		printf("\nNodetype = %d\n", *((char*)(buff[0]->value)));
-		if (*((char*)(buff[0]->value)) == SHELL_INSTRUCTION_COMMAND)
-			printf("\nNode str = %s\n", (((t_shell_command *)(buff[0]->value))->command_string));
-		if (buff[0]->left != NULL)
-		{
-			printf("\nLeft_Nodetype = %d\n", *((char*)(buff[0]->left->value)));
-			printf("\nRight_Nodetype = %d\n", *((char*)(buff[0]->right->value)));
-			if (*((char*)(buff[0]->left->value)) == SHELL_INSTRUCTION_COMMAND)
-				printf("\nstr left = %s\n", (((t_shell_command *)(buff[0]->left->value))->command_string));
-			if (*((char*)(buff[0]->right->value)) == SHELL_INSTRUCTION_COMMAND)
-				printf("\nstr right= %s\n", (((t_shell_command *)(buff[0]->right->value))->command_string));
-			buff = &buff[0]->left;
-		}
-		else
-			buff[0] = NULL;
+		if (*((char*)(it->left->value)) == SHELL_INSTRUCTION_COMMAND)
+			ft_catch_redirection_before((t_shell_command *)(it->left->value));
+		if (*((char*)(it->right->value)) == SHELL_INSTRUCTION_COMMAND)
+			ft_catch_redirection_before((t_shell_command *)(it->right->value));
+		it = it->left;
 	}
 	return (0);
 }
@@ -121,8 +83,6 @@ t_node_binary	*ft_treat_line(char *line)
 		(s->root[0])->value = (s->str_root[0]);
 	else if ((s->root[0])->right == NULL)
 		(s->root[0])->right = ft_binarytree_node_create((s->str_root[0]));
-	//ft_show_tree(*(s->root));
 	ft_set_redirection(*(s->root));
-	//ft_show_tree(*s->root);
 	return (s->root[0]);
 }

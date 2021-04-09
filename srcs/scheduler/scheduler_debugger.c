@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler_debugger.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:00:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/04 13:19:44 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 13:32:12 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*node_get_value(t_node_binary *node)
 {
 	if (get_node_type(node) == SHELL_INSTRUCTION_COMMAND)
-		return (((t_shell_command *)node->value)->command_string);
+		return (ft_2d_merge(((t_shell_command *)node->value)->argv));
 	else
 	{
 		switch (get_node_type(node))
