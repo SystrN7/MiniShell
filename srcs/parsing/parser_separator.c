@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:16 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 17:28:03 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 12:18:51 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_separator(char *line, t_node_binary **root, int j,
 
 int	ft_is_separator(char *line, int j)
 {
-	if (line[j] == '&' && line[j + 1] == '&')
+	if (line[j] == '&' && line[j + 1] && line[j + 1] == '&')
 		return (1);
 	else if (line[j] && (line[j] == ';' || line[j] == '|'))
 		return (1);

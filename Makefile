@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/08 16:21:02 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/09 14:55:53 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/parsing/catch_redirection_left.c\
 						./srcs/parsing/catch_redirection_left_new.c\
 						./srcs/parsing/catch_redirection_right.c\
+						./srcs/parsing/ft_split_mask.c\
 						./srcs/scheduler/scheduler.c \
 						./srcs/scheduler/consistency_analyzer.c \
 						./srcs/scheduler/node_utilities.c \
@@ -52,7 +53,7 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/utilities/environment_store.c \
 						./srcs/utilities/environment_destore.c \
 						./srcs/utilities/environment_manip.c \
-						./srcs/utilities/environment.c \
+						./srcs/utilities/environment.c
 
 HEADER_DIR		=		./srcs/
 
@@ -73,7 +74,7 @@ LIBFT_HEADER	=		$(LIBFT_DIR)
 LIBFT			=		$(LIBFT_DIR)/libft.a
 
 # Workings vars
-CC				=		gcc
+CC				=		clang
 CFLAGS			=		-Wall -Wextra -Werror -g3 -fsanitize=address
 CMLXFLAGS		=		
 

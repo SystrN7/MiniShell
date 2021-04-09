@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 17:25:06 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 13:52:06 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,21 @@ int	ft_cat(char *dest, char *s, int j)
 	return (j);
 }
 
-int	ft_show_tree(t_node_binary *root)
+int	ft_set_redirection(t_node_binary *root)
 {
-	char			node_type;
-	t_node_binary	**buff;
+	t_node_binary	*it;
 
-	printf("\n\nSHOW TREE :\n\n");
-	buff = &root;
-	while (buff[0] != NULL)
+	it = root;
+
+	if (*((char*)(root->value)) == SHELL_INSTRUCTION_COMMAND)
+		ft_catch_redirection_before((t_shell_command *)(root->value));
+	while (it->left != NULL)
 	{
-		node_type = *((char*)(buff[0]->value));
-		printf("\nNodetype = %d\n", *((char*)(buff[0]->value)));
-		if (*((char*)(buff[0]->value)) == 0)
-			printf("\nNode str = %s\n", (((t_shell_command *)(buff[0]->value))->command_string));
-		if (buff[0]->left != NULL)
-		{
-			printf("\nLeft_Nodetype = %d\n", *((char*)(buff[0]->left->value)));
-			printf("\nRight_Nodetype = %d\n", *((char*)(buff[0]->right->value)));
-			if (*((char*)(buff[0]->left->value)) == 0)
-				printf("\nstr left = %s\n", (((t_shell_command *)(buff[0]->left->value))->command_string));
-			if (*((char*)(buff[0]->right->value)) == 0)
-				printf("\nstr right= %s\n", (((t_shell_command *)(buff[0]->right->value))->command_string));
-			buff = &buff[0]->left;
-		}
-		else
-			buff[0] = NULL;
+		if (*((char*)(it->left->value)) == SHELL_INSTRUCTION_COMMAND)
+			ft_catch_redirection_before((t_shell_command *)(it->left->value));
+		if (*((char*)(it->right->value)) == SHELL_INSTRUCTION_COMMAND)
+			ft_catch_redirection_before((t_shell_command *)(it->right->value));
+		it = it->left;
 	}
 	return (0);
 }
@@ -93,5 +83,6 @@ t_node_binary	*ft_treat_line(char *line)
 		(s->root[0])->value = (s->str_root[0]);
 	else if ((s->root[0])->right == NULL)
 		(s->root[0])->right = ft_binarytree_node_create((s->str_root[0]));
+	ft_set_redirection(*(s->root));
 	return (s->root[0]);
 }

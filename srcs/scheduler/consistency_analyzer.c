@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/09 13:01:29 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 14:56:38 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
+	ft_printf("%p\n", root);
+	ft_printf("%p\n", root->value);
+	ft_printf("%p\n", root->left);
 	if (root->left && get_node_type(root->left) == SHELL_INSTRUCTION_COMMAND)
 		if (is_null_command(root->left->value))
 			return (separator_irregularity_identifier(context, root));
@@ -54,8 +57,8 @@ t_bool	separator_irregularity_identifier(
 	char	separator_type;
 	char	*separator_string;
 
+	separator_string = NULL;
 	separator_type = *((char *)current_node->value);
-	separator_string = "Unknown";
 	if (separator_type == SHELL_SEPARATOR_TYPE_AND)
 		separator_string = "&&";
 	else if (separator_type == SHELL_SEPARATOR_TYPE_OR)

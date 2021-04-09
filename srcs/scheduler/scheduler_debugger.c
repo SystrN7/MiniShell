@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:00:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 12:00:57 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 14:53:39 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*node_get_value(t_node_binary *node)
 
 	node_type = get_node_type(node);
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
-		return (((t_shell_command *)node->value)->command_string);
+		return (ft_2d_merge(((t_shell_command *)node->value)->argv));
 	else
 	{
 		if (node_type == SHELL_SEPARATOR_TYPE_AND)

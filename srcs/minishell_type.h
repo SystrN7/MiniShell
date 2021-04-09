@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 16:20:33 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 14:57:22 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct s_shell_context
 
 enum e_shell_instruction_type
 {
-	SHELL_INSTRUCTION_UNKNOWN,
-	SHELL_INSTRUCTION_COMMAND,
-	SHELL_SEPARATOR_TYPE_END,
-	SHELL_SEPARATOR_TYPE_PIPE,
-	SHELL_SEPARATOR_TYPE_AND,
-	SHELL_SEPARATOR_TYPE_OR,
+	SHELL_INSTRUCTION_UNKNOWN = 'u',
+	SHELL_INSTRUCTION_COMMAND = 'c',
+	SHELL_SEPARATOR_TYPE_END = 'e',
+	SHELL_SEPARATOR_TYPE_PIPE = 'p',
+	SHELL_SEPARATOR_TYPE_AND = 'a',
+	SHELL_SEPARATOR_TYPE_OR = 'o',
 };
 
 enum e_shell_redirection_type
@@ -73,6 +73,7 @@ typedef struct s_redirection_list
 {
 	char						redirection_type;
 	char						*redirection_file;
+	char						*mask;
 	int							fd;
 	struct s_redirection_list	*next;
 }				t_redirection_list;
@@ -84,6 +85,7 @@ typedef struct s_shell_command
 	char				*command_mask;
 	char				*path;
 	char				**argv;
+	char				**masks;
 	t_redirection_list	**redirection;
 }				t_shell_command;
 
