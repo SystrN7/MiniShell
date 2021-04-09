@@ -6,14 +6,12 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/06 12:18:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 13:01:29 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_scheduler.h"
 
-// ??? Test this case
-// - | echo ;; echo ||;
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
 	if (root->left && get_node_type(root->left) == SHELL_INSTRUCTION_COMMAND)
@@ -33,9 +31,16 @@ t_bool	analyzer_recusive(
 	t_node_binary *node
 )
 {
-	if (node->left || get_node_type(node) != SHELL_INSTRUCTION_COMMAND)
-		if (analyzer_recusive(context, node, node->left) == TRUE)
-			return (TRUE);
+	if (node->left)
+	{
+		if (get_node_type(node->left) != SHELL_INSTRUCTION_COMMAND)
+		{
+			if (analyzer_recusive(context, node, node->left) == TRUE)
+				return (TRUE);
+		}
+		else if (is_null_command(node->left->value))
+			return (separator_irregularity_identifier(context, node));
+	}
 	if (node->right && is_null_command(node->right->value))
 		return (separator_irregularity_identifier(context, parent_node));
 	return (FALSE);
