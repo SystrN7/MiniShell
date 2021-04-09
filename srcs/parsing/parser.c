@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/09 13:52:06 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 15:18:34 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ int	ft_set_redirection(t_node_binary *root)
 
 	if (*((char*)(root->value)) == SHELL_INSTRUCTION_COMMAND)
 		ft_catch_redirection_before((t_shell_command *)(root->value));
-	while (it->left != NULL)
+	while (it)
 	{
+		if (it->left != NULL)
+			break ;
 		if (*((char*)(it->left->value)) == SHELL_INSTRUCTION_COMMAND)
 			ft_catch_redirection_before((t_shell_command *)(it->left->value));
 		if (*((char*)(it->right->value)) == SHELL_INSTRUCTION_COMMAND)
@@ -56,6 +58,8 @@ t_parse_struct	*ft_setup_parse_struct(void)
 	ret->node = ft_binarytree_node_create(NULL);
 	ret->str_root[0] = ret->str_struct;
 	ret->root[0] = ret->node;
+	ret->node->left = NULL;
+	ret->node->right = NULL;
 	return (ret);
 }
 
