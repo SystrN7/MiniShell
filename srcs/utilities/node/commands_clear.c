@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 10:57:33 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/08 14:35:07 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 12:07:15 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int	commands_clear(t_node_binary *node)
 {
+	if (node == NULL)
+		return (SUCCESS);
 	if (node->left != NULL)
 		return (commands_clear(node->left));
 	if (node->right != NULL)
@@ -23,7 +25,7 @@ int	commands_clear(t_node_binary *node)
 	node->left = NULL;
 	node->right = NULL;
 	node->value = NULL;
-	ft_managed_free(node->value);
+	ft_managed_free(node);
 	return (SUCCESS);
 }
 
@@ -35,6 +37,5 @@ int	node_clear(t_node_binary *node)
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
 		node_command_clear(node->value);
 	ft_managed_free(node->value);
-
 	return (SUCCESS);
 }

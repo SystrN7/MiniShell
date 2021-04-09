@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:33:31 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/08 14:26:51 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 11:33:31 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_bool	is_command(const char *path);
  **/
 
 char	get_node_type(t_node_binary *node);
+
 int		commands_clear(t_node_binary *node);
 int		node_clear(t_node_binary *node);
 int		node_command_clear(t_shell_command *command);
