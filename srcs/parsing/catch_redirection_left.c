@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection_left.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 16:36:53 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 16:11:45 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,8 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 {
 	int	j;
 	int	k;
-	int	len;
 	t_redirection_list	*new;
 
-	len = i;
 	new = ft_managed_malloc(sizeof(t_redirection_list));
 	new->next = 0;
 	k = 0;

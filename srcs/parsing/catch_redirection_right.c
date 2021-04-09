@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection_right.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:10:59 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/07 14:43:29 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 16:12:19 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,8 @@ void	ft_remove_file_name(t_shell_command *cmd, int len, t_redirection_list *lst)
 {
 	char	*new_str;
 	char	*new_mask;
-	int		k;
-	int		l;
 	int		total_len;
 
-	k = 0;
-	l = 0;
 	total_len = ft_strlen(cmd->command_string);
 	new_str = ft_managed_malloc(sizeof(char) * (total_len - len + 1));
 	new_mask = ft_managed_malloc(sizeof(char) * (total_len - len + 1));

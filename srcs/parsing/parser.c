@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/09 15:18:34 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 16:11:29 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ t_parse_struct	*ft_setup_parse_struct(void)
 
 t_node_binary	*ft_treat_line(char *line)
 {
-	int				i;
 	int				j;
 	t_parse_struct	*s;
 
 	s = ft_setup_parse_struct();
-	i = ft_strlen(line);
 	j = 0;
 	while (line[j])
 	{
