@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/12 15:52:00 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 16:14:15 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int	ft_first_command(char *line, int j, t_node_binary **root)
 }
 
 
-int	ft_is_cmd(char *line, int j, t_node_binary **root, t_shell_command **str_root)
+int	ft_is_cmd(char *line, int j, t_node_binary **root, t_shell_command **str_root, int sep_found)
 {
 	t_node_binary *new_node;
 
@@ -168,14 +168,14 @@ int	ft_is_cmd(char *line, int j, t_node_binary **root, t_shell_command **str_roo
 		printf("\ninstruction type = %d\n", ((t_shell_command *)(*root)->value)->instruction_type);
 		return (ft_first_command(line, j, root));
 	}
-	else if ((*root)->left == NULL)
+	else if ((*root)->left == NULL && sep_found == 1)
 	{
 		printf("\n2\n");
 		(*str_root) = ft_new_str_struct();
 		new_node = ft_binarytree_node_create((*str_root));
 		(*root)->left = new_node;
 	}
-	else if ((*root)->right == NULL)
+	else if ((*root)->right == NULL && sep_found == 1)
 	{
 		printf("\n3\n");
 		(*str_root) = ft_new_str_struct();
@@ -213,6 +213,7 @@ t_node_binary	*ft_treat_line(char *line)
 {
 	int				i;
 	int				j;
+	int				sep_found;
 	t_parse_struct	*s;
 
 	s = ft_setup_parse_struct();
@@ -222,9 +223,15 @@ t_node_binary	*ft_treat_line(char *line)
 	while (line[j])
 	{
 		if (ft_is_separator(line, j) == 1)
+		{
 			j = ft_separator(line, s->root, j, s->str_root);
+			sep_found = 1;
+		}
 		else
-			j = ft_is_cmd(line, j, s->root, s->str_root);
+		{
+			j = ft_is_cmd(line, j, s->root, s->str_root, sep_found);
+			sep_found = 0;
+		}
 /*
 		if (line[j] != '\'' && line[j] != '\"')
 			j = ft_no_quote(line, j, s->str_root[0]);
@@ -233,7 +240,6 @@ t_node_binary	*ft_treat_line(char *line)
 		else if (line[j] == '\"')
 			j = ft_double_quote(line, j, s->str_root[0]);
 */
-		printf("line[j] = %c\n", line[j]);
 	}
 	//if ((*s->root)->value == NULL)
 	//	(*s->root)->value = (*s->str_root);
