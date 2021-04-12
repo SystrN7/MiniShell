@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/09 16:11:29 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 11:40:29 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ int	ft_set_redirection(t_node_binary *root)
 
 	it = root;
 
-	if (*((char*)(root->value)) == SHELL_INSTRUCTION_COMMAND)
+	if (*((char *)(root->value)) == SHELL_INSTRUCTION_COMMAND)
 		ft_catch_redirection_before((t_shell_command *)(root->value));
 	while (it)
 	{
-		if (it->left != NULL)
-			break ;
-		if (*((char*)(it->left->value)) == SHELL_INSTRUCTION_COMMAND)
+		if (it->left != NULL && it->left->value != NULL
+			&& get_node_type(it->left) == SHELL_INSTRUCTION_COMMAND)
 			ft_catch_redirection_before((t_shell_command *)(it->left->value));
-		if (*((char*)(it->right->value)) == SHELL_INSTRUCTION_COMMAND)
+		if (it->right != NULL && it->right->value != NULL
+			&& get_node_type(it->right) == SHELL_INSTRUCTION_COMMAND)
 			ft_catch_redirection_before((t_shell_command *)(it->right->value));
 		it = it->left;
 	}
@@ -86,5 +86,5 @@ t_node_binary	*ft_treat_line(char *line)
 	else if ((s->root[0])->right == NULL)
 		(s->root[0])->right = ft_binarytree_node_create((s->str_root[0]));
 	ft_set_redirection(*(s->root));
-	return (s->root[0]);
+	return (*(s->root));
 }
