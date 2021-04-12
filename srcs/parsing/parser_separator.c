@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:16 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/09 12:18:51 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 11:50:10 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	ft_separator(char *line, t_node_binary **root, int j,
 	if ((*root)->value == NULL)
 	{
 		(*root)->value = sep;
-		(*root)->left = ft_binarytree_node_create(*str_root);
+		//(*root)->left = ft_binarytree_node_create(*str_root);
 	}
 	else
 	{
 		new_node = ft_binarytree_node_create(sep);
-		(*root)->right = ft_binarytree_node_create(*str_root);
+		//(*root)->right = ft_binarytree_node_create(*str_root);
 		new_node->left = *root;
 		*root = new_node;
 	}

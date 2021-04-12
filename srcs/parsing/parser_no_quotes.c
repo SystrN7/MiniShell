@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:21 by seruiz            #+#    #+#             */
-/*   Updated: 2021/03/20 17:24:11 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 14:21:52 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_fill_mask_no_quotes(char *line, char *mask, int j,
 			j++;
 		}
 	}
+	printf("mask = %s\n", mask);
 	if (str_struct->command_mask == NULL)
 		str_struct->command_mask = mask;
 	else
@@ -95,6 +96,8 @@ int	ft_no_quote(char *line, int j, t_shell_command *str_struct)
 	mask = ft_managed_malloc(sizeof(char) * (ret - j + 1 - backslash));
 	mask[ret - j - backslash] = '\0';
 	ft_fill_mask_no_quotes(line, mask, j, str_struct);
+	printf("mask = %s\n", str_struct->command_mask);
 	ft_fill_str_no_quotes(line, j, ret - j - backslash, str_struct);
+	printf("str  = %s\n", str_struct->command_string);
 	return (ret);
 }
