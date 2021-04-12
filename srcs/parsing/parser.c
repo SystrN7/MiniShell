@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/12 16:14:15 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 16:29:50 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,11 @@ t_node_binary	*ft_treat_line(char *line)
 		else if (line[j] == '\"')
 			j = ft_double_quote(line, j, s->str_root[0]);
 */
+	}
+	if (j == 0)
+	{
+		printf("Command line is empty\n");
+		return (NULL);
 	}
 	//if ((*s->root)->value == NULL)
 	//	(*s->root)->value = (*s->str_root);

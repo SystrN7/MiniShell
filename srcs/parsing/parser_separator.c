@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:16 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/12 11:50:10 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 16:19:31 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_separator(char *line, t_node_binary **root, int j,
 	t_node_binary		*new_node;
 	t_shell_separator	*sep;
 
+	(void)str_root;
 	sep = ft_set_sep(line, j);
 	if ((*root)->value == NULL)
 	{
@@ -57,7 +58,7 @@ int	ft_separator(char *line, t_node_binary **root, int j,
 		new_node->left = *root;
 		*root = new_node;
 	}
-	*str_root = ft_new_str_struct();
+	//*str_root = ft_new_str_struct();
 	if (sep->instruction_type == SHELL_SEPARATOR_TYPE_END
 		|| sep->instruction_type == SHELL_SEPARATOR_TYPE_PIPE)
 		return (j + 1);
