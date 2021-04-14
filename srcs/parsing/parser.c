@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/12 11:40:29 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 11:03:07 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,98 @@ t_parse_struct	*ft_setup_parse_struct(void)
 	t_parse_struct	*ret;
 
 	ret = ft_managed_malloc(sizeof(t_parse_struct));
-	ret->str_struct = ft_new_str_struct();
+	//ret->str_struct = ft_new_str_struct();
+	ret->str_struct = NULL;
 	ret->root = ft_managed_malloc(sizeof(t_node_binary *));
+	//ret->root = NULL;
 	ret->str_root = ft_managed_malloc(sizeof(t_shell_command *));
+	//ret->str_root = NULL;
 	ret->node = ft_binarytree_node_create(NULL);
-	ret->str_root[0] = ret->str_struct;
-	ret->root[0] = ret->node;
 	ret->node->left = NULL;
 	ret->node->right = NULL;
+	//ret->node = NULL;
+	//ret->str_root[0] = ret->str_struct;
+	*(ret->root) = ret->node;
 	return (ret);
+}
+
+int	ft_node_exists(char *line, int j, t_shell_command **str_root)
+{
+	if (line[j] != '\'' && line[j] != '\"')
+		j = ft_no_quote(line, j, *str_root);
+	else if (line[j] == '\'')
+		j = ft_single_quote(line, j, *str_root);
+	else if (line[j] == '\"')
+		j = ft_double_quote(line, j, *str_root);
+	return (j);
+}
+
+t_node_binary	*ft_new_command(void)
+{
+	t_node_binary	*new_node;
+	t_shell_command	*new_command;
+
+	new_command = ft_managed_malloc(sizeof(t_shell_command));
+	new_command->instruction_type = SHELL_INSTRUCTION_COMMAND;
+	new_command->argv = NULL;
+	new_command->command_mask = NULL;
+	new_command->command_string = NULL;
+	new_command->masks = NULL;
+	new_command->path = NULL;
+	new_command->redirection = NULL;
+	new_node = ft_binarytree_node_create(new_command);
+	return (new_node);
+}
+
+int	ft_first_command(char *line, int j, t_node_binary **root)
+{
+	if (line[j] != '\'' && line[j] != '\"')
+		j = ft_no_quote(line, j, (*root)->value);
+	else if (line[j] == '\'')
+		j = ft_single_quote(line, j, (*root)->value);
+	else if (line[j] == '\"')
+		j = ft_double_quote(line, j, (*root)->value);
+	return (j);
+}
+
+
+int	ft_is_cmd(char *line, int j, t_node_binary **root, t_shell_command **str_root, int sep_found)
+{
+	t_node_binary *new_node;
+
+	if ((*root)->value == NULL)
+	{
+		(*str_root) = ft_new_str_struct();
+		(*root)->value = *str_root;
+		return (ft_first_command(line, j, root));
+	}
+	else if ((*root)->left == NULL && sep_found == 1)
+	{
+		(*str_root) = ft_new_str_struct();
+		new_node = ft_binarytree_node_create((*str_root));
+		(*root)->left = new_node;
+	}
+	else if ((*root)->right == NULL && sep_found == 1)
+	{
+		(*str_root) = ft_new_str_struct();
+		new_node = ft_binarytree_node_create(*str_root);
+		(*root)->right = new_node;
+	}
+	else
+		return (ft_node_exists(line, j, str_root));
+	if (line[j] != '\'' && line[j] != '\"')
+		j = ft_no_quote(line, j, new_node->value);
+	else if (line[j] == '\'')
+		j = ft_single_quote(line, j, new_node->value);
+	else if (line[j] == '\"')
+		j = ft_double_quote(line, j, new_node->value);
+	return (j);
 }
 
 t_node_binary	*ft_treat_line(char *line)
 {
 	int				j;
+	int				sep_found;
 	t_parse_struct	*s;
 
 	s = ft_setup_parse_struct();
@@ -73,18 +151,22 @@ t_node_binary	*ft_treat_line(char *line)
 	while (line[j])
 	{
 		if (ft_is_separator(line, j) == 1)
+		{
 			j = ft_separator(line, s->root, j, s->str_root);
-		if (line[j] != '\'' && line[j] != '\"')
-			j = ft_no_quote(line, j, s->str_root[0]);
-		else if (line[j] == '\'')
-			j = ft_single_quote(line, j, s->str_root[0]);
-		else if (line[j] == '\"')
-			j = ft_double_quote(line, j, s->str_root[0]);
+			sep_found = 1;
+		}
+		else
+		{
+			j = ft_is_cmd(line, j, s->root, s->str_root, sep_found);
+			sep_found = 0;
+		}
 	}
-	if ((s->root[0])->value == NULL)
-		(s->root[0])->value = (s->str_root[0]);
-	else if ((s->root[0])->right == NULL)
-		(s->root[0])->right = ft_binarytree_node_create((s->str_root[0]));
+	if (j == 0)
+		return (NULL);
+	//if ((*s->root)->value == NULL)
+	//	(*s->root)->value = (*s->str_root);
+	//else if ((*s->root)->right == NULL)
+	//	(*s->root)->right = ft_binarytree_node_create(*(s->str_root));
 	ft_set_redirection(*(s->root));
-	return (*(s->root));
+	return (*s->root);
 }
