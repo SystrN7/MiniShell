@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 14:41:47 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/07 16:47:16 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 16:47:16 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	instruction_pipe(t_shell_context *context, t_node_binary *node)
 	else if (pid == 0)
 		pipe_connect_side(context, node->left, pipe_fds, pipe_input);
 	else
+	{
+		waitpid(pid, NULL, 0);
 		pipe_connect_side(context, node->right, pipe_fds, pipe_output);
+	}
 	return (context->last_command_return_code);
 }
 
