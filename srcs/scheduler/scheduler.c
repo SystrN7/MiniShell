@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/14 12:03:04 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 16:22:37 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ t_node_binary	*scheduler(
 {
 	t_node_binary	**schedule_root;
 
+	if (unschedule_root == NULL)
+		return (NULL);
 	if (get_node_type(unschedule_root) == SHELL_INSTRUCTION_COMMAND)
 	{
-		if (redirection_consistency_analizer(context, unschedule_root))
+		if (redirection_consistency_analizer(context,
+				unschedule_root,
+				unschedule_root))
 			return (NULL);
 		return (unschedule_root);
 	}
@@ -43,6 +47,11 @@ t_node_binary	*scheduler(
 		return (NULL);
 	schedule_root = &unschedule_root;
 	schedule(context->token, schedule_root, *schedule_root);
+	binnary_show(unschedule_root, 0, "Root");
+	printf("\n");
+	ft_printf("\n\nPost Sheduling command:`");
+	show_command(unschedule_root, 0);
+	ft_printf("`\n-------------------------------------------------\n");
 	return (*schedule_root);
 }
 

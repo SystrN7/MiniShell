@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/14 10:52:46 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 14:47:13 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ t_bool	analyzer_recusive(
 
 t_bool	redirection_consistency_analizer(
 			t_shell_context *context,
-			t_node_binary *node,
-			t_bool last
+			t_node_binary *previous_node,
+			t_node_binary *node
 			);
 
 t_bool	separator_irregularity_identifier(
