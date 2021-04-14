@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/12 16:14:22 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 12:04:03 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
-	if (root->left && get_node_type(root->left) == SHELL_INSTRUCTION_COMMAND)
+	if (root->left == NULL)
+		return (separator_irregularity_identifier(context, root));
+	else
 	{
-		if (redirection_consistency_analizer(context, root->left, FALSE))
+		if (get_node_type(root->left) == SHELL_INSTRUCTION_COMMAND
+			&& redirection_consistency_analizer(context, root->left))
 			return (TRUE);
-		if (is_null_command(root->left->value))
-			return (separator_irregularity_identifier(context, root));
 	}
 	if (analyzer_recusive(context, root, root->left))
 		return (TRUE);
-	if (root->right)
+	if (root->right == NULL)
 	{
-		if (redirection_consistency_analizer(context, root->right, FALSE))
-			return (TRUE);
-		if (is_null_command(root->right->value)
-			&& get_node_type(root) != SHELL_SEPARATOR_TYPE_END)
+		if (get_node_type(root) != SHELL_SEPARATOR_TYPE_END)
 			return (separator_irregularity_identifier(context, root));
 	}
+	else if (redirection_consistency_analizer(context, root->right))
+		return (TRUE);
 	return (FALSE);
 }
 
@@ -47,28 +47,21 @@ t_bool	analyzer_recusive(
 			if (analyzer_recusive(context, node, node->left) == TRUE)
 				return (TRUE);
 		}
-		else
-		{
-			if (redirection_consistency_analizer(context, node->left, TRUE))
-				return (TRUE);
-			if (is_null_command(node->left->value))
-				return (separator_irregularity_identifier(context, node));
-		}
-	}
-	if (node->right)
-	{
-		if (redirection_consistency_analizer(context, node->right, FALSE))
+		else if (redirection_consistency_analizer(context, node->left))
 			return (TRUE);
-		if (is_null_command(node->right->value))
-			return (separator_irregularity_identifier(context, parent_node));
 	}
+	else
+		return (separator_irregularity_identifier(context, node));
+	if (node->right == NULL)
+		return (separator_irregularity_identifier(context, parent_node));
+	else if (redirection_consistency_analizer(context, node->right))
+		return (TRUE);
 	return (FALSE);
 }
 
 t_bool	redirection_consistency_analizer(
 	t_shell_context *context,
-	t_node_binary *node,
-	t_bool last
+	t_node_binary *node
 )
 {
 	t_redirection_list	*it;
@@ -76,15 +69,15 @@ t_bool	redirection_consistency_analizer(
 	it = *(((t_shell_command *)node->value)->redirection);
 	while (it)
 	{
-		ft_printf("file name='%s' mask='%s'\n", it->redirection_file, it->mask);
 		if (it->redirection_file == NULL || (it->redirection_file[0] == '\0'))
 		{
-			if (last && it->next == NULL)
-			{
+			if (it->next)
+				return (redirection_irregularity_identifier(context, it->next));
+			else if (node->left)
+				return (separator_irregularity_identifier(context, node->left));
+			else
 				error_message(context, ERROR_SYNTAX_TOKEN_BOND, 258, "newline");
-				return (TRUE);
-			}
-			return (redirection_irregularity_identifier(context, it));
+			return (TRUE);
 		}
 		it = it->next;
 	}
@@ -124,7 +117,7 @@ t_bool	separator_irregularity_identifier(
 	char	*separator_string;
 
 	separator_string = NULL;
-	separator_type = *((char *)current_node->value);
+	separator_type = get_node_type(current_node);
 	if (separator_type == SHELL_SEPARATOR_TYPE_AND)
 		separator_string = "&&";
 	else if (separator_type == SHELL_SEPARATOR_TYPE_OR)

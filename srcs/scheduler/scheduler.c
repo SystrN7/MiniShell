@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/12 16:09:54 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 12:03:04 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_node_binary	*scheduler(
 
 	if (get_node_type(unschedule_root) == SHELL_INSTRUCTION_COMMAND)
 	{
-		if (redirection_consistency_analizer(context, unschedule_root, TRUE))
+		if (redirection_consistency_analizer(context, unschedule_root))
 			return (NULL);
 		return (unschedule_root);
 	}
