@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_signal.h                                 :+:      :+:    :+:   */
+/*   signal_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 10:52:37 by felix             #+#    #+#             */
-/*   Updated: 2021/04/15 11:52:20 by fgalaup          ###   ########lyon.fr   */
+/*   Created: 2021/03/19 11:17:01 by felix             #+#    #+#             */
+/*   Updated: 2021/04/15 12:06:56 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_SIGNAL_H
-# define MINISHELL_SIGNAL_H
+#include "minishell_signal.h"
+#include "minishell_builtin.h"
 
-# include <signal.h>
+void	signal_exit(int signal)
+{
+	t_shell_context	*context;
+	char			*args[2];
 
-# include "minishell.h"
-# include "minishell_type.h"
-
-int		signal_register(t_shell_context *context);
-
-void	signal_do_nothing(int signal);
-void	signal_new_prompt(int signal);
-void	signal_exit(int signal);
-
-#endif
+	(void)signal;
+	context = shell_get_context(NULL);
+	args[path] = BUILTIN_EXIT;
+	args[arg1] = NULL;
+	builtin_exit(context, 1, args);
+}

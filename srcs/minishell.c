@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/09 14:57:35 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 11:53:07 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "minishell_scheduler.h"
 #include "minishell_runtime.h"
 #include "minishell_utilities.h"
+#include "minishell_signal.h"
 
 t_shell_context	*shell_get_context(t_shell_context *context)
 {
@@ -44,6 +45,7 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->standard_input_backup = dup(standard_input);
 	context->standard_output_backup = dup(standard_output);
 	context->shell_name = ft_strsplit_last(argv[path], '/');
+	signal_register(context);
 }
 
 void	shell_start(char const *argv[], char *env[])

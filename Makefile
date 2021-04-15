@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/14 11:02:48 by seruiz           ###   ########lyon.fr    #
+#    Updated: 2021/04/15 11:52:51 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,10 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/runtime/instruction/instruction_pipe.c \
 						./srcs/runtime/instruction/instruction_and.c \
 						./srcs/runtime/instruction/instruction_or.c \
+						./srcs/signal/signal.c \
+						./srcs/signal/end_point/signal_do_nothing.c \
+						./srcs/signal/end_point/signal_new_prompt.c \
+						./srcs/signal/end_point/signal_exit.c \
 						./srcs/utilities/node/node.c \
 						./srcs/utilities/node/commands_clear.c \
 						./srcs/utilities/node/node_command_clear.c \
@@ -63,6 +67,8 @@ HEADER			=		./srcs/minishell.h \
 						./srcs/minishell_error.h \
 						./srcs/minishell_builtin.h \
 						./srcs/minishell_scheduler.h \
+						./srcs/minishell_runtime.h \
+						./srcs/minishell_signal.h \
 						./srcs/minishell_utilities.h
 
 

@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_signal.h                                 :+:      :+:    :+:   */
+/*   signal_do_nothing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 10:52:37 by felix             #+#    #+#             */
-/*   Updated: 2021/04/15 11:52:20 by fgalaup          ###   ########lyon.fr   */
+/*   Created: 2021/04/15 11:06:57 by fgalaup           #+#    #+#             */
+/*   Updated: 2021/04/15 12:27:27 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_SIGNAL_H
-# define MINISHELL_SIGNAL_H
+#include "minishell_signal.h"
 
-# include <signal.h>
-
-# include "minishell.h"
-# include "minishell_type.h"
-
-int		signal_register(t_shell_context *context);
-
-void	signal_do_nothing(int signal);
-void	signal_new_prompt(int signal);
-void	signal_exit(int signal);
-
-#endif
+void	signal_do_nothing(int signal)
+{
+	(void)signal;
+	ft_putstr_fd(standard_output, "\b\b  \b\b");
+}

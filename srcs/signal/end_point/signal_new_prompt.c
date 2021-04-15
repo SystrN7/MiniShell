@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_signal.h                                 :+:      :+:    :+:   */
+/*   signal_new_prompt.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 10:52:37 by felix             #+#    #+#             */
-/*   Updated: 2021/04/15 11:52:20 by fgalaup          ###   ########lyon.fr   */
+/*   Created: 2021/04/15 11:14:07 by fgalaup           #+#    #+#             */
+/*   Updated: 2021/04/15 12:26:04 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_SIGNAL_H
-# define MINISHELL_SIGNAL_H
+#include "minishell_signal.h"
 
-# include <signal.h>
+void	signal_new_prompt(int signal)
+{
+	t_shell_context	*context;
 
-# include "minishell.h"
-# include "minishell_type.h"
-
-int		signal_register(t_shell_context *context);
-
-void	signal_do_nothing(int signal);
-void	signal_new_prompt(int signal);
-void	signal_exit(int signal);
-
-#endif
+	(void) signal;
+	context = shell_get_context(NULL);
+	context->last_command_return_code = 1;
+	ft_putstr_fd(standard_output, "\b\b  \n");
+	console_prompt(context);
+}
