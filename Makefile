@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/15 11:52:51 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/15 15:19:18 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,10 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/parsing/catch_redirection_left_new.c\
 						./srcs/parsing/catch_redirection_right.c\
 						./srcs/parsing/ft_split_mask.c\
+						./srcs/prompt/prompt.c \
+						./srcs/prompt/type/prompt_tty.c \
+						./srcs/prompt/type/prompt_file.c \
+						./srcs/prompt/type/prompt_command.c \
 						./srcs/scheduler/scheduler.c \
 						./srcs/scheduler/consistency_analyzer.c \
 						./srcs/scheduler/node_utilities.c \
@@ -63,6 +67,7 @@ HEADER_DIR		=		./srcs/
 
 HEADER			=		./srcs/minishell.h \
 						./srcs/minishell_type.h \
+						./srcs/minishell_prompt.h \
 						./srcs/minishell_parser.h \
 						./srcs/minishell_error.h \
 						./srcs/minishell_builtin.h \

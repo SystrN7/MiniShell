@@ -6,17 +6,14 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/15 11:53:07 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 16:35:36 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell_builtin.h"
-#include "minishell_parser.h"
 #include "minishell_scheduler.h"
-#include "minishell_runtime.h"
 #include "minishell_utilities.h"
-#include "minishell_signal.h"
+#include "minishell_prompt.h"
 
 t_shell_context	*shell_get_context(t_shell_context *context)
 {
@@ -45,29 +42,14 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->standard_input_backup = dup(standard_input);
 	context->standard_output_backup = dup(standard_output);
 	context->shell_name = ft_strsplit_last(argv[path], '/');
-	signal_register(context);
 }
 
 void	shell_start(char const *argv[], char *env[])
 {
 	t_shell_context	context;
-	char			*line;
-	t_node_binary	*root;
 
-	(void)argv;
 	shell_init(&context, argv, env);
-	console_clear();
-	console_prompt(&context);
-	while (get_next_line(0, &line) >= 0)
-	{
-		root = ft_treat_line(line);
-		ft_managed_free(line);
-		root = scheduler(&context, root);
-		if (root != NULL)
-			run_instruction(&context, root);
-		commands_clear(root);
-		console_prompt(&context);
-	}
+	prompt(&context, argv);
 	shell_shutdown(&context);
 }
 
