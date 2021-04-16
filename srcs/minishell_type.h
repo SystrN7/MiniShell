@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/09 14:57:22 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 15:30:34 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 typedef struct s_shell_context
 {
 	char	*shell_name;
+
+	t_bool	interactive_mode;
+	int		line_number;
 
 	t_list	*token;
 

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/15 16:35:36 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 15:33:30 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->token = scheduler_get_priority_list();
 	context->standard_input_backup = dup(standard_input);
 	context->standard_output_backup = dup(standard_output);
-	context->shell_name = ft_strsplit_last(argv[path], '/');
+	context->interactive_mode = FALSE;
+	context->line_number = -1;
+	context->shell_name = ft_strdup(argv[path]);
 }
 
 void	shell_start(char const *argv[], char *env[])

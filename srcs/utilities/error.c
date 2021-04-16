@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:39:17 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 16:32:47 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 14:24:32 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	error_fatal(
 	va_list	args;
 
 	ft_printf_fd(standard_error, "%s: ", context->shell_name);
+	if (context->line_number >= 0)
+		ft_printf("line %d: ", context->line_number);
 	va_start(args, return_code);
 	error_print_messages(context, error_code, return_code, args);
 	va_end(args);
@@ -39,6 +41,8 @@ int	error_message(
 	va_list	args;
 
 	ft_printf_fd(standard_error, "%s: ", context->shell_name);
+	if (context->line_number >= 0)
+		ft_printf("line %d: ", context->line_number);
 	va_start(args, return_code);
 	error_print_messages(context, error_code, return_code, args);
 	va_end(args);
@@ -54,6 +58,8 @@ int	error_std(
 	va_list	args;
 
 	ft_printf_fd(standard_error, "%s: ", context->shell_name);
+	if (context->line_number >= 0)
+		ft_printf("line %d: ", context->line_number);
 	va_start(args, return_code);
 	error_print_origin(args);
 	error_print_messages(context, ERROR_STD, return_code, args);
@@ -71,6 +77,8 @@ int	error_builtin(
 	va_list	args;
 
 	ft_printf_fd(standard_error, "%s: ", context->shell_name);
+	if (context->line_number >= 0)
+		ft_printf("line %d: ", context->line_number);
 	va_start(args, return_code);
 	error_print_origin(args);
 	error_print_messages(context, error_code, return_code, args);

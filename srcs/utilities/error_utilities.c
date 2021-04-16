@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 16:20:20 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 16:28:36 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 14:23:45 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	error_print_messages(
 	size = ft_format(error_message, args, &buffer);
 	if (size < 0)
 		exit(1);
+	if (size > 0)
+		size--;
 	write(standard_error, buffer, size);
 	write(standard_error, "\n", 1);
 	ft_managed_free(buffer);

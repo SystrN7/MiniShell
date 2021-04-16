@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:48:47 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/15 16:43:40 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 14:23:03 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	prompt_file(t_shell_context *context)
 	t_node_binary	*schedule_root;
 	int				read_status;
 
+	context->line_number = 0;
 	while (0 == 0)
 	{
 		read_status = get_next_line(standard_input, &line);
+		context->line_number++;
 		if (read_status == ERROR_STD)
 			return (error_std(context, 1, NULL));
 		root = ft_treat_line(line);
