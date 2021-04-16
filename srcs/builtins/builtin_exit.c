@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:28:33 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 16:54:01 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 15:34:26 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 
 int	builtin_exit(t_shell_context *context, int argc, char **args)
 {
-	ft_printf_fd(standard_error, "exit\n");
+	if (context->interactive_mode)
+		ft_printf_fd(standard_error, "exit\n");
 	if (argc >= 2)
 	{
 		if (!ft_strtest(args[arg1], ft_isdigit))
