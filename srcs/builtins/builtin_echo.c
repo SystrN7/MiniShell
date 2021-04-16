@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:00:30 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 17:02:29 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 10:33:05 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_echo(t_shell_context *context, int argc, char **args)
 	(void)context;
 	option_n = FALSE;
 	if (argc > 1)
-		option_n = builtin_echo_option_n(args[1]);
+		option_n = builtin_echo_option_n(args);
 	i = option_n + 1;
 	while (args[i])
 	{
@@ -33,25 +33,29 @@ int	builtin_echo(t_shell_context *context, int argc, char **args)
 	return (0);
 }
 
-int	builtin_echo_option_n(char *arg)
+int	builtin_echo_option_n(char *args[])
 {
-	int		i;
-	t_bool	option_n;
+	size_t	i;
+	size_t	j;
+	int		option_n;
 
-	i = 0;
+	i = 1;
 	option_n = 0;
-	if (arg[i++] == '-')
+	while (args[i])
 	{
-		while (arg[i])
+		j = 0;
+		if (args[i][j++] == '-' && args[i][j++] == 'n')
 		{
-			if (arg[i++] == 'n')
-				option_n = TRUE;
-			else
+			while (args[i][j])
 			{
-				option_n = FALSE;
-				break ;
+				if (args[i][j++] != 'n')
+					return (option_n);
 			}
+			option_n++;
 		}
+		else
+			return (option_n);
+		i++;
 	}
 	return (option_n);
 }
