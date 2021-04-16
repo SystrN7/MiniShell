@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 10:23:55 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/09 11:06:07 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 14:53:32 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,17 @@ int	builtin_cd_no_arg(t_shell_context *context, char *builtin_name)
 
 int	builtin_cd_previous(t_shell_context *context, char *builtinname, char *arg1)
 {
+	int	status;
+
 	if (!ft_strncmp(arg1, "-", 2))
-		return (builtin_cd_path_env(context, builtinname, "OLDPWD"));
+	{
+		status = builtin_cd_path_env(context, builtinname, "OLDPWD");
+		if (status == SUCCESS)
+			builtin_pwd(context, 0, NULL);
+		else if (status == 2)
+			ft_putchar_fd(standard_output, '\n');
+		return (SUCCESS);
+	}
 	return (1);
 }
 
@@ -58,17 +67,18 @@ int	builtin_cd_path_env(t_shell_context *context, char *blt_name, char *env_var)
 	env_home = env_get(context, env_var);
 	if (env_home)
 	{
-		env_home = ft_lst_associative_get(context->shared_environment, env_var);
+		if (env_home[0] == '\0')
+			return (2);
 		if (chdir(env_home) == ERROR_STD)
-			error_builtin(context, ERROR_STD, 1, blt_name, env_home, NULL);
+			return (error_builtin(context, -1, 1, blt_name, env_home, NULL));
 		else
 			builtin_cd_update_env(context);
 	}
 	else
-		error_builtin(
-			context,
-			ERROR_BUILTIN_CD_NO_VAR, 1,
-			blt_name, NULL, env_var);
+		return (error_builtin(
+				context,
+				ERROR_BUILTIN_CD_NO_VAR, 1,
+				blt_name, NULL, env_var));
 	return (SUCCESS);
 }
 
