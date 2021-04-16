@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/08 15:55:25 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 17:45:43 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ char	*command_path_resolver(
 		command->path = path_get_binary_path(
 				env_get(context, "PATH"),
 				command->argv[path]);
+	if (command->path == NULL)
+		command->path = command->argv[path];
 	if (!command->path)
 		error_message(
 			context,

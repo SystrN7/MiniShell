@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:24:23 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/08 17:12:38 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 17:11:33 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_list	*env_store(char *env[])
 
 	i = 0;
 	env_list = NULL;
+	if (env == NULL)
+		return (NULL);
 	while (env[i])
 	{
 		splited_row = env_key_value_split(env[i]);

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 10:23:55 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/16 14:53:32 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 17:14:44 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ int	builtin_cd_update_env(t_shell_context *context)
 	current_directory = ft_calloc(sizeof(char), PATH_MAX);
 	getcwd(current_directory, PATH_MAX);
 	previous_directory = env_get(context, "PWD");
-	env_set(context, "OLDPWD", ft_strdup(previous_directory));
-	env_set(context, "PWD", current_directory);
+	if (previous_directory != NULL)
+		env_set(context, "OLDPWD", ft_strdup(previous_directory));
+	if (current_directory != NULL)
+		env_set(context, "PWD", current_directory);
 	return (SUCCESS);
 }
