@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/16 17:45:43 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 13:33:14 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,6 @@ char	*command_path_resolver(
 				env_get(context, "PATH"),
 				command->argv[path]);
 	if (command->path == NULL)
-		command->path = command->argv[path];
-	if (!command->path)
 		error_message(
 			context,
 			ERROR_RUNTIME_UNKNOWN_COMMAND,
