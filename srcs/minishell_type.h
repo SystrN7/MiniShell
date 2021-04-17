@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/16 15:30:34 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 10:40:12 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_TYPE_H
 
 # include "ft_type.h"
+
+# include <limits.h>
 
 typedef struct s_shell_context
 {
