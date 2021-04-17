@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:05:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/16 17:22:32 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 15:06:50 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,8 @@ char	*path_get_binary_path(char *env_path, char *binary_name)
 	size_t	i;
 	char	**binaries_location;
 	char	*path[4];
-	char	*binary_path;
 
 	i = 0;
-	path[1] = "/";
-	path[2] = binary_name;
-	path[3] = NULL;
 	if (env_path == NULL || binary_name == NULL)
 		return (NULL);
 	binaries_location = ft_split(env_path, ':');
@@ -35,13 +31,15 @@ char	*path_get_binary_path(char *env_path, char *binary_name)
 		path[0] = binaries_location[i];
 		if (path_find_binary(binaries_location[i], binary_name))
 		{
-			binary_path = ft_2d_merge(path);
-			ft_2d_free((void **)binaries_location);
-			return (binary_path);
+			i = 1;
+			if (path[0][ft_strlen(path[0]) - 1] != '/')
+				path[i++] = "/";
+			path[i++] = binary_name;
+			path[i++] = NULL;
+			return (ft_2d_merge(path));
 		}
 		i++;
 	}
-	ft_2d_free((void **)binaries_location);
 	return (NULL);
 }
 
@@ -61,7 +59,7 @@ t_bool	path_find_binary(char *directory_name, char *binary_name)
 	while (dir_content && !result)
 	{
 		if (dir_content->d_namlen == binary_name_lenght
-			&& !ft_strncmp(dir_content->d_name, binary_name, binary_name_lenght)
+			&& !ft_stricmp(dir_content->d_name, binary_name)
 		)
 			result = TRUE;
 		dir_content = readdir(directory);
