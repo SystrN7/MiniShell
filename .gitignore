@@ -1,7 +1,12 @@
+# MacOS
+.DS_Store
+
+# IDE
+.vscode
+
+# Binary
+minishell_sample
+superbash
 minishell
 *.o
 main*
-.DS_Store
-
-minishell_sample
-superbash
