@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 11:14:06 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 16:17:02 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->standard_input_backup = dup(standard_input);
 	context->standard_output_backup = dup(standard_output);
 	context->interactive_mode = FALSE;
-	context->line_number = -1;
+	context->line_number = 0;
 	context->shell_name = ft_strdup(argv[path]);
 	env_set(context, "OLDPWD", NULL);
 	env_set(context, "PWD", getcwd(ft_managed_malloc(PATH_MAX), PATH_MAX));
@@ -65,6 +65,7 @@ void	shell_shutdown(t_shell_context *context)
 	ft_lstclear(&context->local_environement, &ft_lst_associative_del_free);
 	ft_lstclear(&context->shared_environment, &ft_lst_associative_del_free);
 	ft_managed_free(context->shell_name);
+	ft_managed_free(context->line);
 	close(context->standard_input_backup);
 	close(context->standard_output_backup);
 	ft_managed_free_all();

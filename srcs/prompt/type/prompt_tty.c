@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/16 15:34:07 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 16:04:13 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	prompt_tty_loop(t_shell_context *context)
 	while (0 == 0)
 	{
 		read_status = get_next_line(0, &line);
+		context->line = line;
 		if (read_status == ERROR_STD)
 			return (error_std(context, 1, NULL));
 		root = ft_treat_line(line);
