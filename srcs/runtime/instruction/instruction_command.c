@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 13:33:14 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 15:27:32 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 			command->argv,
 			env_destore_all(context->shared_environment));
 		error_std(context, 127, command->path, NULL);
+		if (errno == EACCES)
+			context->last_command_return_code = 126;
 		shell_shutdown(context);
 	}
 	else
