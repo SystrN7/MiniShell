@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:05:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 15:06:50 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 10:57:12 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ char	*path_get_binary_path(char *env_path, char *binary_name)
 				path[i++] = "/";
 			path[i++] = binary_name;
 			path[i++] = NULL;
-			return (ft_2d_merge(path));
+			path[0] = ft_2d_merge(path);
+			ft_2d_free((void **)binaries_location);
+			return (path[0]);
 		}
 		i++;
 	}
+	ft_2d_free((void **)binaries_location);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 15:27:32 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 10:29:21 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,20 @@ int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
 	int		argcount;
 
 	return_code = 0;
-	builtin->path = ft_strdup(builtin->argv[path]);
-	ft_striter(builtin->path, ft_tolower);
 	argcount = ft_2d_count((void **)builtin->argv);
-	if (!ft_strncmp(builtin->path, BUILTIN_ECHO, 5))
+	if (!ft_strncmp(builtin->argv[path], BUILTIN_ECHO, 5))
 		return_code = builtin_echo(context, argcount, builtin->argv);
-	else if (!ft_strncmp(builtin->path, BUILTIN_ENV, 4))
+	else if (!ft_strncmp(builtin->argv[path], BUILTIN_ENV, 4))
 		return_code = builtin_env(context, argcount, builtin->argv);
-	else if (!ft_strncmp(builtin->path, BUILTIN_EXPORT, 7))
+	else if (!ft_strncmp(builtin->argv[path], BUILTIN_EXPORT, 7))
 		return_code = builtin_export(context, argcount, builtin->argv);
-	else if (!ft_strncmp(builtin->path, BUILTIN_UNSET, 6))
+	else if (!ft_strncmp(builtin->argv[path], BUILTIN_UNSET, 6))
 		return_code = builtin_unset(context, argcount, builtin->argv);
-	else if (!ft_strncmp(builtin->path, BUILTIN_CD, 3))
+	else if (!ft_strncmp(builtin->argv[path], BUILTIN_CD, 3))
 		return_code = builtin_cd(context, argcount, builtin->argv);
-	else if (!ft_strncmp(builtin->path, BUILTIN_PWD, 4))
+	else if (!ft_strncmp(builtin->argv[path], BUILTIN_PWD, 4))
 		return_code = builtin_pwd(context, argcount, builtin->argv);
-	else if (!ft_strncmp(builtin->path, BUILTIN_EXIT, 5))
+	else if (!ft_strncmp(builtin->argv[path], BUILTIN_EXIT, 5))
 		return_code = builtin_exit(context, argcount, builtin->argv);
 	else
 		return (TRUE);

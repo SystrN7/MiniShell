@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 16:17:02 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 15:04:05 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->standard_output_backup = dup(standard_output);
 	context->interactive_mode = FALSE;
 	context->line_number = 0;
-	context->shell_name = ft_strdup(argv[path]);
+	context->shell_name = (char *)argv[path];
 	env_set(context, "OLDPWD", NULL);
 	env_set(context, "PWD", getcwd(ft_managed_malloc(PATH_MAX), PATH_MAX));
 }
