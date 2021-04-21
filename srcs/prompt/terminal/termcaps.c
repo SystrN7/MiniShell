@@ -7,9 +7,42 @@ int	ft_putchar(int c)
 	return (write(1, &c, 1));
 }
 
-int	set_histo(int id, char line[2000])
+int	ft_set_histo_line(char line[2000], t_bidirectional_list *history, int id)
 {
-	if (id == 0)
+	int	len;
+	int	i;
+	char	*buff;
+
+	if (id == 1)
+	{
+		if (history->prev != NULL)
+			history = history->prev;
+	}
+	else if (id == 0)
+	{
+		if (history->next != NULL)
+			history = history->next;
+	}
+	(void)line;
+	i = 0;
+	buff = (char *)history->content;
+	len = ft_strlen(buff);
+	while (i < len)
+	{
+		line[i] = buff[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (i);
+}
+
+int	set_histo(int id, char line[2000], t_bidirectional_list *history)
+{
+	if (history != NULL)
+	{
+		return (ft_set_histo_line(line, history, id));
+	}
+	else if (id == 0)
 	{
 		line[0] = 'n';
 		line[1] = 'e';
@@ -69,28 +102,34 @@ int	ft_delete_character(t_termcaps *s)
 	return (0);
 }
 
-int	ft_manage_history(t_termcaps *s, int id, t_shell_context *context)
+int	ft_manage_history(t_termcaps *s, int id, t_shell_context *context, t_bidirectional_list *history)
 {
+	int	ret;
+
 	tputs(tigetstr("cr"), 1, ft_putchar);
 	tputs(tigetstr("ed"), 1, ft_putchar);
 	tputs(tigetstr("DC"), 1, ft_putchar);
 	s->prompt_len = console_prompt(context);
+	/*
 	if (id == 0)
 		write (1, "next", 4);//Ecrire la ligne de l'histo
 	else
 		write (1, "prev", 4);
-	return (set_histo(id, s->line));
+	*/
+	ret = set_histo(id, s->line, history);
+	write (1, s->line, ret);
+	return (ret);
 }
 
-void	ft_get_line(t_termcaps *s, t_shell_context *context)
+void	ft_get_line(t_termcaps *s, t_shell_context *context, t_bidirectional_list *history)
 {
 	while (42)
 	{
 		s->l = read(0, s->str, 16);
 		if (!strcmp(s->str, "\e[A"))
-			s->i = ft_manage_history(s, 1, context);
+			s->i = ft_manage_history(s, 1, context, history);
 		else if (!strcmp(s->str, "\e[B"))
-			s->i = ft_manage_history(s, 0, context);
+			s->i = ft_manage_history(s, 0, context, history);
 		else if (*(s->str) == 127)
 		{
 			s->i = ft_delete_character(s);
@@ -110,11 +149,7 @@ void	ft_get_line(t_termcaps *s, t_shell_context *context)
 		{
 			write (1, "\n", 1);
 			s->line[s->i] = '\0';
-			printf("line = %s\n", s->line);
-			//Send line to treat line HERE
-			s->prompt_len = console_prompt(context);
-			//s->i = 0;
-			//s->line[s->i] = '\0';
+			//s->prompt_len = console_prompt(context);
 			break;
 		}
 	}
@@ -140,16 +175,18 @@ char	*ft_copy_line(t_termcaps *s)
 	return (result);
 }
 
-char	*terms_input_mode(t_shell_context *context)
+char	*terms_input_mode(t_shell_context *context, t_bidirectional_list *history)
 {
-	t_termcaps	*s;
-	char		*line;
+	t_termcaps		*s;
+	char			*line;
+	struct termios	save;
 
-	(void)context;
+	(void)history;
 	s = malloc(sizeof(t_termcaps));
 	memset(s, 0, sizeof(t_termcaps)); // FT_MEMESET
 	s->term_name = getenv("TERM");
 	tcgetattr(0, &(s->term));
+	tcgetattr(0, &(save));
 	(s->term).c_lflag &= ~(ECHO);
 	(s->term).c_lflag &= ~(ICANON);
 	tcsetattr(0, TCSANOW, &(s->term));
@@ -158,8 +195,9 @@ char	*terms_input_mode(t_shell_context *context)
 	s->i = 0;
 	s->prompt_len = console_prompt(context);
 	tputs(tigetstr("dm"), 1, ft_putchar);
-	ft_get_line(s, context);
+	ft_get_line(s, context, history);
 	line = ft_copy_line(s);
-	//printf ("final line = %s\n", line);
+	free(s);
+	tcsetattr(0, TCSANOW, &save);
 	return (line);
 }

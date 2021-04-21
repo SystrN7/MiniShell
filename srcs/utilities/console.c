@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 11:21:21 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 11:55:13 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 12:39:31 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	console_prompt(t_shell_context *context)
 	int		len;
 
 	getcwd(path_buffer, PATH_MAX);
-	len = ft_printf("%s%s%s%s%d%s", context->shell_name, "-[", path_buffer, "]-(", context->last_command_return_code, ")-$ ");
+	len = ft_printf("%s-[%s]-(%d)-$ ", context->shell_name, path_buffer,
+		context->last_command_return_code);
 	return (len);
 	/*
 	ft_putstr_fd(standard_output, context->shell_name);

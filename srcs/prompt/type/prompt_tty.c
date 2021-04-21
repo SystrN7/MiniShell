@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 11:43:28 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 14:48:23 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,24 @@ int	prompt_tty_init(t_shell_context *context)
 
 int	prompt_tty_loop(t_shell_context *context)
 {
-	char			*line;
-	t_node_binary	*root;
-	t_node_binary	*schedule_root;
+	char					*line;
+	t_node_binary			*root;
+	t_node_binary			*schedule_root;
+	t_bidirectional_list	*history;
 	//int				read_status;
 
+	history = NULL;
 	//console_prompt(context);
 	while (0 == 0)
 	{
 		//read_status = get_next_line(0, &line);
-		line = terms_input_mode(context);
+		line = terms_input_mode(context, history);
 		context->line = line;
 		//if (read_status == ERROR_STD)
 		//	return (error_std(context, 1, NULL));
+		ft_blst_new_front(&history, line, &ft_managed_free);
 		root = ft_treat_line(line);
-		ft_managed_free(line);
+		//ft_managed_free(line);
 		schedule_root = scheduler(context, root);
 		if (schedule_root != NULL)
 		{
