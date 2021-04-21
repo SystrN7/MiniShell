@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/15 15:19:18 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/21 11:51:11 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/prompt/type/prompt_tty.c \
 						./srcs/prompt/type/prompt_file.c \
 						./srcs/prompt/type/prompt_command.c \
+						./srcs/prompt/terminal/termcaps.c \
 						./srcs/scheduler/scheduler.c \
 						./srcs/scheduler/consistency_analyzer.c \
 						./srcs/scheduler/node_utilities.c \
@@ -74,7 +75,8 @@ HEADER			=		./srcs/minishell.h \
 						./srcs/minishell_scheduler.h \
 						./srcs/minishell_runtime.h \
 						./srcs/minishell_signal.h \
-						./srcs/minishell_utilities.h
+						./srcs/minishell_utilities.h \
+						./srcs/minishell_termcaps.h
 
 
 
@@ -95,7 +97,7 @@ OBJS			=		$(SRCS:.c=.o)
 all:	$(NAME)
 
 $(NAME): libft $(OBJS) $(HEADER)
-		$(CC) $(CFLAGS) $(LIBFT) $(CMLXFLAGS) $(OBJS) -o $(NAME)
+		$(CC) $(CFLAGS) $(LIBFT) -ltermcap $(CMLXFLAGS) $(OBJS) -o $(NAME)
 
 bonus: $(NAME)
 

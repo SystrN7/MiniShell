@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/19 10:29:21 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 11:43:17 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	instruction_builtin_exec(t_shell_context *context, t_shell_command *builtin)
 	else if (!ft_strncmp(builtin->argv[path], BUILTIN_EXIT, 5))
 		return_code = builtin_exit(context, argcount, builtin->argv);
 	else
-		return (TRUE);
+		return (FT_TRUE);
 	context->last_command_return_code = return_code;
-	return (FALSE);
+	return (FT_FALSE);
 }
 
 int	instruction_command_prepare(

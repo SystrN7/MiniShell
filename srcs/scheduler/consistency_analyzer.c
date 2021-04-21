@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   consistency_analyzer.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 16:09:30 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 11:43:23 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
 	if (analyzer_recusive(context, root, root))
-		return (TRUE);
-	return (FALSE);
+		return (FT_TRUE);
+	return (FT_FALSE);
 }
 
 t_bool	analyzer_recusive(
@@ -30,11 +30,11 @@ t_bool	analyzer_recusive(
 		if (get_node_type(node->left) != SHELL_INSTRUCTION_COMMAND)
 		{
 			// Continue recusion 
-			if (analyzer_recusive(context, node, node->left) == TRUE)
-				return (TRUE);
+			if (analyzer_recusive(context, node, node->left) == FT_TRUE)
+				return (FT_TRUE);
 		}
 		else if (redirection_consistency_analizer(context, parent_node, node->left))
-			return (TRUE);
+			return (FT_TRUE);
 	}
 	else
 		return (separator_irregularity_identifier(context, node));
@@ -42,13 +42,13 @@ t_bool	analyzer_recusive(
 	{
 		if (get_node_type(node) != SHELL_SEPARATOR_TYPE_END)
 			return (error_message(context, ERROR_SYNTAX_TOKEN_BOND, 258, "newline"));
-		return (FALSE);
+		return (FT_FALSE);
 	}
 	if (node->right == NULL)
 		return (separator_irregularity_identifier(context, parent_node));
 	else if (redirection_consistency_analizer(context, parent_node, node->right))
-		return (TRUE);
-	return (FALSE);
+		return (FT_TRUE);
+	return (FT_FALSE);
 }
 
 t_bool	redirection_consistency_analizer(
@@ -72,11 +72,11 @@ t_bool	redirection_consistency_analizer(
 				return (separator_irregularity_identifier(context, previous_node));
 			else
 				ft_printf("pascontent\n");
-			return (TRUE);
+			return (FT_TRUE);
 		}
 		it = it->next;
 	}
-	return (FALSE);
+	return (FT_FALSE);
 }
 
 t_bool	redirection_irregularity_identifier(
@@ -103,7 +103,7 @@ t_bool	redirection_irregularity_identifier(
 	if (!context->interactive_mode)
 		ft_printf_fd(standard_error, "%s : line %d: `%s'",
 			context->shell_name, context->line_number, context->line);
-	return (TRUE);
+	return (FT_TRUE);
 }
 
 t_bool	separator_irregularity_identifier(
@@ -133,5 +133,5 @@ t_bool	separator_irregularity_identifier(
 	if (!context->interactive_mode)
 		ft_printf_fd(standard_error, "%s : line %d: `%s'",
 			context->shell_name, context->line_number, context->line);
-	return (TRUE);
+	return (FT_TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 09:40:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/03/15 12:52:58 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 11:43:21 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ t_bool	env_is_assignment(const char *value)
 
 	i = 0;
 	if (!ft_isalpha(value[i]) || value[i] != '_')
-		return (FALSE);
+		return (FT_FALSE);
 	while (ft_isalnum(value[i]) || value[i] != '_')
 		i++;
 	if (value[i] == '=')
-		return (TRUE);
-	return (FALSE);
+		return (FT_TRUE);
+	return (FT_FALSE);
 }
 
 /**
@@ -39,10 +39,10 @@ t_bool	env_is_identifier(const char *value)
 
 	i = 0;
 	if (!ft_isalpha(value[i]) && value[i] != '_')
-		return (FALSE);
+		return (FT_FALSE);
 	while (ft_isalnum(value[i]) || value[i] == '_')
 		i++;
 	if (value[i] == '\0' || value[i] == '=')
 		return (i);
-	return (FALSE);
+	return (FT_FALSE);
 }

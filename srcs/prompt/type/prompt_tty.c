@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_tty.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 16:04:13 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 11:43:28 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "minishell_runtime.h"
 #include "minishell_utilities.h"
 #include "minishell_signal.h"
+#include "minishell_termcaps.h"
 
 int	prompt_tty(t_shell_context *context)
 {
@@ -31,7 +32,7 @@ int	prompt_tty_init(t_shell_context *context)
 	console_clear();
 	name_backup = context->shell_name;
 	context->shell_name = ft_strsplit_last(context->shell_name, '/');
-	context->interactive_mode = TRUE;
+	context->interactive_mode = FT_TRUE;
 	ft_managed_free(name_backup);
 	name_backup = NULL;
 	return (signal_register(context));
@@ -42,15 +43,16 @@ int	prompt_tty_loop(t_shell_context *context)
 	char			*line;
 	t_node_binary	*root;
 	t_node_binary	*schedule_root;
-	int				read_status;
+	//int				read_status;
 
-	console_prompt(context);
+	//console_prompt(context);
 	while (0 == 0)
 	{
-		read_status = get_next_line(0, &line);
+		//read_status = get_next_line(0, &line);
+		line = terms_input_mode(context);
 		context->line = line;
-		if (read_status == ERROR_STD)
-			return (error_std(context, 1, NULL));
+		//if (read_status == ERROR_STD)
+		//	return (error_std(context, 1, NULL));
 		root = ft_treat_line(line);
 		ft_managed_free(line);
 		schedule_root = scheduler(context, root);
@@ -61,7 +63,7 @@ int	prompt_tty_loop(t_shell_context *context)
 		}
 		else
 			commands_clear(root);
-		console_prompt(context);
+		//console_prompt(context);
 	}
 	return (SUCCESS);
 }

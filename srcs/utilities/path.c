@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:05:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/20 10:57:12 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 11:43:12 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_bool	path_find_binary(char *directory_name, char *binary_name)
 	struct dirent	*dir_content;
 	size_t			binary_name_lenght;
 
-	result = FALSE;
+	result = FT_FALSE;
 	directory = opendir(directory_name);
 	binary_name_lenght = ft_strlen(binary_name);
 	if (!directory)
@@ -64,7 +64,7 @@ t_bool	path_find_binary(char *directory_name, char *binary_name)
 		if (dir_content->d_namlen == binary_name_lenght
 			&& !ft_stricmp(dir_content->d_name, binary_name)
 		)
-			result = TRUE;
+			result = FT_TRUE;
 		dir_content = readdir(directory);
 	}
 	closedir(directory);
