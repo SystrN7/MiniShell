@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/14 14:47:13 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 12:13:11 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_list	*scheduler_get_priority_list(void);
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root);
 t_bool	analyzer_recusive(
 			t_shell_context *context,
-			t_node_binary *parent_node,
 			t_node_binary *node
 			);
 
