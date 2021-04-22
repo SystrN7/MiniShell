@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:00:30 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/16 10:33:05 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:25:45 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	builtin_echo(t_shell_context *context, int argc, char **args)
 	t_bool	option_n;
 
 	(void)context;
-	option_n = FALSE;
+	option_n = FT_FALSE;
 	if (argc > 1)
 		option_n = builtin_echo_option_n(args);
 	i = option_n + 1;

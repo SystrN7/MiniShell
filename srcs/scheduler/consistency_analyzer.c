@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 12:04:30 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:25:50 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 t_bool	consistency_analyzer(t_shell_context *context, t_node_binary *root)
 {
 	if (analyzer_recusive(context, root))
-		return (TRUE);
+		return (FT_TRUE);
 	if (token_irregularity_identifier(context, SHELL_END_LINE))
-		return (TRUE);
-	return (FALSE);
+		return (FT_TRUE);
+	return (FT_FALSE);
 }
 
 t_bool	analyzer_recusive(t_shell_context *context, t_node_binary *node)
@@ -27,22 +27,22 @@ t_bool	analyzer_recusive(t_shell_context *context, t_node_binary *node)
 	t_redirection_list	*it;
 
 	if (node == NULL)
-		return (FALSE);
+		return (FT_FALSE);
 	if (analyzer_recusive(context, node->left))
-		return (TRUE);
+		return (FT_TRUE);
 	node_type = get_node_type(node);
 	if (token_irregularity_identifier(context, node_type))
-		return (TRUE);
+		return (FT_TRUE);
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
 	{
 		it = ((t_shell_command *)node->value)->redirection;
 		while (it)
 		{
 			if (token_irregularity_identifier(context, it->redirection_type))
-				return (TRUE);
+				return (FT_TRUE);
 			if (it->redirection_file[0] != '\0'
 				&& token_irregularity_identifier(context, SHELL_REDIRECT_FILE))
-				return (TRUE);
+				return (FT_TRUE);
 			it = it->next;
 		}
 	}
@@ -55,7 +55,7 @@ t_bool	token_irregularity_identifier(t_shell_context *context, char token_id)
 
 	if (token_id == SHELL_END_LINE
 		&& previous_token_id == SHELL_SEPARATOR_TYPE_END)
-		return (FALSE);
+		return (FT_FALSE);
 	if (ft_is_in_charset(previous_token_id, context->token_separator)
 		&& ft_is_in_charset(token_id, context->token_separator))
 	{
@@ -66,10 +66,10 @@ t_bool	token_irregularity_identifier(t_shell_context *context, char token_id)
 		if (!context->interactive_mode)
 			ft_printf_fd(standard_error, "%s : line %d: `%s'",
 				context->shell_name, context->line_number, context->line);
-		return (TRUE);
+		return (FT_TRUE);
 	}
 	previous_token_id = token_id;
-	return (FALSE);
+	return (FT_FALSE);
 }
 
 char	*token_separator_get_list(void)

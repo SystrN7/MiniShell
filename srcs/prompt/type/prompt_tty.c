@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 16:04:13 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:25:54 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	prompt_tty_init(t_shell_context *context)
 	console_clear();
 	name_backup = context->shell_name;
 	context->shell_name = ft_strsplit_last(context->shell_name, '/');
-	context->interactive_mode = TRUE;
+	context->interactive_mode = FT_TRUE;
 	ft_managed_free(name_backup);
 	name_backup = NULL;
 	return (signal_register(context));
