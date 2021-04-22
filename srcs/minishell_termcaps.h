@@ -22,8 +22,15 @@ typedef struct		s_termcaps
 	int				prompt_len;
 	struct termios	term;
 	char			*term_name;
+	int				first_histo;
 }					t_termcaps;
 
-char	*terms_input_mode(t_shell_context *context, t_bidirectional_list **history);
+char		*terms_input_mode(t_shell_context *context,
+				t_bidirectional_list **history);
+int			ft_manage_history(t_termcaps *s, int id, t_shell_context *context,
+				t_bidirectional_list **history);
+int			ft_putchar(int c);
+int			ft_delete_character(t_termcaps *s,
+				t_shell_context *context);
 
 #endif

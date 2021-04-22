@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:21 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 17:33:08 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:37:25 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,16 @@ int	ft_no_quote(char *line, int j, t_shell_command *str_struct)
 	{
 		if (line[ret] == '\\')
 		{
-			backslash++;
-			ret++;
+			if (line[ret + 1] == '\0')
+			{
+				line[ret] = '\0';
+				ret--;
+			}
+			else
+			{
+				backslash++;
+				ret++;
+			}
 		}
 		ret++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:12 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 17:01:14 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:37:13 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ int	ft_double_quote(char *line, int j, t_shell_command *str_struct)
 	ret = j + 1;
 	while ((line[ret] && (line[ret] != '\"' && ret - 1 >= 0))
 		|| line[ret - 1] == '\\')
-		ret++;
+	{
+		if (line[ret] == '\\' && line[ret + 1] == '\0')
+			line[ret] = '\0';
+		else
+			ret++;
+	}
 	if (ret == (int)ft_strlen(line))
 		no_end_quotes = -1;
 	mask = ft_managed_malloc(sizeof(char) * (ret - j));
