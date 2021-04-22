@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 11:14:32 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 18:24:21 by felix            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_shell_context
 
 enum e_shell_instruction_type
 {
-	SHELL_INSTRUCTION_UNKNOWN,
+	SHELL_INSTRUCTION_UNKNOWN = 1,
 	SHELL_INSTRUCTION_COMMAND,
 	SHELL_SEPARATOR_TYPE_END,
 	SHELL_SEPARATOR_TYPE_PIPE,
@@ -55,6 +55,7 @@ enum e_shell_instruction_type
 	SHELL_REDIRECT_TYPE_RIGHT,
 	SHELL_REDIRECT_TYPE_DOUBLE_LEFT,
 	SHELL_REDIRECT_TYPE_DOUBLE_RIGHT,
+	SHELL_END_LINE,
 };
 
 enum e_shell_args

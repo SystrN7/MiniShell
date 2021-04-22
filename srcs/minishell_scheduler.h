@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_scheduler.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 12:13:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 16:38:08 by felix            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,16 @@ t_bool	analyzer_recusive(
 			t_node_binary *node
 			);
 
-t_bool	redirection_consistency_analizer(
-			t_shell_context *context,
-			t_node_binary *previous_node,
-			t_node_binary *node
-			);
+t_bool	token_irregularity_identifier(t_shell_context *context, char token_id);
+char	*token_separator_get_string(char token_id);
 
-t_bool	separator_irregularity_identifier(
-			t_shell_context *context,
-			t_bnode *current_node
-			);
-
-t_bool	redirection_irregularity_identifier(
-			t_shell_context *context,
-			t_redirection_list *redirection
-			);
-
-/**
+	/**
  * =============================================================================
  *									  Utilities										
  * =============================================================================
  **/
 
-t_bool	is_null_command(t_shell_command *command);
+	t_bool is_null_command(t_shell_command *command);
 
 /**
  * =============================================================================

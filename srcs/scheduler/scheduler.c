@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scheduler.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/14 16:22:37 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 16:31:14 by felix            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ t_node_binary	*scheduler(
 
 	if (unschedule_root == NULL)
 		return (NULL);
-	if (get_node_type(unschedule_root) == SHELL_INSTRUCTION_COMMAND)
-	{
-		if (redirection_consistency_analizer(context,
-				unschedule_root,
-				unschedule_root))
-			return (NULL);
-		return (unschedule_root);
-	}
 	ft_printf("----------------------DEBUG----------------------\n");
 	binnary_show(unschedule_root, 0, "Root");
 	printf("\n");
@@ -45,6 +37,8 @@ t_node_binary	*scheduler(
 	ft_printf("`\n-------------------------------------------------\n");
 	if (consistency_analyzer(context, unschedule_root))
 		return (NULL);
+	if (get_node_type(unschedule_root) == SHELL_INSTRUCTION_COMMAND)
+		return (unschedule_root);
 	schedule_root = &unschedule_root;
 	schedule(context->token, schedule_root, *schedule_root);
 	binnary_show(unschedule_root, 0, "Root");
