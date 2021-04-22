@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/19 15:04:05 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 10:26:12 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	ft_managed_termination_function((t_term)shell_shutdown);
 	ft_managed_termination_params(context);
 	context->token = scheduler_get_priority_list();
+	context->token_separator = token_separator_get_list();
 	context->standard_input_backup = dup(standard_input);
 	context->standard_output_backup = dup(standard_output);
 	context->interactive_mode = FALSE;
@@ -50,17 +51,19 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 
 void	shell_start(char const *argv[], char *env[])
 {
-	t_shell_context	context;
+	t_shell_context	*context;
 
-	shell_init(&context, argv, env);
-	prompt(&context, argv);
-	shell_shutdown(&context);
+	context = ft_managed_malloc(sizeof(t_shell_context));
+	shell_init(context, argv, env);
+	prompt(context, argv);
+	shell_shutdown(context);
 }
 
 void	shell_shutdown(t_shell_context *context)
 {
 	unsigned char	return_code;
 
+	ft_managed_free(context->token_separator);
 	ft_lstclear(&context->token, &ft_managed_free);
 	ft_lstclear(&context->local_environement, &ft_lst_associative_del_free);
 	ft_lstclear(&context->shared_environment, &ft_lst_associative_del_free);
@@ -68,7 +71,8 @@ void	shell_shutdown(t_shell_context *context)
 	ft_managed_free(context->line);
 	close(context->standard_input_backup);
 	close(context->standard_output_backup);
-	ft_managed_free_all();
 	return_code = context->last_command_return_code % 256;
+	ft_managed_free(context);
+	ft_managed_free_all();
 	exit(return_code);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 18:24:21 by felix            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 10:48:45 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_shell_context
 	char	*line;
 
 	t_list	*token;
+	char	*token_separator;
 
 	t_list	*local_environement;
 	t_list	*shared_environment;
@@ -50,7 +51,7 @@ enum e_shell_instruction_type
 	SHELL_SEPARATOR_TYPE_PIPE,
 	SHELL_SEPARATOR_TYPE_AND,
 	SHELL_SEPARATOR_TYPE_OR,
-	SHELL_REDIRECT_TYPE_FILE_NAME,
+	SHELL_REDIRECT_FILE,
 	SHELL_REDIRECT_TYPE_LEFT,
 	SHELL_REDIRECT_TYPE_RIGHT,
 	SHELL_REDIRECT_TYPE_DOUBLE_LEFT,

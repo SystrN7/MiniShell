@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   consistency_analyzer.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 19:13:19 by felix            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 11:06:00 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_bool	analyzer_recusive(t_shell_context *context, t_node_binary *node)
 	char				node_type;
 	t_redirection_list	*it;
 
-	ft_printf("test\n");
 	if (node == NULL)
 		return (FALSE);
 	if (analyzer_recusive(context, node->left))
@@ -36,29 +35,47 @@ t_bool	analyzer_recusive(t_shell_context *context, t_node_binary *node)
 		return (TRUE);
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
 	{
-		ft_printf("test1\n");
 		it = *((t_shell_command *)node->value)->redirection;
 		while (it)
 		{
-			if (token_irregularity_identifier(context, ((t_redirection_list *)it)->redirection_type))
+			if (token_irregularity_identifier(context, it->redirection_type))
 				return (TRUE);
-			if (((t_redirection_list *)it)->redirection_file[0] != '\0'
-				&& token_irregularity_identifier(context, SHELL_REDIRECT_TYPE_FILE_NAME))
+			if (it->redirection_file[0] != '\0'
+				&& token_irregularity_identifier(context, SHELL_REDIRECT_FILE))
 				return (TRUE);
 			it = it->next;
 		}
 	}
-	if (analyzer_recusive(context, node->right))
-		return (TRUE);
-	return (FALSE);
+	return (analyzer_recusive(context, node->right));
 }
 
 t_bool	token_irregularity_identifier(t_shell_context *context, char token_id)
 {
 	static char	previous_token_id = SHELL_INSTRUCTION_UNKNOWN;
+
+	if (token_id == SHELL_END_LINE
+		&& previous_token_id == SHELL_SEPARATOR_TYPE_END)
+		return (FALSE);
+	if (ft_is_in_charset(previous_token_id, context->token_separator)
+		&& ft_is_in_charset(token_id, context->token_separator))
+	{
+		error_message(
+			context,
+			ERROR_SYNTAX_TOKEN_BOND, 258,
+			token_separator_get_string(token_id));
+		if (!context->interactive_mode)
+			ft_printf_fd(standard_error, "%s : line %d: `%s'",
+				context->shell_name, context->line_number, context->line);
+		return (TRUE);
+	}
+	previous_token_id = token_id;
+	return (FALSE);
+}
+
+char	*token_separator_get_list(void)
+{
 	char		token_separator[11];
 
-	ft_printf("pop\n");
 	token_separator[0] = SHELL_INSTRUCTION_UNKNOWN;
 	token_separator[1] = SHELL_REDIRECT_TYPE_DOUBLE_LEFT;
 	token_separator[2] = SHELL_REDIRECT_TYPE_DOUBLE_RIGHT;
@@ -70,36 +87,16 @@ t_bool	token_irregularity_identifier(t_shell_context *context, char token_id)
 	token_separator[8] = SHELL_SEPARATOR_TYPE_OR;
 	token_separator[9] = SHELL_END_LINE;
 	token_separator[10] = 0;
-	ft_printf("prev=%s\n", token_separator_get_string(previous_token_id));
-	ft_printf("current=%s\n", token_separator_get_string(token_id));
-	ft_printf("current=%d\n", ft_is_in_charset(previous_token_id, token_separator));
-	ft_printf("current=%d\n", ft_is_in_charset(token_id, token_separator));
-	if (token_id == SHELL_END_LINE
-		&& previous_token_id == SHELL_SEPARATOR_TYPE_END)
-		return (FALSE);	
-	if (ft_is_in_charset(previous_token_id, token_separator)
-		&& ft_is_in_charset(token_id, token_separator))
-	{
-		if (token_id == SHELL_INSTRUCTION_UNKNOWN)
-			previous_token_id = token_id;
-		error_message(
-			context,
-			ERROR_SYNTAX_TOKEN_BOND, 258,
-			token_separator_get_string(previous_token_id));
-		/*if (!context->interactive_mode)
-			ft_printf_fd(standard_error, "%s : line %d: `%s'",
-				context->shell_name, context->line_number, context->line);*/
-		return (TRUE);
-	}
-	previous_token_id = token_id;
-	return (FALSE);
+	return (ft_strdup(token_separator));
 }
 
 char	*token_separator_get_string(
 	char token_id
 )
 {
-	if (token_id == SHELL_SEPARATOR_TYPE_AND)
+	if (token_id == SHELL_INSTRUCTION_COMMAND)
+		return ("cmd");
+	else if (token_id == SHELL_SEPARATOR_TYPE_AND)
 		return ("&&");
 	else if (token_id == SHELL_SEPARATOR_TYPE_OR)
 		return ("||");

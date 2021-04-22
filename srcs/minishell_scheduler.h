@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_scheduler.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felix <felix@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:13:49 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 16:38:08 by felix            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 10:25:14 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ t_bool	analyzer_recusive(
 			);
 
 t_bool	token_irregularity_identifier(t_shell_context *context, char token_id);
+
 char	*token_separator_get_string(char token_id);
+char	*token_separator_get_list(void);
 
 	/**
  * =============================================================================
@@ -71,7 +73,7 @@ char	*token_separator_get_string(char token_id);
  * =============================================================================
  **/
 
-	t_bool is_null_command(t_shell_command *command);
+t_bool	is_null_command(t_shell_command *command);
 
 /**
  * =============================================================================
