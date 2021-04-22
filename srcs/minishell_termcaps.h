@@ -24,6 +24,6 @@ typedef struct		s_termcaps
 	char			*term_name;
 }					t_termcaps;
 
-char	*terms_input_mode(t_shell_context *context, t_bidirectional_list *history);
+char	*terms_input_mode(t_shell_context *context, t_bidirectional_list **history);
 
 #endif

@@ -7,58 +7,37 @@ int	ft_putchar(int c)
 	return (write(1, &c, 1));
 }
 
-int	ft_set_histo_line(char line[2000], t_bidirectional_list *history, int id)
+int	ft_set_histo_line(char line[2000], t_bidirectional_list **history, int id)
 {
 	int	len;
 	int	i;
 	char	*buff;
 
-	if (id == 1)
+	if (*history != NULL)
 	{
-		if (history->prev != NULL)
-			history = history->prev;
-	}
-	else if (id == 0)
-	{
-		if (history->next != NULL)
-			history = history->next;
-	}
+		if (id == 1)
+		{
+			if ((*history)->prev != NULL)
+				(*history) = (*history)->prev;
+		}
+		else if (id == 0)
+		{
+			if ((*history)->next != NULL)
+				(*history) = (*history)->next;
+		}
 	(void)line;
-	i = 0;
-	buff = (char *)history->content;
-	len = ft_strlen(buff);
-	while (i < len)
-	{
-		line[i] = buff[i];
-		i++;
+		i = 0;
+		buff = (char *)(*history)->content;
+		len = ft_strlen(buff);
+		while (i < len)
+		{
+			line[i] = buff[i];
+			i++;
+		}
+		line[i] = '\0';
+		return (i);
 	}
-	line[i] = '\0';
-	return (i);
-}
-
-int	set_histo(int id, char line[2000], t_bidirectional_list *history)
-{
-	if (history != NULL)
-	{
-		return (ft_set_histo_line(line, history, id));
-	}
-	else if (id == 0)
-	{
-		line[0] = 'n';
-		line[1] = 'e';
-		line[2] = 'x';
-		line[3] = 't';
-		line[4] = '\0';
-	}
-	else if (id == 1)
-	{
-		line[0] = 'p';
-		line[1] = 'r';
-		line[2] = 'e';
-		line[3] = 'v';
-		line[4] = '\0';
-	}
-	return (ft_strlen(line));
+	return (0);
 }
 
 static void	term_get_size(int *cols, int *rows)
@@ -102,7 +81,7 @@ int	ft_delete_character(t_termcaps *s)
 	return (0);
 }
 
-int	ft_manage_history(t_termcaps *s, int id, t_shell_context *context, t_bidirectional_list *history)
+int	ft_manage_history(t_termcaps *s, int id, t_shell_context *context, t_bidirectional_list **history)
 {
 	int	ret;
 
@@ -116,12 +95,12 @@ int	ft_manage_history(t_termcaps *s, int id, t_shell_context *context, t_bidirec
 	else
 		write (1, "prev", 4);
 	*/
-	ret = set_histo(id, s->line, history);
+	ret = ft_set_histo_line(s->line, history, id);
 	write (1, s->line, ret);
 	return (ret);
 }
 
-void	ft_get_line(t_termcaps *s, t_shell_context *context, t_bidirectional_list *history)
+void	ft_get_line(t_termcaps *s, t_shell_context *context, t_bidirectional_list **history)
 {
 	while (42)
 	{
@@ -175,15 +154,14 @@ char	*ft_copy_line(t_termcaps *s)
 	return (result);
 }
 
-char	*terms_input_mode(t_shell_context *context, t_bidirectional_list *history)
+char	*terms_input_mode(t_shell_context *context, t_bidirectional_list **history)
 {
 	t_termcaps		*s;
 	char			*line;
 	struct termios	save;
 
-	(void)history;
 	s = malloc(sizeof(t_termcaps));
-	ft_memset(s, 0, sizeof(t_termcaps)); // FT_MEMESET
+	ft_memset(s, 0, sizeof(t_termcaps));
 	s->term_name = getenv("TERM");
 	tcgetattr(0, &(s->term));
 	tcgetattr(0, &(save));

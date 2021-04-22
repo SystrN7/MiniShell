@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_tty.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/21 15:39:45 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 15:17:20 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,15 @@ int	prompt_tty_loop(t_shell_context *context)
 	t_node_binary			*root;
 	t_node_binary			*schedule_root;
 	t_bidirectional_list	*history;
-	//int				read_status;
 
 	history = NULL;
-	//console_prompt(context);
+
 	while (0 == 0)
 	{
-		//read_status = get_next_line(0, &line);
-		line = terms_input_mode(context, history);
+		line = terms_input_mode(context, &history);
 		context->line = line;
-		//if (read_status == ERROR_STD)
-		//	return (error_std(context, 1, NULL));
 		ft_blst_new_front(&history, line, &ft_managed_free);
 		root = ft_treat_line(line);
-		//ft_managed_free(line);
 		schedule_root = scheduler(context, root);
 		if (schedule_root != NULL)
 		{
@@ -66,7 +61,6 @@ int	prompt_tty_loop(t_shell_context *context)
 		}
 		else
 			commands_clear(root);
-		//console_prompt(context);
 	}
 	return (SUCCESS);
 }
