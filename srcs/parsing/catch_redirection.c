@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/09 12:56:21 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 12:03:50 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 
 	(void)context;
 	i = 0;
-	cmd->redirection = ft_managed_malloc(sizeof(t_redirection_list *));
-	cmd->redirection[0] = NULL;
+	cmd->redirection = NULL;
 	while (cmd->command_string[i])
 	{
 		if (cmd->command_string[i] == '>' && cmd->command_mask[i] == '0')
@@ -67,8 +66,7 @@ void	ft_catch_redirection_before(t_shell_command *cmd)
 	int	i;
 
 	i = 0;
-	cmd->redirection = ft_managed_malloc(sizeof(t_redirection_list *));
-	cmd->redirection[0] = NULL;
+
 	while (cmd->command_string[i])
 	{
 		if (cmd->command_string[i] == '>' && cmd->command_mask[i] == '0')

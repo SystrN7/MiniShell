@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_replace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 16:15:46 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 12:04:14 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void	ft_replace_filenames(t_shell_context *context, t_shell_command *cmd)
 	t_redirection_list	*buff;
 
 	j = 0;
-	buff = *cmd->redirection;
+	buff = cmd->redirection;
 	while (buff)
 	{
 		while (buff->redirection_file[j])

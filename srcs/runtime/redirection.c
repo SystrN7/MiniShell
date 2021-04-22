@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:52:04 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/08 16:46:46 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 12:03:41 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ enum e_file
 
 int	redirection_create(
 	t_shell_context *context,
-	t_redirection_list **redirections
+	t_redirection_list *redirections
 )
 {
 	t_redirection_list	*it;
 
-	it = *redirections;
+	it = redirections;
 	while (it)
 	{
 		redirection_exec(context, it);
@@ -66,12 +66,11 @@ int	redirection_exec(t_shell_context *context, t_redirection_list *redirection)
 
 int	redirection_close(
 	t_shell_context *context,
-	t_redirection_list **redirections
+	t_redirection_list *redirections
 )
 {
-	if (*redirections)
+	if (redirections)
 	{
-		(void)redirections;
 		if (dup2(dup(context->standard_input_backup), standard_input) == -1)
 			error_message(context, ERROR_STD, 1);
 		if (dup2(dup(context->standard_output_backup), standard_output) == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_no_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:21 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/14 10:48:05 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 16:23:37 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_fill_mask_no_quotes(char *line, char *mask, int j,
 			j++;
 		}
 	}
-	printf("mask = %s\n", mask);
+	//printf("mask = %s\n", mask);
 	if (str_struct->command_mask == NULL)
 		str_struct->command_mask = mask;
 	else

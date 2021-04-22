@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parser.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 16:17:12 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 11:47:04 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ typedef struct s_parse_mask_str
 
 typedef struct s_parsing_struct
 {
-	t_node_binary	**root;
+	t_node_binary	*root;
 	t_node_binary	*node;
-	t_shell_command	**str_root;
+	t_shell_command	*str_root;
 	t_shell_command	*str_struct;
 }					t_parse_struct;
 

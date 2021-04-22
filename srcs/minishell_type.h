@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 10:48:45 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 11:36:11 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_shell_command
 	char				*path;
 	char				**argv;
 	char				**masks;
-	t_redirection_list	**redirection;
+	t_redirection_list	*redirection;
 }				t_shell_command;
 
 typedef struct s_shell_separator

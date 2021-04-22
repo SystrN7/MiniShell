@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:53:12 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/07 16:46:57 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 12:05:10 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		run_instruction(t_shell_context *context, t_node_binary *node);
 int		run_separator(t_shell_context *cnt, char n_type, t_node_binary *node);
 
 // ===============================REDIRECTION=============================== //
-int		redirection_create(t_shell_context *c, t_redirection_list **redirs);
-int		redirection_close(t_shell_context *c, t_redirection_list **redirs);
+int		redirection_create(t_shell_context *c, t_redirection_list *redirs);
+int		redirection_close(t_shell_context *c, t_redirection_list *redirs);
 
 int		redirection_type_get_flag(t_redirection_list *redirection);
 int		redirection_exec(t_shell_context *c, t_redirection_list *redir);

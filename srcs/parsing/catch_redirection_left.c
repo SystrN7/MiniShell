@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:11:18 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/09 16:11:45 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 12:18:08 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ void	ft_reverse_filename(t_redirection_list *new)
 
 int	ft_redirection_left(t_shell_command *cmd, int i)
 {
-	int	j;
-	int	k;
+	int					j;
+	int					k;
 	t_redirection_list	*new;
 
 	new = ft_managed_malloc(sizeof(t_redirection_list));
@@ -156,8 +156,9 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 	k = 0;
 	j = ft_skip_spaces_left(cmd, new, i);
 	while (j >= 0 && ((cmd->command_string[j] != '>'
-		&& cmd->command_string[j] != '<' && cmd->command_string[j] != ' ')
-		|| cmd->command_mask[j] != '0'))
+				&& cmd->command_string[j] != '<'
+				&& cmd->command_string[j] != ' ')
+			|| cmd->command_mask[j] != '0'))
 	{
 		new->redirection_file[k] = cmd->command_string[j];
 		new->mask[k] = cmd->command_string[j];
@@ -166,6 +167,6 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 	}
 	ft_reverse_filename(new);
 	ft_remove_file_name_left(cmd, j, i, new);
-	ft_lstadd_back_redirection(cmd->redirection, new);
+	ft_lstadd_back_redirection(&cmd->redirection, new);
 	return (0);
 }

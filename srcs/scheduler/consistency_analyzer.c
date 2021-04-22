@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 11:06:00 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 12:04:30 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	analyzer_recusive(t_shell_context *context, t_node_binary *node)
 		return (TRUE);
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
 	{
-		it = *((t_shell_command *)node->value)->redirection;
+		it = ((t_shell_command *)node->value)->redirection;
 		while (it)
 		{
 			if (token_irregularity_identifier(context, it->redirection_type))
