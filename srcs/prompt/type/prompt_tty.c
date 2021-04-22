@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_tty.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 15:17:20 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 15:43:27 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	prompt_tty_loop(t_shell_context *context)
 	while (0 == 0)
 	{
 		line = terms_input_mode(context, &history);
+		if (line == NULL)
+			continue ;
 		context->line = line;
 		ft_blst_new_front(&history, line, &ft_managed_free);
 		root = ft_treat_line(line);

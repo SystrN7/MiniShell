@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:21 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/21 12:33:13 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 15:58:54 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,22 @@ int	ft_no_quote(char *line, int j, t_shell_command *str_struct)
 	{
 		if (line[ret] == '\\')
 		{
-			backslash++;
-			ret++;
+			if (line[ret + 1] == '\0')
+			{
+				line[ret] = '\0';
+				ret--;
+			}
+			else
+			{
+				backslash++;
+				ret++;
+			}
 		}
 		ret++;
 	}
 	mask = ft_managed_malloc(sizeof(char) * (ret - j + 1 - backslash));
 	mask[ret - j - backslash] = '\0';
 	ft_fill_mask_no_quotes(line, mask, j, str_struct);
-	//printf("mask = %s\n", str_struct->command_mask);
 	ft_fill_str_no_quotes(line, j, ret - j - backslash, str_struct);
-	//printf("str  = %s\n", str_struct->command_string);
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 16:02:14 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 16:36:00 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_shell_context
 
 	t_bool	interactive_mode;
 	int		line_number;
+	char	line_buff[2000];
+	int		line_i;
 	char	*line;
 
 	t_list	*token;
