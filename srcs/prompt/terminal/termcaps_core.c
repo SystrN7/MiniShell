@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   termcaps.c                                         :+:      :+:    :+:   */
+/*   termcaps_core.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:11:44 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 17:12:01 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:22:17 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_copy_line(t_shell_context *context)
 	len = context->line_i;
 	if (len == 0)
 		return (NULL);
-	result = malloc(sizeof(char) * len + 1);
+	result = ft_managed_malloc(sizeof(char) * len + 1);
 	result[len] = '\0';
 	while (i < len)
 	{
@@ -81,7 +81,7 @@ char	*terms_input_mode(t_shell_context *context,
 	char			*line;
 	struct termios	save;
 
-	s = malloc(sizeof(t_termcaps));
+	s = ft_managed_malloc(sizeof(t_termcaps));
 	ft_memset(s, 0, sizeof(t_termcaps));
 	s->first_histo = 0;
 	s->term_name = getenv("TERM");

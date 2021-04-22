@@ -6,7 +6,7 @@
 #    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/22 17:14:07 by seruiz           ###   ########lyon.fr    #
+#    Updated: 2021/04/22 17:17:38 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,9 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/prompt/type/prompt_tty.c \
 						./srcs/prompt/type/prompt_file.c \
 						./srcs/prompt/type/prompt_command.c \
-						./srcs/prompt/terminal/termcaps.c \
-						./srcs/prompt/terminal/history.c \
-						./srcs/prompt/terminal/delet.c \
+						./srcs/prompt/terminal/termcaps_core.c \
+						./srcs/prompt/terminal/termcaps_history.c \
+						./srcs/prompt/terminal/termcaps_delet.c \
 						./srcs/scheduler/scheduler.c \
 						./srcs/scheduler/consistency_analyzer.c \
 						./srcs/scheduler/node_utilities.c \
