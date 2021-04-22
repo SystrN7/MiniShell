@@ -183,7 +183,7 @@ char	*terms_input_mode(t_shell_context *context, t_bidirectional_list *history)
 
 	(void)history;
 	s = malloc(sizeof(t_termcaps));
-	memset(s, 0, sizeof(t_termcaps)); // FT_MEMESET
+	ft_memset(s, 0, sizeof(t_termcaps)); // FT_MEMESET
 	s->term_name = getenv("TERM");
 	tcgetattr(0, &(s->term));
 	tcgetattr(0, &(save));
