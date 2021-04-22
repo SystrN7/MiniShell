@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:24:23 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 10:34:54 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 10:01:08 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_list	*env_store(char *env[])
 	while (env[i])
 	{
 		splited_row = env_key_value_split(env[i++]);
-		if (splited_row.key == '\0')
+		if (splited_row.key[0] == '\0')
 			continue ;
 		ft_lst_associative_set(&env_list, splited_row.key, splited_row.value);
 	}
