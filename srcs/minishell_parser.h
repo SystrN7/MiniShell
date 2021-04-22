@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 11:47:04 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:17:49 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ int					ft_cat(char *dest, char *s, int j);
 
 void				ft_treat_var(t_shell_context *context,
 						t_shell_command *command);
+
 void				ft_catch_redirection_before(t_shell_command *cmd);
 void				ft_catch_redirection(t_shell_context *context,
 						t_shell_command *cmd);
 int					ft_redirection_right(t_shell_command *cmd, int i);
 int					ft_redirection_left(t_shell_command *cmd, int i);
-int					ft_redirection_left_new(t_shell_command *cmd, int i);
 char				*ft_set_var_value(char *varname, t_shell_context *context);
 int					ft_strjoin_custom_argv(t_shell_command *cmd,
 						t_parse_mask_str *new,

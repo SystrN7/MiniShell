@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 12:03:39 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:03:16 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_set_redirection(t_node_binary *root)
 	t_node_binary	*it;
 
 	it = root;
-
 	if (*((char *)(root->value)) == SHELL_INSTRUCTION_COMMAND)
 		ft_catch_redirection_before((t_shell_command *)(root->value));
 	while (it)
@@ -77,7 +76,13 @@ int	ft_first_command(char *line, int j, t_node_binary **root)
 	return (j);
 }
 
-int	ft_is_cmd(char *line, int j, t_node_binary **root, t_shell_command **str_root, int sep_found)
+int	ft_is_cmd(
+	char *line,
+	int j,
+	t_node_binary **root,
+	t_shell_command **str_root,
+	int sep_found
+)
 {
 	t_node_binary	*new_node;
 
@@ -133,11 +138,6 @@ t_node_binary	*ft_treat_line(char *line)
 	}
 	if (j == 0)
 		return (NULL);
-	//if ((*s.root)->value == NULL)
-	//	(*s.root)->value = (*s.str_root);
-	//else if ((*s.root)->right == NULL)
-	//	(*s.root)->right = ft_binarytree_node_create(*(s.str_root));
-
 	ft_set_redirection(s.root);
 	return (s.root);
 }

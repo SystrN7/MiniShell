@@ -6,13 +6,18 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:21 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/15 16:23:37 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:00:41 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_parser.h"
 
-void	ft_fill_str_no_quotes(char *line, int j, int len, t_shell_command *str_struct)
+void	ft_fill_str_no_quotes(
+	char *line,
+	int j,
+	int len,
+	t_shell_command *str_struct
+)
 {
 	char	*s;
 	int		k;
@@ -30,11 +35,7 @@ void	ft_fill_str_no_quotes(char *line, int j, int len, t_shell_command *str_stru
 			j += 2;
 		}
 		else
-		{
-			s[k] = line[j];
-			k++;
-			j++;
-		}
+			s[k++] = line[j++];
 	}
 	if (str_struct->command_string == NULL)
 		str_struct->command_string = s;
@@ -42,7 +43,6 @@ void	ft_fill_str_no_quotes(char *line, int j, int len, t_shell_command *str_stru
 		str_struct->command_string = ft_strjoin_free(str_struct->command_string,
 				s);
 }
-
 
 void	ft_fill_mask_no_quotes(char *line, char *mask, int j,
 			t_shell_command *str_struct)
@@ -66,14 +66,12 @@ void	ft_fill_mask_no_quotes(char *line, char *mask, int j,
 			j++;
 		}
 	}
-	//printf("mask = %s\n", mask);
 	if (str_struct->command_mask == NULL)
 		str_struct->command_mask = mask;
 	else
 		str_struct->command_mask = ft_strjoin_free(str_struct->command_mask,
 				mask);
 }
-
 
 int	ft_no_quote(char *line, int j, t_shell_command *str_struct)
 {
@@ -96,8 +94,6 @@ int	ft_no_quote(char *line, int j, t_shell_command *str_struct)
 	mask = ft_managed_malloc(sizeof(char) * (ret - j + 1 - backslash));
 	mask[ret - j - backslash] = '\0';
 	ft_fill_mask_no_quotes(line, mask, j, str_struct);
-	//printf("mask = %s\n", str_struct->command_mask);
 	ft_fill_str_no_quotes(line, j, ret - j - backslash, str_struct);
-	//printf("str  = %s\n", str_struct->command_string);
 	return (ret);
 }

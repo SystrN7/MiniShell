@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_replace_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:11:58 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/08 16:16:51 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 16:55:11 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@
 
 #include <unistd.h>
 
-void	ft_assign_new_strings_argv(t_shell_command *cmd, t_parse_mask_str *final,
-		t_parse_mask_str *new, int index)
+void	ft_assign_new_strings_argv(
+	t_shell_command *cmd,
+	t_parse_mask_str *final,
+	t_parse_mask_str *new,
+	int index
+)
 {
 	ft_managed_free(cmd->argv[index]);
 	ft_managed_free(cmd->masks[index]);
@@ -55,8 +59,12 @@ t_parse_mask_str	*ft_setup_mask_str(int len)
 	return (new);
 }
 
-int	ft_strjoin_custom_argv(t_shell_command *cmd, t_parse_mask_str *new,
-		int len[2], int index)
+int	ft_strjoin_custom_argv(
+	t_shell_command *cmd,
+	t_parse_mask_str *new,
+	int len[2],
+	int index
+)
 {
 	int					i;
 	int					j;
@@ -84,8 +92,11 @@ int	ft_strjoin_custom_argv(t_shell_command *cmd, t_parse_mask_str *new,
 	return (i);
 }
 
-void	ft_assign_new_strings_file(t_redirection_list *buff, t_parse_mask_str *final,
-		t_parse_mask_str *new)
+void	ft_assign_new_strings_file(
+	t_redirection_list *buff,
+	t_parse_mask_str *final,
+	t_parse_mask_str *new
+)
 {
 	ft_managed_free(buff->redirection_file);
 	ft_managed_free(buff->mask);
@@ -97,8 +108,12 @@ void	ft_assign_new_strings_file(t_redirection_list *buff, t_parse_mask_str *fina
 	ft_managed_free(final);
 }
 
-int	ft_strjoin_custom_file(t_redirection_list *buff, t_parse_mask_str *new,
-		int var_value_len, int varname_len)
+int	ft_strjoin_custom_file(
+	t_redirection_list *buff,
+	t_parse_mask_str *new,
+	int var_value_len,
+	int varname_len
+)
 {
 	int					i;
 	int					j;
@@ -125,7 +140,6 @@ int	ft_strjoin_custom_file(t_redirection_list *buff, t_parse_mask_str *new,
 	ft_assign_new_strings_file(buff, final, new);
 	return (i);
 }
-
 
 int	ft_is_return_code(char *varname)
 {

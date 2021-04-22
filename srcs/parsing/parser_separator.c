@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_separator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:16 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/12 16:19:31 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:01:53 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,13 @@ int	ft_separator(char *line, t_node_binary **root, int j,
 	(void)str_root;
 	sep = ft_set_sep(line, j);
 	if ((*root)->value == NULL)
-	{
 		(*root)->value = sep;
-		//(*root)->left = ft_binarytree_node_create(*str_root);
-	}
 	else
 	{
 		new_node = ft_binarytree_node_create(sep);
-		//(*root)->right = ft_binarytree_node_create(*str_root);
 		new_node->left = *root;
 		*root = new_node;
 	}
-	//*str_root = ft_new_str_struct();
 	if (sep->instruction_type == SHELL_SEPARATOR_TYPE_END
 		|| sep->instruction_type == SHELL_SEPARATOR_TYPE_PIPE)
 		return (j + 1);

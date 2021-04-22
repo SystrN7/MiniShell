@@ -6,7 +6,7 @@
 #    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/15 15:19:18 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/22 17:11:32 by fgalaup          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/parsing/env_var_replace_2.c\
 						./srcs/parsing/catch_redirection.c\
 						./srcs/parsing/catch_redirection_left.c\
-						./srcs/parsing/catch_redirection_left_new.c\
 						./srcs/parsing/catch_redirection_right.c\
 						./srcs/parsing/ft_split_mask.c\
 						./srcs/prompt/prompt.c \

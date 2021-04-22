@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 12:04:14 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 16:58:29 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ void	ft_is_empty_argv(t_parse_mask_str *new, int k, int j)
 	}
 }
 
-int	ft_cpy_before_dollard_argv(t_shell_command *cmd, t_parse_mask_str *new, int j, int index)
+int	ft_cpy_before_dollard_argv(
+	t_shell_command *cmd,
+	t_parse_mask_str *new,
+	int j,
+	int index
+)
 {
 	if (!(cmd->argv[index][0] == '$'))
 	{
@@ -40,8 +45,13 @@ int	ft_cpy_before_dollard_argv(t_shell_command *cmd, t_parse_mask_str *new, int 
 	return (j);
 }
 
-int	ft_replace_in_struct_argv(t_shell_context *context,
-		t_shell_command *cmd, int i, char *varname, int index)
+int	ft_replace_in_struct_argv(
+	t_shell_context *context,
+	t_shell_command *cmd,
+	int i,
+	char *varname,
+	int index
+)
 {
 	int					j;
 	int					k;
@@ -67,7 +77,12 @@ int	ft_replace_in_struct_argv(t_shell_context *context,
 	return (j);
 }
 
-int	ft_replace_var_argv(t_shell_context *context, t_shell_command *cmd, int i, int index)
+int	ft_replace_var_argv(
+	t_shell_context *context,
+	t_shell_command *cmd,
+	int i,
+	int index
+)
 {
 	char	mask;
 	int		j;
@@ -103,7 +118,10 @@ void	ft_is_empty_file(t_parse_mask_str *new, int k, int j)
 	}
 }
 
-int	ft_cpy_before_dollard_file(t_redirection_list *buff, t_parse_mask_str *new, int j)
+int	ft_cpy_before_dollard_file(
+	t_redirection_list *buff,
+	t_parse_mask_str *new, int j
+)
 {
 	if (!(buff->redirection_file[0] == '$'))
 	{
@@ -117,8 +135,12 @@ int	ft_cpy_before_dollard_file(t_redirection_list *buff, t_parse_mask_str *new, 
 	return (j);
 }
 
-int	ft_replace_in_struct_file(t_shell_context *context,
-		t_redirection_list *buff, int i, char *varname)
+int	ft_replace_in_struct_file(
+	t_shell_context *context,
+	t_redirection_list *buff,
+	int i,
+	char *varname
+)
 {
 	int					j;
 	int					k;
@@ -141,8 +163,10 @@ int	ft_replace_in_struct_file(t_shell_context *context,
 	return (j);
 }
 
-int	ft_replace_var_file(t_shell_context *context,
-		t_redirection_list *buff, int i)
+int	ft_replace_var_file(
+	t_shell_context *context,
+	t_redirection_list *buff, int i
+)
 {
 	char	mask;
 	int		j;
@@ -171,7 +195,10 @@ int	ft_replace_var_file(t_shell_context *context,
 	return (j);
 }
 
-void	ft_replace_filenames(t_shell_context *context, t_shell_command *cmd)
+void	ft_replace_filenames(
+	t_shell_context *context,
+	t_shell_command *cmd
+)
 {
 	int					j;
 	t_redirection_list	*buff;

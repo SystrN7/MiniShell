@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:53:04 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 12:03:50 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:10:00 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_catch_redirection(t_shell_context *context, t_shell_command *cmd)
 		if (cmd->command_string[i] == '>' && cmd->command_mask[i] == '0')
 			i = ft_redirection_right(cmd, i);
 		else if (cmd->command_string[i] == '<' && cmd->command_mask[i] == '0')
-			i = ft_redirection_left_new(cmd, i);
+			i = ft_redirection_left(cmd, i);
 		else
 			i++;
 	}
@@ -66,17 +66,14 @@ void	ft_catch_redirection_before(t_shell_command *cmd)
 	int	i;
 
 	i = 0;
-
 	while (cmd->command_string[i])
 	{
 		if (cmd->command_string[i] == '>' && cmd->command_mask[i] == '0')
 			i = ft_redirection_right(cmd, i);
 		else if (cmd->command_string[i] == '<' && cmd->command_mask[i] == '0')
-			i = ft_redirection_left_new(cmd, i);
+			i = ft_redirection_left(cmd, i);
 		else
 			i++;
 	}
 	ft_split_mask(cmd, ' ');
-	//ft_managed_free(cmd->command_mask);
-	//ft_managed_free(cmd->command_string);
 }
