@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps_core.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:11:44 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 17:22:17 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:22:29 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	ft_get_line(t_termcaps *s, t_shell_context *context,
 	while (42)
 	{
 		s->l = read(0, s->str, 16);
-		if (!strcmp(s->str, "\e[A"))
+		if (!ft_strncmp(s->str, "\e[A", 4))
 			context->line_i = ft_manage_history(s, 1, context, history);
-		else if (!strcmp(s->str, "\e[B"))
+		else if (!ft_strncmp(s->str, "\e[B", 4))
 			context->line_i = ft_manage_history(s, 0, context, history);
 		else if (*(s->str) == 127)
 			context->line_i = ft_delete_character(s, context);

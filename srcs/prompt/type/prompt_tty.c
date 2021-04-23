@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 17:37:00 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 10:58:34 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	prompt_tty_loop(t_shell_context *context)
 	t_bidirectional_list	*history;
 
 	history = NULL;
-
 	while (0 == 0)
 	{
 		line = terms_input_mode(context, &history);

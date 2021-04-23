@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:11:58 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 16:55:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:18:15 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@ void	ft_assign_new_strings_argv(
 	cmd->argv[index] = final->str;
 	cmd->masks[index] = final->mask;
 	ft_managed_free(final);
-}
-
-char	*ft_init_final_string(int total_len)
-{
-	char	*result;
-
-	result = ft_managed_malloc(sizeof(char) * (total_len));
-	result[total_len - 1] = '\0';
-	return (result);
 }
 
 t_parse_mask_str	*ft_setup_mask_str(int len)
@@ -139,13 +130,6 @@ int	ft_strjoin_custom_file(
 	}
 	ft_assign_new_strings_file(buff, final, new);
 	return (i);
-}
-
-int	ft_is_return_code(char *varname)
-{
-	if (ft_strlen(varname) == 1 && varname[0] == '?')
-		return (1);
-	return (0);
 }
 
 char	*ft_set_var_value(char *varname, t_shell_context *context)

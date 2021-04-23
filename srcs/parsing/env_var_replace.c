@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 16:58:29 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 11:17:07 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 #include "minishell_parser.h"
 
 #include <unistd.h>
-
-void	ft_is_empty_argv(t_parse_mask_str *new, int k, int j)
-{
-	if (j == 0 && k == 0)
-	{
-		new->str[0] = '\0';
-		new->mask[0] = '\0';
-	}
-}
 
 int	ft_cpy_before_dollard_argv(
 	t_shell_command *cmd,
@@ -107,15 +98,6 @@ int	ft_replace_var_argv(
 	j = ft_replace_in_struct_argv(context, cmd, i, varname, index);
 	ft_managed_free(varname);
 	return (j);
-}
-
-void	ft_is_empty_file(t_parse_mask_str *new, int k, int j)
-{
-	if (j == 0 && k == 0)
-	{
-		new->str[0] = '\0';
-		new->mask[0] = '\0';
-	}
 }
 
 int	ft_cpy_before_dollard_file(
