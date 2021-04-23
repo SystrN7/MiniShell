@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/23 12:47:06 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 13:39:29 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef struct s_parser_ints
 	int	j;
 	int	sep_found;
 }				t_parser_ints;
+
+typedef struct s_parse_backslash
+{
+	int	ret;
+	int	backslash;
+}				t_parse_backslash;
 
 typedef struct s_parse_mask_str
 {
