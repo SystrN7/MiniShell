@@ -31,5 +31,6 @@ int		ft_manage_history(t_termcaps *s, int id, t_shell_context *context,
 			t_bidirectional_list **history);
 int		ft_putchar(int c);
 int		ft_delete_character(t_termcaps *s, t_shell_context *context);
+void	ft_history_add_entry(t_bidirectional_list **history, char *line);
 
 #endif

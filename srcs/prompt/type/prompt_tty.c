@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/23 10:58:34 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 12:16:03 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	prompt_tty_loop(t_shell_context *context)
 		if (line == NULL)
 			continue ;
 		context->line = line;
-		ft_blst_new_front(&history, line, &ft_managed_free);
 		root = ft_treat_line(line);
+		ft_history_add_entry(&history, line);
 		schedule_root = scheduler(context, root);
 		if (schedule_root != NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 17:11:44 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/23 11:22:29 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 12:18:52 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*terms_input_mode(t_shell_context *context,
 	tputs(tigetstr("dm"), 1, ft_putchar);
 	ft_get_line(s, context, history);
 	line = ft_copy_line(context);
-	free(s);
+	ft_managed_free(s);
 	tcsetattr(0, TCSANOW, &save);
 	return (line);
 }

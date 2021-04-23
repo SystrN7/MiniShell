@@ -57,3 +57,17 @@ int	ft_manage_history(t_termcaps *s, int id, t_shell_context *context,
 	write (1, context->line_buff, ret);
 	return (ret);
 }
+
+void	ft_history_add_entry(t_bidirectional_list **history, char *line)
+{
+	*history = ft_blst_first(*history);
+	if (*history == NULL)
+	{
+		ft_blst_new_front(history, line, &ft_managed_free);
+		return ;
+	}
+	if (ft_strncmp((*history)->content, line, 2000))
+		ft_blst_new_front(history, line, &ft_managed_free);
+	else
+		ft_managed_free(line);
+}
