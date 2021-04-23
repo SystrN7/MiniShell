@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parser.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 17:17:49 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 12:47:06 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@
 
 # include "minishell_type.h"
 # include "minishell_error.h"
+
+typedef struct s_parse_pos
+{
+	int	i;
+	int	index;
+}				t_parse_pos;
+
+typedef struct s_parser_ints
+{
+	int	j;
+	int	sep_found;
+}				t_parser_ints;
 
 typedef struct s_parse_mask_str
 {
@@ -64,5 +76,27 @@ void				ft_lstadd_back_redirection(t_redirection_list **alst,
 						t_redirection_list *new);
 t_node_binary		*ft_treat_line(char *line);
 int					ft_split_mask(t_shell_command *cmd, char c);
+void				ft_is_empty_argv(t_parse_mask_str *new, int k, int j);
+int					ft_is_return_code(char *varname);
+t_parse_struct		*ft_setup_parse_struct(t_parse_struct	*ret);
+int					ft_cat(char *dest, char *s, int j);
+int					ft_root_val_null(t_node_binary **root,
+						t_shell_command **str_root, char *line, int j);
+int					ft_first_command(char *line, int j, t_node_binary **root);
+int					ft_cpy_before_dollard_file(t_redirection_list *buff,
+						t_parse_mask_str *new, int j);
+int					ft_cpy_before_dollard_argv(t_shell_command *cmd,
+						t_parse_mask_str *new, int j, int index);
+void				ft_treat_var(t_shell_context *context,
+						t_shell_command *cmd);
+int					ft_replace_var_argv(t_shell_context *context,
+						t_shell_command *cmd, t_parse_pos s);
+void				ft_replace_filenames(t_shell_context *context,
+						t_shell_command *cmd);
+int					ft_strjoin_custom_argv(t_shell_command *cmd,
+						t_parse_mask_str *new, int len[2], int index);
+void				ft_assign_new_strings_argv(t_shell_command *cmd,
+						t_parse_mask_str *final,
+						t_parse_mask_str *new, int index);
 
 #endif

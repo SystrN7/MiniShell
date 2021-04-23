@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/22 17:37:03 by fgalaup          ###   ########lyon.fr    #
+#    Updated: 2021/04/23 12:43:27 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,15 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/builtins/builtin_pwd.c \
 						./srcs/builtins/builtin_exit.c \
 						./srcs/parsing/parser.c \
+						./srcs/parsing/parser_utils.c\
 						./srcs/parsing/parser_no_quotes.c \
 						./srcs/parsing/parser_quotes.c \
 						./srcs/parsing/parser_separator.c \
 						./srcs/parsing/env_var_replace.c\
 						./srcs/parsing/env_var_replace_2.c\
+						./srcs/parsing/env_var_replace_utils.c\
+						./srcs/parsing/find_dollard.c\
+						./srcs/parsing/copy_around_dollard.c\
 						./srcs/parsing/catch_redirection.c\
 						./srcs/parsing/catch_redirection_left.c\
 						./srcs/parsing/catch_redirection_right.c\

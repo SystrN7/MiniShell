@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_replace.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/23 11:17:07 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 12:42:01 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,11 @@
 
 #include <unistd.h>
 
-int	ft_cpy_before_dollard_argv(
-	t_shell_command *cmd,
-	t_parse_mask_str *new,
-	int j,
-	int index
-)
-{
-	if (!(cmd->argv[index][0] == '$'))
-	{
-		while (cmd->argv[index][j] != '$')
-		{
-			new->str[j] = cmd->argv[index][j];
-			new->mask[j] = cmd->masks[index][j];
-			j++;
-		}
-	}
-	return (j);
-}
-
 int	ft_replace_in_struct_argv(
 	t_shell_context *context,
 	t_shell_command *cmd,
-	int i,
 	char *varname,
-	int index
-)
+	t_parse_pos s)
 {
 	int					j;
 	int					k;
@@ -53,17 +32,17 @@ int	ft_replace_in_struct_argv(
 	j = 0;
 	k = 0;
 	var_value = ft_set_var_value(varname, context);
-	new = ft_setup_mask_str(i + ft_strlen(var_value));
-	j = ft_cpy_before_dollard_argv(cmd, new, j, index);
+	new = ft_setup_mask_str(s.i + ft_strlen(var_value));
+	j = ft_cpy_before_dollard_argv(cmd, new, j, s.index);
 	while (var_value[k])
 	{
-		new->mask[j] = cmd->masks[index][j - k];
+		new->mask[j] = cmd->masks[s.index][j - k];
 		new->str[j++] = var_value[k++];
 	}
 	ft_is_empty_argv(new, k, j);
 	len[0] = ft_strlen(var_value);
 	len[1] = ft_strlen(varname);
-	ft_strjoin_custom_argv(cmd, new, len, index);
+	ft_strjoin_custom_argv(cmd, new, len, s.index);
 	ft_managed_free(var_value);
 	return (j);
 }
@@ -71,49 +50,30 @@ int	ft_replace_in_struct_argv(
 int	ft_replace_var_argv(
 	t_shell_context *context,
 	t_shell_command *cmd,
-	int i,
-	int index
-)
+	t_parse_pos s)
 {
 	char	mask;
 	int		j;
 	char	*varname;
 
-	j = i;
-	mask = cmd->masks[index][i];
-	while (cmd->argv[index][j] && cmd->masks[index][j] == mask
-		&& (ft_isalnum(cmd->argv[index][j]) == 1
-			|| cmd->argv[index][j] == '_' || cmd->argv[index][j] == '?'))
+	j = s.i;
+	mask = cmd->masks[s.index][s.i];
+	while (cmd->argv[s.index][j] && cmd->masks[s.index][j] == mask
+		&& (ft_isalnum(cmd->argv[s.index][j]) == 1
+			|| cmd->argv[s.index][j] == '_' || cmd->argv[s.index][j] == '?'))
 		j++;
-	varname = ft_managed_malloc(sizeof(char) * j - i + 1);
-	varname[j - i] = '\0';
-	j = i;
-	while (cmd->argv[index][j] && cmd->masks[index][j] == mask
-		&& (ft_isalnum(cmd->argv[index][j]) == 1
-			|| cmd->argv[index][j] == '_' || cmd->argv[index][j] == '?'))
+	varname = ft_managed_malloc(sizeof(char) * j - s.i + 1);
+	varname[j - s.i] = '\0';
+	j = s.i;
+	while (cmd->argv[s.index][j] && cmd->masks[s.index][j] == mask
+		&& (ft_isalnum(cmd->argv[s.index][j]) == 1
+			|| cmd->argv[s.index][j] == '_' || cmd->argv[s.index][j] == '?'))
 	{
-		varname[j - i] = cmd->argv[index][j];
+		varname[j - s.i] = cmd->argv[s.index][j];
 		j++;
 	}
-	j = ft_replace_in_struct_argv(context, cmd, i, varname, index);
+	j = ft_replace_in_struct_argv(context, cmd, varname, s);
 	ft_managed_free(varname);
-	return (j);
-}
-
-int	ft_cpy_before_dollard_file(
-	t_redirection_list *buff,
-	t_parse_mask_str *new, int j
-)
-{
-	if (!(buff->redirection_file[0] == '$'))
-	{
-		while (buff->redirection_file[j] != '$')
-		{
-			new->str[j] = buff->redirection_file[j];
-			new->mask[j] = buff->mask[j];
-			j++;
-		}
-	}
 	return (j);
 }
 
@@ -199,26 +159,4 @@ void	ft_replace_filenames(
 		j = 0;
 		buff = buff->next;
 	}
-}
-
-void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
-{
-	int					i;
-	int					j;
-
-	i = 0;
-	j = 0;
-	while (cmd->argv[i])
-	{
-		while (cmd->argv[i][j])
-		{
-			if (cmd->argv[i][j] == '$' && cmd->masks[i][j] != '1')
-				j = ft_replace_var_argv(context, cmd, j + 1, i);
-			else
-				j++;
-		}
-		j = 0;
-		i++;
-	}
-	ft_replace_filenames(context, cmd);
 }
