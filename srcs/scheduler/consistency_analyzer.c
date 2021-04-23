@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:00 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 17:33:03 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/23 13:36:09 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_bool	token_irregularity_identifier(t_shell_context *context, char token_id)
 			ERROR_SYNTAX_TOKEN_BOND, 258,
 			token_separator_get_string(token_id));
 		if (!context->interactive_mode)
-			ft_printf_fd(standard_error, "%s : line %d: `%s'",
+			ft_printf_fd(standard_error, "%s: line %d: `%s'\n",
 				context->shell_name, context->line_number, context->line);
 		return (FT_TRUE);
 	}
