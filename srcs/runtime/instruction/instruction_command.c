@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 17:33:04 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 12:34:15 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	instruction_command_prepare(
 )
 {
 	ft_treat_var(context, command);
-	ft_managed_free(command->command_string);
+	managed_free(command->command_string);
 	command->command_string = NULL;
 	ft_managed_free(command->command_mask);
 	command->command_mask = NULL;

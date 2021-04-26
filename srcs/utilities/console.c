@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   console.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 11:21:21 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/23 10:58:06 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 12:34:57 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ int	console_prompt(t_shell_context *context)
 	len = ft_printf("%s-[%s]-(%d)-$ ", context->shell_name, path_buffer,
 			context->last_command_return_code);
 	return (len);
+	//return (ft_printf("%s-1.1$ ", context->shell_name));
 }

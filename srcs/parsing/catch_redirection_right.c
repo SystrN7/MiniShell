@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection_right.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:10:59 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 16:44:03 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 12:34:00 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,38 @@ void	ft_remove_file_name(
 	cmd->command_mask = new_mask;
 }
 
+int	ft_redirection_type_set(t_shell_command *cmd, t_redirection_list *new, int i)
+{
+	if (cmd->command_string[i + 1] == '>' && cmd->command_mask[i + 1] == '0')
+	{
+		if (i >= 2 && cmd->command_string[i - 2] == ' '
+			&& ft_isdigit(cmd->command_string[i - 1]))
+		{
+			new->source_fd = cmd->command_string[i - 1] - '0';
+			cmd->command_string[i - 1] = ' ';
+		}
+		new->redirection_type = SHELL_REDIRECT_TYPE_DOUBLE_RIGHT;
+		i++;
+	}
+	else
+	{
+		if (i >= 2 && cmd->command_string[i - 2] == ' '
+			&& ft_isdigit(cmd->command_string[i - 1]))
+		{
+			new->source_fd = cmd->command_string[i - 1] - '0';
+			cmd->command_string[i - 1] = ' ';
+		}
+		new->redirection_type = SHELL_REDIRECT_TYPE_RIGHT;
+	}
+	return (i);
+}
+
 int	ft_skip_spaces(t_shell_command *cmd, t_redirection_list *new, int i)
 {
 	int	j;
 
 	j = 0;
-	if (cmd->command_string[i + 1] == '>' && cmd->command_mask[i + 1] == '0')
-	{
-		new->redirection_type = SHELL_REDIRECT_TYPE_DOUBLE_RIGHT;
-		i++;
-	}
-	else
-		new->redirection_type = SHELL_REDIRECT_TYPE_RIGHT;
+	i = ft_redirection_type_set(cmd, new, i);
 	i++;
 	while (cmd->command_string[i] == ' ' && cmd->command_mask[i] == '0')
 		i++;
