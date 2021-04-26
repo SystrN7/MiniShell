@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:19:16 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/26 12:23:26 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 15:16:12 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_shell_context
 
 	int		standard_input_backup;
 	int		standard_output_backup;
+	int		standard_error_backup;
 
 	int		last_command_return_code;
 }				t_shell_context;
@@ -82,7 +83,6 @@ typedef struct s_redirection_list
 	char						*redirection_file;
 	char						*mask;
 	int							source_fd;
-	int							fd;
 	struct s_redirection_list	*next;
 }				t_redirection_list;
 

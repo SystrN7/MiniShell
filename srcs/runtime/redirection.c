@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:52:04 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/22 12:03:41 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 15:27:38 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	redirection_exec(t_shell_context *context, t_redirection_list *redirection)
 	else
 	{
 		target_fd = standard_output;
+		if (redirection->source_fd != -1)
+			target_fd = redirection->source_fd;
 		if (redirection->redirection_type == SHELL_REDIRECT_TYPE_LEFT)
 			target_fd = standard_input;
 		fd = dup2(fd, target_fd);
@@ -74,6 +76,8 @@ int	redirection_close(
 		if (dup2(dup(context->standard_input_backup), standard_input) == -1)
 			error_message(context, ERROR_STD, 1);
 		if (dup2(dup(context->standard_output_backup), standard_output) == -1)
+			error_message(context, ERROR_STD, 1);
+		if (dup2(dup(context->standard_error_backup), standard_error) == -1)
 			error_message(context, ERROR_STD, 1);
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 16:44:56 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 16:41:50 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 15:27:10 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ int	ft_redirection_left(t_shell_command *cmd, int i)
 
 	len = i;
 	new = ft_managed_malloc(sizeof(t_redirection_list));
-	new->next = 0;
+	new->source_fd = -1;
+	new->next = NULL;
 	k = 0;
 	j = ft_skip_spaces_left(cmd, new, i);
 	while (cmd->command_string[j] && ((cmd->command_string[j] != '>'
