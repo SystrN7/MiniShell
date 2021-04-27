@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 09:53:40 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/05 17:02:20 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 16:33:40 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	builtin_env(t_shell_context *context, int argc, char **argv)
 			ft_printf("%s=%s\n", var->key, var->value);
 		it = it->next;
 	}
-	return (0);
+	return (context->last_command_return_code);
 }

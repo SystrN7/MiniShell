@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:28:33 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/23 12:46:11 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 16:33:50 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ int	builtin_exit(t_shell_context *context, int argc, char **args)
 		context->last_command_return_code = ft_atoi(args[arg1]);
 	}
 	shell_shutdown(context);
-	return (0);
+	return (context->last_command_return_code);
 }
