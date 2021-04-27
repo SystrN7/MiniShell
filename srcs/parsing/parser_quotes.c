@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:12 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/22 17:37:13 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:01:49 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ int	ft_single_quote(char *line, int j, t_shell_command *str_struct)
 	ret = j + 1;
 	while (line[ret] && line[ret] != '\'')
 		ret++;
+	if (ret == j + 1)
+	{
+		//printf("empty_double quotes\n");
+		ft_add_nonprintable_ch(line, ret);
+		//printf("new_line = %s\n", line);
+		return (ft_no_quote(line, ret - 1, str_struct));
+	}
 	if (ret == (int)ft_strlen(line))
 		no_end_quote = -1;
 	mask = ft_managed_malloc(sizeof(char) * (ret - j));
@@ -100,6 +107,13 @@ int	ft_double_quote(char *line, int j, t_shell_command *str_struct)
 			line[ret] = '\0';
 		else
 			ret++;
+	}
+	if (ret == j + 1)
+	{
+		//printf("empty_double quotes\n");
+		ft_add_nonprintable_ch(line, ret);
+		//printf("new_line = %s\n", line);
+		return (ft_no_quote(line, ret - 1, str_struct));
 	}
 	if (ret == (int)ft_strlen(line))
 		no_end_quotes = -1;
