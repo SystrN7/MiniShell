@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 12:38:55 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 12:39:58 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_node_binary	*ft_treat_line(char *line)
 			i.j = ft_separator(line, &s.root, i.j, &s.str_root);
 			i.sep_found = FT_TRUE;
 		}
+		else if (line[i.j] == ' ')
+			i.j++;
 		else
 		{
 			i.j = ft_is_cmd(line, &s.root, &s.str_root, i);
