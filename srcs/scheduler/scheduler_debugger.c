@@ -6,33 +6,36 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:00:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/09 14:53:39 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:01:49 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_scheduler.h"
 
-char	*node_get_value(t_node_binary *node)
+void	show_node_value(t_node_binary *node)
 {
-	char	node_type;
+	char				node_type;
+	int					i;
+	t_redirection_list	*it;
+	t_shell_command		*command;
 
 	node_type = get_node_type(node);
 	if (node_type == SHELL_INSTRUCTION_COMMAND)
-		return (ft_2d_merge(((t_shell_command *)node->value)->argv));
-	else
 	{
-		if (node_type == SHELL_SEPARATOR_TYPE_AND)
-			return ("&&");
-		else if (node_type == SHELL_SEPARATOR_TYPE_OR)
-			return ("||");
-		else if (node_type == SHELL_SEPARATOR_TYPE_END)
-			return (";");
-		else if (node_type == SHELL_SEPARATOR_TYPE_PIPE)
-			return ("|");
-		else
-			return ("?");
+		command = (t_shell_command *)node->value;
+		i = 0;
+		while (command->argv[i])
+			ft_printf("%s ", (command->argv[i++]));
+		it = command->redirection;
+		while (it)
+		{
+			ft_printf("%s ", token_separator_get_string(it->redirection_type));
+			ft_printf("%s ", it->redirection_file);
+			it = it->next;
+		}
 	}
-	return (NULL);
+	else
+		ft_printf("%s ", token_separator_get_string(node_type));
 }
 
 void	binnary_show(t_bnode *root, int space, char *side)
@@ -48,7 +51,7 @@ void	binnary_show(t_bnode *root, int space, char *side)
 	while (i++ < space)
 		ft_printf(" ");
 	ft_printf("%s:", side);
-	ft_printf("(%s)", node_get_value(root));
+	show_node_value(root);
 	binnary_show(root->left, space, "Left");
 }
 
@@ -56,7 +59,7 @@ void	show_command(t_bnode *root, int deep)
 {
 	if (root->left)
 		show_command(root->left, deep + 1);
-	ft_printf("%s", node_get_value(root));
+	show_node_value(root);
 	if (root->right)
 		show_command(root->right, deep + 1);
 }
