@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/04/26 17:42:20 by seruiz           ###   ########lyon.fr   */
-=======
-/*   Updated: 2021/04/26 12:43:57 by fgalaup          ###   ########lyon.fr   */
->>>>>>> 3a67fdf5cb2dde25fb289fd1b8fdbed498a94006
+/*   Updated: 2021/04/27 10:18:20 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +82,12 @@ int	instruction_command_prepare(
 	}
 	ft_fix_argv(command);
 	ft_treat_var(context, command);
-<<<<<<< HEAD
 	i = 0;
 	while (command->argv[i])
 	{
 		printf("argvaft[i] = %s\n", command->argv[i]);
 		i++;
 	}
-=======
->>>>>>> 3a67fdf5cb2dde25fb289fd1b8fdbed498a94006
 	ft_managed_free(command->command_string);
 	command->command_string = NULL;
 	ft_managed_free(command->command_mask);
