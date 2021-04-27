@@ -6,11 +6,23 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 12:26:45 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 10:02:51 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:09:59 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_parser.h"
+
+int	ft_offset_argv(t_shell_command *cmd, int i, int j)
+{
+	j++;
+	while (cmd->argv[i][j])
+	{
+		cmd->argv[i][j - 1] = cmd->argv[i][j];
+		j++;
+	}
+	cmd->argv[i][j - 1] = '\0';
+	return (0);
+}
 
 void	ft_fix_argv(t_shell_command *cmd)
 {
@@ -27,6 +39,8 @@ void	ft_fix_argv(t_shell_command *cmd)
 			{
 				if (j == 0 && cmd->argv[i][j + 1] == '\0')
 					cmd->argv[i][j] = '\0';
+				else
+					j = ft_offset_argv(cmd, i, j);
 			}
 			j++;
 		}
