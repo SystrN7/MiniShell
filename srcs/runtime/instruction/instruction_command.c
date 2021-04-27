@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/27 11:30:05 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 11:35:37 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,9 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 	}
 	else
 		waitpid(pid, &status, 0);
-	context->last_command_return_code = WEXITSTATUS(status);
-	return (context->last_command_return_code);
+	if (WTERMSIG(status) == SIGQUIT)
+		write(standard_output, "Quit: 3\n", 8);
+	return (context->last_command_return_code = WEXITSTATUS(status));
 }
 
 char	*command_path_resolver(
