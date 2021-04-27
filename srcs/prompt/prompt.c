@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 12:39:41 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/17 14:59:47 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 16:19:48 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ int	prompt(t_shell_context *context, const char *argv[])
 
 int	identify_prompt_type(const char *argv[])
 {
-	size_t	i;
-
-	i = 1;
 	if (argv[arg1] && argv[arg1][0] == '-' && argv[arg1][1] == 'c')
 		if (argv[arg2])
 			return (PROMPT_TYPE_COMMAND);

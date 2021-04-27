@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fix_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 11:40:31 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 13:19:39 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 16:18:44 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	ft_add_nonprintable_ch(char *line, int ret, int len, int no_end_quotes)
 	if (no_end_quotes == -1)
 		len++;
 	result = ft_managed_malloc(sizeof(char) * len);
-	printf("line = %s\n", line);
-	printf("len = %d\n", len);
 	result[len - 1] = '\0';
 	while (line[i])
 	{
