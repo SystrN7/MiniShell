@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 13:02:32 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 13:20:11 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ int	ft_is_cmd(
 
 	if ((*root)->value == NULL)
 		return (ft_root_val_null(root, str_root, line, i.j));
-	else if ((*root)->right == NULL)
-	{
-		(*str_root) = ft_new_str_struct();
-		new_node = ft_binarytree_node_create(*str_root);
-		(*root)->right = new_node;
-	}
-	else if ((*root)->left == NULL && i.sep_found == FT_TRUE)
+	else if ((*root)->left == NULL && i.sep_found == 1)
 	{
 		(*str_root) = ft_new_str_struct();
 		new_node = ft_binarytree_node_create((*str_root));
 		(*root)->left = new_node;
+	}
+	else if ((*root)->right == NULL && i.sep_found == 1)
+	{
+		(*str_root) = ft_new_str_struct();
+		new_node = ft_binarytree_node_create(*str_root);
+		(*root)->right = new_node;
 	}
 	else
 		return (ft_node_exists(line, i.j, str_root));
