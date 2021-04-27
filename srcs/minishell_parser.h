@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 10:02:07 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:36:27 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "minishell_type.h"
 # include "minishell_error.h"
 
-# define EMPTY_QUOTE 126
+# define EMPTY_QUOTE 127
 
 typedef struct s_parse_pos
 {
@@ -57,7 +57,7 @@ int					ft_is_separator(char *line, int j);
 int					ft_separator(char *line, t_node_binary **root, int j,
 						t_shell_command **str_root);
 int					ft_double_quote(char *line, int j,
-						t_shell_command *str_struct);
+						t_shell_command *str_struct, int no_end_quotes);
 int					ft_single_quote(char *line, int j,
 						t_shell_command *str_struct);
 t_shell_command		*ft_new_str_struct(void);
@@ -106,7 +106,7 @@ int					ft_strjoin_custom_argv(t_shell_command *cmd,
 void				ft_assign_new_strings_argv(t_shell_command *cmd,
 						t_parse_mask_str *final,
 						t_parse_mask_str *new, int index);
-void				ft_add_nonprintable_ch(char *line, int ret);
+void				ft_add_nonprintable_ch(char *line, int ret, int len);
 void				ft_fix_argv(t_shell_command *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 12:42:17 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/23 12:42:27 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:46:54 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	ft_treat_var(t_shell_context *context, t_shell_command *cmd)
 		while (cmd->argv[s.index][s.i])
 		{
 			if (cmd->argv[s.index][s.i] == '$' &&
-					cmd->masks[s.index][s.i] != '1')
+					cmd->masks[s.index][s.i] != '1' &&
+						cmd->argv[s.index][s.i + 1] != ' '
+							&& cmd->argv[s.index][s.i + 1] != '\0')
 			{
 				s.i++;
 				s.i = ft_replace_var_argv(context, cmd, s);

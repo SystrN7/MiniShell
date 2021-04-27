@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_tty.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/23 12:16:03 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 11:10:09 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	prompt_tty_init(t_shell_context *context)
 int	prompt_tty_loop(t_shell_context *context)
 {
 	char					*line;
+	char					*history_line;
 	t_node_binary			*root;
 	t_node_binary			*schedule_root;
 	t_bidirectional_list	*history;
@@ -52,16 +53,14 @@ int	prompt_tty_loop(t_shell_context *context)
 		if (line == NULL)
 			continue ;
 		context->line = line;
+		history_line = ft_strdup(line);
 		root = ft_treat_line(line);
-		ft_history_add_entry(&history, line);
+		ft_history_add_entry(&history, history_line);
 		schedule_root = scheduler(context, root);
 		if (schedule_root != NULL)
-		{
 			run_instruction(context, schedule_root);
-			commands_clear(schedule_root);
-		}
-		else
-			commands_clear(root);
+		commands_clear(ft_tern_pt((schedule_root != 0), schedule_root, root));
+		ft_managed_free(line);
 	}
 	return (SUCCESS);
 }

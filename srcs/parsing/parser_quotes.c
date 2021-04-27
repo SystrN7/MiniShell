@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:12 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 10:01:49 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:35:54 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ int	ft_single_quote(char *line, int j, t_shell_command *str_struct)
 		ret++;
 	if (ret == j + 1)
 	{
-		//printf("empty_double quotes\n");
-		ft_add_nonprintable_ch(line, ret);
-		//printf("new_line = %s\n", line);
+		ft_add_nonprintable_ch(line, ret, ft_strlen(line));
 		return (ft_no_quote(line, ret - 1, str_struct));
 	}
 	if (ret == (int)ft_strlen(line))
@@ -92,13 +90,11 @@ int	ft_single_quote(char *line, int j, t_shell_command *str_struct)
 	return (ret + 1 + no_end_quote);
 }
 
-int	ft_double_quote(char *line, int j, t_shell_command *str_struct)
+int	ft_double_quote(char *line, int j, t_shell_command *str_struct, int no_end_quotes)
 {
 	int		ret;
-	int		no_end_quotes;
 	char	*mask;
 
-	no_end_quotes = 0;
 	ret = j + 1;
 	while ((line[ret] && (line[ret] != '\"' && ret - 1 >= 0))
 		|| line[ret - 1] == '\\')
@@ -110,9 +106,7 @@ int	ft_double_quote(char *line, int j, t_shell_command *str_struct)
 	}
 	if (ret == j + 1)
 	{
-		//printf("empty_double quotes\n");
-		ft_add_nonprintable_ch(line, ret);
-		//printf("new_line = %s\n", line);
+		ft_add_nonprintable_ch(line, ret, ft_strlen(line));
 		return (ft_no_quote(line, ret - 1, str_struct));
 	}
 	if (ret == (int)ft_strlen(line))

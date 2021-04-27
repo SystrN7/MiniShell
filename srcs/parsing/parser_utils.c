@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 12:26:45 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 10:09:59 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:33:41 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,32 +79,22 @@ int	ft_root_val_null(t_node_binary **root, t_shell_command **str_root,
 	return (ft_first_command(line, j, root));
 }
 
-void	ft_add_nonprintable_ch(char *line, int ret)
+void	ft_add_nonprintable_ch(char *line, int ret, int len)
 {
-	int		len;
 	int		i;
 	int		j;
 	char	*result;
 
 	j = 0;
 	i = 0;
-	len = ft_strlen(line);
 	result = ft_managed_malloc(sizeof(char) * len);
-	//printf("len = %d\n", len);
 	result[len - 1] = '\0';
 	while (line[i])
 	{
 		if (i == ret - 1)
-		{
-			result[i] = 127;
-			i++;
-		}
+			result[i++] = EMPTY_QUOTE;
 		else
-		{
-			result[j] = line[i];
-			j++;
-			i++;
-		}
+			result[j++] = line[i++];
 	}
 	result[ret - 1] = EMPTY_QUOTE;
 	i = 0;
@@ -114,6 +104,5 @@ void	ft_add_nonprintable_ch(char *line, int ret)
 		i++;
 	}
 	line[i] = '\0';
-	//printf("new_line = %s\n", line);
 	ft_managed_free(result);
 }

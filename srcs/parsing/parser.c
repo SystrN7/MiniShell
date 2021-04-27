@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/23 12:28:41 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:36:12 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_node_exists(char *line, int j, t_shell_command **str_root)
 	else if (line[j] == '\'')
 		j = ft_single_quote(line, j, *str_root);
 	else if (line[j] == '\"')
-		j = ft_double_quote(line, j, *str_root);
+		j = ft_double_quote(line, j, *str_root, 0);
 	return (j);
 }
 
@@ -50,7 +50,7 @@ int	ft_first_command(char *line, int j, t_node_binary **root)
 	else if (line[j] == '\'')
 		j = ft_single_quote(line, j, (*root)->value);
 	else if (line[j] == '\"')
-		j = ft_double_quote(line, j, (*root)->value);
+		j = ft_double_quote(line, j, (*root)->value, 0);
 	return (j);
 }
 
@@ -84,7 +84,7 @@ int	ft_is_cmd(
 	else if (line[i.j] == '\'')
 		i.j = ft_single_quote(line, i.j, new_node->value);
 	else if (line[i.j] == '\"')
-		i.j = ft_double_quote(line, i.j, new_node->value);
+		i.j = ft_double_quote(line, i.j, new_node->value, 0);
 	return (i.j);
 }
 
