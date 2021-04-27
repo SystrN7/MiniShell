@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:18:34 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 14:39:28 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:52:15 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_node_binary	*ft_treat_line(char *line)
 			i.j = ft_separator(line, &s.root, i.j, &s.str_root);
 			i.sep_found = FT_TRUE;
 		}
-		else if (line[i.j] == ' ')
+		else if (line[i.j] == ' ' && i.sep_found == 1)
 			i.j++;
 		else
 		{
