@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:12 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 11:39:53 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 12:56:04 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ int	ft_single_quote(char *line, int j, t_shell_command *str_struct)
 	ret = j + 1;
 	while (line[ret] && line[ret] != '\'')
 		ret++;
-	if (ret == j + 1)
-	{
-		ft_add_nonprintable_ch(line, ret, ft_strlen(line));
-		return (ft_no_quote(line, ret - 1, str_struct));
-	}
 	if (ret == (int)ft_strlen(line))
 		no_end_quote = -1;
+	if (ret == j + 1)
+	{
+		ft_add_nonprintable_ch(line, ret, ft_strlen(line), no_end_quote);
+		return (ft_no_quote(line, ret - 1, str_struct));
+	}
 	mask = ft_managed_malloc(sizeof(char) * (ret - j));
 	mask[ret - j - 1] = '\0';
 	ft_fill_mask(mask, '1', ret - j - 2, str_struct);
@@ -105,13 +105,13 @@ int	ft_double_quote(char *line, int j,
 		else
 			ret++;
 	}
-	if (ret == j + 1)
-	{
-		ft_add_nonprintable_ch(line, ret, ft_strlen(line));
-		return (ft_no_quote(line, ret - 1, str_struct));
-	}
 	if (ret == (int)ft_strlen(line))
 		no_end_quotes = -1;
+	if (ret == j + 1)
+	{
+		ft_add_nonprintable_ch(line, ret, ft_strlen(line), no_end_quotes);
+		return (ft_no_quote(line, ret - 1, str_struct));
+	}
 	mask = ft_managed_malloc(sizeof(char) * (ret - j));
 	mask[ret - j - 1] = '\0';
 	ft_fill_mask(mask, '2', ret - j - 2, str_struct);

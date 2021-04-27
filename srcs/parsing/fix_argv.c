@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 11:40:31 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 11:41:10 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 12:56:16 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_fix_argv(t_shell_command *cmd)
 	}
 }
 
-void	ft_add_nonprintable_ch(char *line, int ret, int len)
+void	ft_add_nonprintable_ch(char *line, int ret, int len, int no_end_quotes)
 {
 	int		i;
 	int		j;
@@ -57,7 +57,11 @@ void	ft_add_nonprintable_ch(char *line, int ret, int len)
 
 	j = 0;
 	i = 0;
+	if (no_end_quotes == -1)
+		len++;
 	result = ft_managed_malloc(sizeof(char) * len);
+	printf("line = %s\n", line);
+	printf("len = %d\n", len);
 	result[len - 1] = '\0';
 	while (line[i])
 	{
