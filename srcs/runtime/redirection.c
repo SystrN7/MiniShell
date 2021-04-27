@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:52:04 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/26 16:05:56 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 17:08:47 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	redirection_create(
 		redirection_exec(context, it);
 		it = it->next;
 	}
-	return (SUCCESS);
+	return (context->last_command_return_code);
 }
 
 int	redirection_exec(t_shell_context *context, t_redirection_list *redirection)
@@ -83,7 +83,7 @@ int	redirection_close(
 		if (dup2(dup(context->standard_error_backup), standard_error) == -1)
 			error_message(context, ERROR_STD, 1);
 	}
-	return (SUCCESS);
+	return (context->last_command_return_code);
 }
 
 int	redirection_type_get_flag(t_redirection_list *redirection)

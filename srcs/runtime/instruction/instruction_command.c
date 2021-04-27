@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/27 10:20:37 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 10:49:55 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	instruction_command(t_shell_context *context, t_node_binary *node)
 	if (command->argv[path] == NULL)
 		return (context->last_command_return_code);
 	context->last_command_return_code = 0;
-	redirection_create(context, command->redirection);
+	if (redirection_create(context, command->redirection))
+		return (context->last_command_return_code);
 	if (instruction_builtin_exec(context, command))
 		instruction_command_exec(context, node->value);
 	redirection_close(context, command->redirection);
