@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   catch_redirection_right.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:10:59 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/26 15:23:58 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 11:42:07 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	ft_remove_file_name(
 	cmd->command_mask = new_mask;
 }
 
-int	ft_redirection_type_set(t_shell_command *cmd, t_redirection_list *new, int i)
+int	ft_redirection_type_set(t_shell_command *cmd,
+	t_redirection_list *new, int i)
 {
 	if (cmd->command_string[i + 1] == '>' && cmd->command_mask[i + 1] == '0')
 	{

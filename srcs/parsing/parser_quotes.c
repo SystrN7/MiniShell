@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:12 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 10:35:54 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 11:39:53 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	ft_single_quote(char *line, int j, t_shell_command *str_struct)
 	return (ret + 1 + no_end_quote);
 }
 
-int	ft_double_quote(char *line, int j, t_shell_command *str_struct, int no_end_quotes)
+int	ft_double_quote(char *line, int j,
+	t_shell_command *str_struct, int no_end_quotes)
 {
 	int		ret;
 	char	*mask;
