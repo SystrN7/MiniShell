@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:11:11 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/23 13:48:38 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 12:34:11 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ t_node_binary	*scheduler(
 )
 {
 	t_node_binary	**schedule_root;
+
+	ft_printf("----------------------DEBUG----------------------\n");
+	binnary_show(unschedule_root, 0, "Root");
+	printf("\n");
+	ft_printf("\n\nPost Sheduling command:`");
+	show_command(unschedule_root, 0);
+	ft_printf("`\n-------------------------------------------------\n");
 
 	if (unschedule_root == NULL)
 		return (NULL);
