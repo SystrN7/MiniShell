@@ -6,11 +6,11 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 14:41:47 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/14 16:47:16 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 16:11:35 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_runtime.h"
+#include "minishell_runtime.h" 
 
 enum e_pipe
 {
@@ -45,12 +45,15 @@ int	instruction_pipe_subshell(t_shell_context *context)
 	pid_t	pid;
 	int		status;
 
+	status = 0;
 	pid = fork();
 	if (pid < 0)
 		error_fatal(context, ERROR_STD, 1);
 	if (pid != 0)
+	{
 		waitpid(pid, &status, 0);
-	context->last_command_return_code = WEXITSTATUS(status);
+		context->last_command_return_code = WEXITSTATUS(status);
+	}
 	return (pid);
 }
 
@@ -77,7 +80,7 @@ int	pipe_connect_side(
 	}
 	close(pipe_fds[pipe_unused]);
 	if (dup2(pipe_fds[pipe_use], standard_use) == ERROR_STD)
-		return (error_message(context, ERROR_STD, 1));
+		return (error_fatal(context, ERROR_STD, 1));
 	run_instruction(context, node);
 	close(pipe_fds[pipe_use]);
 	exit(context->last_command_return_code);
