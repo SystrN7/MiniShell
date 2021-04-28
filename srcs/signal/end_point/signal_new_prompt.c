@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 11:14:07 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/23 10:58:17 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 12:57:22 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ void	signal_new_prompt(int signal)
 
 	(void) signal;
 	context = shell_get_context(NULL);
+	ft_putstr_fd(standard_output, "\n");
+	if (context->commmand_running)
+	{
+		context->last_command_return_code = 130;
+		return ;
+	}
 	context->last_command_return_code = 1;
 	context->line_buff[0] = '\0';
 	context->line_i = 0;
-	ft_putstr_fd(standard_output, "\n");
 	console_prompt(context);
 }

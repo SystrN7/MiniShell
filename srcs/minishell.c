@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 14:27:14 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/26 15:15:41 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 12:25:57 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	shell_init(t_shell_context *context, char const *argv[], char *env[])
 	context->standard_output_backup = dup(standard_output);
 	context->standard_error_backup = dup(standard_error);
 	context->interactive_mode = FT_FALSE;
+	context->commmand_running = FT_FALSE;
 	context->line_number = 0;
 	context->shell_name = (char *)argv[path];
 	env_set(context, "OLDPWD", NULL);

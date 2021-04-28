@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 12:47:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/28 12:51:43 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 13:04:23 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	instruction_command(t_shell_context *context, t_node_binary *node)
 		return (context->last_command_return_code);
 	if (instruction_builtin_exec(context, command))
 		instruction_command_exec(context, node->value);
+	context->commmand_running = FT_FALSE;
 	redirection_close(context, command->redirection);
 	return (context->last_command_return_code);
 }
@@ -87,9 +88,9 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 	pid_t	pid;
 	int		status;
 
-	command_path_resolver(context, command);
-	if (command->path == NULL)
+	if (command_path_resolver(context, command) == NULL)
 		return (context->last_command_return_code);
+	context->commmand_running = FT_TRUE;
 	pid = fork();
 	if (pid == -1)
 		error_fatal(context, ERROR_STD, 1);
@@ -106,9 +107,9 @@ int	instruction_command_exec(t_shell_context *context, t_shell_command *command)
 	}
 	else
 		waitpid(pid, &status, 0);
-	if (WTERMSIG(status) == SIGQUIT)
-		write(standard_output, "Quit: 3\n", 8);
-	return (context->last_command_return_code = WEXITSTATUS(status));
+	if (context->last_command_return_code == SUCCESS)
+		context->last_command_return_code = WEXITSTATUS(status);
+	return (context->last_command_return_code);
 }
 
 char	*command_path_resolver(
