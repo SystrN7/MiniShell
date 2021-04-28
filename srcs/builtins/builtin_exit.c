@@ -6,7 +6,7 @@
 /*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 13:28:33 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/28 11:06:42 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 11:29:20 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	builtin_exit(t_shell_context *context, int argc, char **args)
 	if (argc >= 2)
 	{
 		neg = (args[arg1][0] == '-');
-		if (args[arg1][neg] == '\0'
-			|| !ft_strtest(args[arg1] + neg, ft_isdigit)
+		if (args[arg1][neg] == '\0' || !ft_strtest(args[arg1] + neg, ft_isdigit)
 			|| ft_strlen(args[arg1]) > 16)
 		{
 			error_builtin(context,
