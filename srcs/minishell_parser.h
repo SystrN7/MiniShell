@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 12:58:18 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 11:19:38 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "minishell_type.h"
 # include "minishell_error.h"
 
-# define EMPTY_QUOTE 127
+# define EMPTY_QUOTE 126
 
 typedef struct s_parse_pos
 {
@@ -106,7 +106,8 @@ int					ft_strjoin_custom_argv(t_shell_command *cmd,
 void				ft_assign_new_strings_argv(t_shell_command *cmd,
 						t_parse_mask_str *final,
 						t_parse_mask_str *new, int index);
-void				ft_add_nonprintable_ch(char *line, int ret, int len, int no_end_quotes);
+void				ft_add_nonprintable_ch(char *line,
+						int ret, int len, int no_end_quotes);
 void				ft_fix_argv(t_shell_command *cmd);
 
 #endif

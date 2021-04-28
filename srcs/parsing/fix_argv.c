@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fix_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 11:40:31 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 16:18:44 by fgalaup          ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 11:19:35 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,29 @@ void	ft_fix_argv(t_shell_command *cmd)
 
 void	ft_add_nonprintable_ch(char *line, int ret, int len, int no_end_quotes)
 {
-	int		i;
-	int		j;
-	char	*result;
+	t_parse_pos	s;
+	char		*result;
 
-	j = 0;
-	i = 0;
+	s.index = 0;
+	s.i = 0;
 	if (no_end_quotes == -1)
 		len++;
 	result = ft_managed_malloc(sizeof(char) * len);
 	result[len - 1] = '\0';
-	while (line[i])
+	while (line[s.i])
 	{
-		if (i == ret - 1)
-			result[i++] = EMPTY_QUOTE;
+		if (s.i == ret - 1)
+			result[s.i++] = EMPTY_QUOTE;
 		else
-			result[j++] = line[i++];
+			result[s.index++] = line[s.i++];
 	}
 	result[ret - 1] = EMPTY_QUOTE;
-	i = 0;
-	while (result[i])
+	s.i = 0;
+	while (result[s.i])
 	{
-		line[i] = result[i];
-		i++;
+		line[s.i] = result[s.i];
+		s.i++;
 	}
-	line[i] = '\0';
+	line[s.i] = '\0';
 	ft_managed_free(result);
 }
