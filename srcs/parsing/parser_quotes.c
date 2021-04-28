@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 17:23:12 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 12:56:04 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 12:28:12 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	ft_single_quote(char *line, int j, t_shell_command *str_struct)
 
 	no_end_quote = 0;
 	ret = j + 1;
-	while (line[ret] && line[ret] != '\'')
+	while ((line[ret] && (line[ret] != '\'' && ret - 1 >= 0))
+		|| line[ret] == '\"')
 		ret++;
 	if (ret == (int)ft_strlen(line))
 		no_end_quote = -1;

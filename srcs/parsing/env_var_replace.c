@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:10:28 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/28 11:15:20 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 12:54:02 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,17 +149,18 @@ void	ft_replace_filenames(
 	buff = cmd->redirection;
 	while (buff)
 	{
-		if (buff->redirection_file == NULL)
+		if (buff->redirection_file == NULL || buff->mask == NULL)
+			return ;
+		while (buff->redirection_file[j] != '\0')
 		{
-			while (buff->redirection_file[j])
-			{
-				if (buff->redirection_file[j] == '$' && buff->mask[j] != '1')
-					j = ft_replace_var_file(context, buff, j + 1);
-				else
-					j++;
-			}
-			j = 0;
+			if (buff->redirection_file[j] == EMPTY_QUOTE)
+				j = ft_fix_filename(buff);
+			if (buff->redirection_file[j] == '$' && buff->mask[j] != '1')
+				j = ft_replace_var_file(context, buff, j + 1);
+			else
+				j++;
 		}
+		j = 0;
 		buff = buff->next;
 	}
 }

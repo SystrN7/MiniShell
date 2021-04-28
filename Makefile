@@ -6,7 +6,7 @@
 #    By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 14:25:53 by fgalaup           #+#    #+#              #
-#    Updated: 2021/04/27 11:41:31 by seruiz           ###   ########lyon.fr    #
+#    Updated: 2021/04/28 12:54:57 by seruiz           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS			=		./srcs/minishell.c \
 						./srcs/parsing/catch_redirection_right.c\
 						./srcs/parsing/ft_split_mask.c\
 						./srcs/parsing/fix_argv.c\
+						./srcs/parsing/fix_filename.c\
 						./srcs/prompt/prompt.c \
 						./srcs/prompt/type/prompt_tty.c \
 						./srcs/prompt/type/prompt_file.c \

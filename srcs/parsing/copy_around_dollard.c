@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 12:38:39 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/23 12:39:53 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 12:51:11 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@ int	ft_cpy_before_dollard_argv(
 	int index
 )
 {
-	if (!(cmd->argv[index][0] == '$'))
+	while (cmd->argv[index][j] != '$' || cmd->masks[index][j] == '1')
 	{
-		while (cmd->argv[index][j] != '$')
-		{
-			new->str[j] = cmd->argv[index][j];
-			new->mask[j] = cmd->masks[index][j];
-			j++;
-		}
+		new->str[j] = cmd->argv[index][j];
+		new->mask[j] = cmd->masks[index][j];
+		j++;
 	}
 	return (j);
 }

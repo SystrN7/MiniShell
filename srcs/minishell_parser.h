@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:19:53 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/28 11:19:38 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 12:54:38 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ void				ft_assign_new_strings_argv(t_shell_command *cmd,
 void				ft_add_nonprintable_ch(char *line,
 						int ret, int len, int no_end_quotes);
 void				ft_fix_argv(t_shell_command *cmd);
+int					ft_fix_filename(t_redirection_list	*buff);
 
 #endif

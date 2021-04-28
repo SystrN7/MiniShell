@@ -6,7 +6,7 @@
 /*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:10:59 by seruiz            #+#    #+#             */
-/*   Updated: 2021/04/27 11:42:07 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 12:07:13 by seruiz           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ int	ft_redirection_right(t_shell_command *cmd, int i)
 
 	len = i;
 	new = ft_managed_malloc(sizeof(t_redirection_list));
+	ft_memset(new, 0, sizeof(t_redirection_list));
 	new->source_fd = -1;
-	new->next = NULL;
 	k = 0;
 	j = ft_skip_spaces(cmd, new, i);
 	while (cmd->command_string[j] && ((cmd->command_string[j] != '>'
