@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_tty.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seruiz <seruiz@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: fgalaup <fgalaup@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:09:01 by fgalaup           #+#    #+#             */
-/*   Updated: 2021/04/27 11:10:09 by seruiz           ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 13:36:42 by fgalaup          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	prompt_tty_init(t_shell_context *context)
 {
 	char	*name_backup;
 
-	console_clear();
 	name_backup = context->shell_name;
 	context->shell_name = ft_strsplit_last(context->shell_name, '/');
 	context->interactive_mode = FT_TRUE;
